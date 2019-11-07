@@ -10,10 +10,10 @@ tags:
 PID(proportion integration differentiation)其实就是指比例，积分，微分控制。
 
 **离散型PID公式：**
-Uk=KP*[E(k)]+KI*∑E(k)+KD*[E(k)-E(k-1)]
+Uk=KP\*[E(k)]+KI\*∑E(k)+KD\*[E(k)-E(k-1)]
 
 **增量型PID公式：**
-ΔUk=Uk+KP*[E(k)-E(k-1)]+KI*∑E(k)+KD*[E(k)-2E(k-1)+E(k-2)]
+ΔUk=Uk+KP\*[E(k)-E(k-1)]+KI\*∑E(k)+KD\*[E(k)-2E(k-1)+E(k-2)]
 
 增量性可以理解为离散型求增量。
 
