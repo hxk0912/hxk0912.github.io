@@ -20,3 +20,24 @@ SSH是一种协议标准,其目的是实现安全远程登录以及其它安全�
 
 
 ##　上传代码到Github
+
+1. 先在Github网站上新建一个仓库，然后再本地init一个本地仓库
+2. 在本地仓库中bash，输入git remote add origin <仓库的url>
+3. 然后 add -> commit操作
+4. 最后 git push -u origin master 即可
+
+### 遇到的问题
+
+#### 问题
+
+在最后一步提交过程中提示仓库与本地不符，提交失败。
+
+#### 原因
+
+这是因为我在新建仓库的时候选择了新建readme文件，初始化本地仓库的时候没有readme文件，这就造成了不相符。
+
+#### 解决方法
+
+在push提交之前先使用git pull -rebase origin master同步即可
+
+**注意这里必须要用rebase来解决冲突问题。**
