@@ -5,7 +5,7 @@ categories: STM32底层
 tags:
 ---
 
-##　FSMC概念
+## FSMC概念
 
 FSMC，即灵活的静态存储控制器，能够与同步或异步存储器和 16 位 PC 存储器卡连接，STM32 的 FSMC 接口支持包括 SRAM、NAND FLASH、NOR FLASH 和 PSRAM 等储器。
 
