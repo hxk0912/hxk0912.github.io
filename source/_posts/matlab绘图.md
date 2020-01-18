@@ -49,3 +49,60 @@ fplot(f,lims,选项)可以自适应改变选择取值点。
 
 参数方程时，fplot(xt,yt,tlims,选项)
 
+## 绘图辅助操作
+
+### 图形标注
+
+- title（图形标题）
+    - 显示多行标题｛'titlea','titleb'｝
+    - 可以使用LaTeX，但是要用大括号
+- xlabel（x轴说明）
+- ylabel（y轴说明）
+- text（x，y，图形说明）
+- legend（图例1，图例2，···）
+
+### 坐标控制
+
+- axis函数
+
+用法|说明
+-|-
+axis（x1,x2,y1,y2）|设置坐标轴刻度范围
+axis equal|x，y轴等长刻度
+axis square|正方形坐标系
+axis auto|默认设置
+axis off|取消坐标轴
+axis on|显示坐标轴
+
+- 给坐标系加网格和边框
+
+加网格线：grid on/grid off/grid (用于切换状态) 
+
+加边框：box，同样用法
+
+- 图形保持
+
+hold 与上述用法相同
+
+- 图形窗口分割
+
+subplot（m，n，p）其中，m和n指定将图形窗口分成m×n个绘图区，p指定当前活动区。
+
+## 其他形式的二维曲线
+
+### 其他坐标系下的二维曲线图
+
+- 极坐标图
+
+polar（θ，ρ，选项）选项内容和plot函数相同
+
+- 统计图
+    1.条形图类  
+    bar（x，y，style）
+    其中x是横坐标，y是数据，选项style用于指定分组排列模式。
+    2.直方图类 
+    hist（y，x）y是数据，x是区间划分方式 
+    rose（y，x）极坐标情况
+    3.面积类
+    pie（x，explode） explode控制图块显示模式
+    
