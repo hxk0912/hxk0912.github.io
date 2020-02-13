@@ -36,6 +36,16 @@ HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);//开启TIM1 CH1的PWM输出
 在HAL库中，并没有专门的函数或者宏定义来修改占空比，所以我们可以仿照写一个自己的宏定义来修改占空比。
 
 **修改占空比就是修改CCR寄存器**，所以不难写出如下宏定义。
+*对应于每个通道，分别修改CCRx寄存器即可。*
 
-`#define __HAL_TIM_SET_PULSE (__HANDLE__, __PULSE__)  ((__HANDLE__)->Instance->CCR= (__PULSE__))`
+``` C
 
+#define __HAL_TIM_SET_PULSE1 (__HANDLE__, __PULSE__)  ((__HANDLE__)->Instance->CCR1= (__PULSE__))
+
+#define __HAL_TIM_SET_PULSE2 (__HANDLE__, __PULSE__)  ((__HANDLE__)->Instance->CCR2= (__PULSE__))
+
+#define __HAL_TIM_SET_PULSE3 (__HANDLE__, __PULSE__)  ((__HANDLE__)->Instance->CCR3= (__PULSE__))
+
+#define __HAL_TIM_SET_PULSE4 (__HANDLE__, __PULSE__)  ((__HANDLE__)->Instance->CCR4= (__PULSE__))
+
+```
