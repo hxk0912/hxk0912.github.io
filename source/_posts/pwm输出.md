@@ -7,7 +7,7 @@ tags:
 
 ## 原理
 
-见定时器理解，四个寄存器：CNT,ARR,PSC,CCR
+见定时器理解，四个寄存器：CNT, ARR, PSC, CCR
 
 ## cubemx配置
 
@@ -49,3 +49,4 @@ HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);//开启TIM1 CH1的PWM输出
 #define __HAL_TIM_SET_PULSE4 (__HANDLE__, __PULSE__)  ((__HANDLE__)->Instance->CCR4= (__PULSE__))
 
 ```
+

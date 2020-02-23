@@ -22,13 +22,13 @@ tags:
 
 #### 多项式除法
 
-[Q,r]=deconv(P1,P2)
+[Q, r]=deconv(P1, P2)
 
 Q返回商式，r返回余式，两者仍是多项式系数向量
 
 #### 多项式乘法
 
-conv(P1,P2)
+conv(P1, P2)
 
 #### 多项式的求导
 
@@ -42,9 +42,9 @@ polyder()
 
 #### 多项式的求值
 
-polyval(p,x):代数多项式求值
-polyvalm(p,x)：矩阵多项式求值
-**区别：polyvalm要求为方阵，乘法是\*,而polyval是.\*。**
+polyval(p, x): 代数多项式求值
+polyvalm(p, x)：矩阵多项式求值
+**区别：polyvalm要求为方阵，乘法是\*, 而polyval是.\*。**
 
 #### 多项式求根
 
@@ -58,7 +58,7 @@ p=poly(x)
 
 ### 插值函数
 
-interp1（x,y,x1,method）   一维插值
+interp1（x, y, x1, method）   一维插值
 其中x，y表示已知特殊点，x1表示新建的一般值的向量，*最后也就是说，利用method表示的方法通过分析x，y 判断走势进而计算出更一般值x1的值。*
 
 常用的method插值方法
@@ -68,7 +68,7 @@ interp1（x,y,x1,method）   一维插值
 3. pchip 分段3次爱弥尔特插值
 4. spline 3次样条插值
 
-二次插值：interp2(x,y,z,x1,y1,method)
+二次插值：interp2(x, y, z, x1, y1, method)
 
 ## 曲线拟合
 
