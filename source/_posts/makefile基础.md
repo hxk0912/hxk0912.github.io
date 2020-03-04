@@ -18,3 +18,28 @@ tags:
 
 ## Makefile语法
 
+``` Makefile
+main:main.o a.o b.o
+    gcc -o main main.o a.o b.o
+main.o:main.c
+    gcc -c main.c
+a.o:a.c
+    gcc -c a.c
+b.o:b.c
+    gcc -c b.c
+
+clean:
+    rm *.o
+    rm main
+```
+
+**命令列表中的每条命令必须以TAB键开始，不能使用空格！**
+
+### 执行过程
+
+1. make命令会在当前目录下查找以 Makefile(makefile其实也可以 )命名的文件。
+2. 当找到 Makefile文件以后就会按照 Makefile中定义的规则去编译生成最终的目标文件。
+3. 当发现目标文件不存在，或者目标所依赖的文件比目标文件新 (也就是最后修改时间比目标文件晚 )的话就会执行后面的命令来更新目标。
+
+### Makefile变量
+
