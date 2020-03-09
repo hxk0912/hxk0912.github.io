@@ -91,3 +91,164 @@ main:$(macro)
 * += 追加赋值，可以往变量后面增加新的内容,就像字符串的拼接
 
 ### 改造默认规则
+
+在默认生成规则中，并不包括头文件的依赖，我们如果想加入头文件的依赖，可以使用"%"的通配符和变量来改造规则
+
+``` makefile
+HEAD = a.h
+
+%.o:%.c $(HEAD)
+```
+
+%.o代表了所有以.o结尾的文件，所以这个命令就是相当于在默认规则的基础上加上了头文件的依赖。
+
+### 改造链接规则
+
+我们可以利用变量和自动化变量来使得链接过程更加的简洁和通用
+
+``` makefile
+#定义变量
+TARGET = main
+CC = gcc
+HEAD = a.h
+OBJS = main.o main.h
+
+#目标文件
+$(TARGET): $(OBJS)
+ $(CC) -o $@ $^
+
+#*.o文件的生成规则
+%.o: %.c $(HEAD)
+$(CC) -c -o $@ $<
+
+#伪目标
+.PHONY: clean
+clean:
+rm -f \*.o main
+```
+
+经过改造后可以明显看出来整个过程变得很简洁，只需要修改变量就可以改变整个生成过程，使得整个过程很通用。
+
+### 自动化变量
+
+符号|意义
+-|-
+$@|匹配目标文件
+\$%|与$@类似，但$%仅匹配”库”类型的目标文件
+$<|依赖中的第一个目标文件
+$^|所有的依赖目标，如果依赖中有重复的，只保留一份
+$+|所有的依赖目标，即使依赖中有重复的也原样保留
+$?|所有比目标要新的依赖目标
+
+## 使用分支
+
+``` makefile
+ifeq(arg1, arg2)
+分支1
+else
+分支2
+endif
+```
+
+常用于修改编译器
+
+``` makefile
+#根据输入的ARCH变量来选择编译器
+#ARCH=x86，使用gcc
+#ARCH=arm，使用arm-gcc
+ifeq ($(ARCH),x86)
+CC = gcc
+else
+CC = arm-linux-gnueabihf-gcc
+endif
+```
+
+同时可以在make命令时修改ARCH来更改编译器`make ARCH=arm`,这样就是使用arm-gcc
+
+## 使用函数
+
+在实际工程中，头文件、源文件可能会放在二级目录，编译生成的*.o或可执行文件也放到专门的编译输出目录方便整理，实现这些功能就要使用Makefile函数。
+
+### 函数使用格式
+
+``` makefile
+$(函数名 参数)
+#或者使用花括号
+${函数名 参数}
+```
+
+### 常用函数
+
+#### notdir函数
+
+notdir函数用于去除文件路径中的目录部分。它的格式如下：`$(notdir 文件名)`
+
+例如输入参数”./sources/a.c”，函数执行后 的输出为”a.c”，也就是说它会把输入中的”./sources/”路径部分去掉，保留文件名。
+
+#### wildcard函数
+
+wildcard函数用于获取文件列表，并使用空格分隔开。它的格式如下：`$(wildcard 匹配规则)`
+
+例如函数调用”$(wildcard *.c)”，函数执行后会把当前目录的所 有c文件列出。
+
+#### patsubst函数
+
+patsubst函数功能为模式字符串替换。它的格式如下：`$(patsubst 匹配规则, 替换规则, 输入的字符串)`
+当输入的字符串符合匹配规则，那么使用替换规则来替换字符串，当匹配规则中有”%”号时，替换规则也可以例程”%”号来提取”%”匹配的内容加入到最后替换的字符串中。
+
+### 多级结构工程的Makefile
+
+``` makefile
+#定义变量
+#ARCH默认为x86，使用gcc编译器，
+#否则使用arm编译器
+ARCH ?= x86
+TARGET = hello_main
+
+#存放中间文件的路径
+BUILD_DIR = build_$(ARCH)
+#存放源文件的文件夹
+SRC_DIR = sources
+#存放头文件的文件夹
+INC_DIR = includes .
+
+#源文件
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+#目标文件（*.o）
+OBJS = $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRCS)))
+#头文件
+DEPS = $(wildcard $(INC_DIR)/*.h)
+
+#指定头文件的路径
+CFLAGS = $(patsubst %, -I%, $(INC_DIR))
+
+#根据输入的ARCH变量来选择编译器
+#ARCH=x86，使用gcc
+#ARCH=arm，使用arm-gcc
+ifeq ($(ARCH),x86)
+CC = gcc
+else
+CC = arm-linux-gnueabihf-gcc
+endif
+
+#目标文件
+$(BUILD_DIR)/$(TARGET): $(OBJS)
+$(CC) -o $@ $^ $(CFLAGS)
+
+#*.o文件的生成规则
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
+#创建一个编译目录，用于存放过程文件
+#命令前带"@",表示不在终端上输出
+@mkdir -p $(BUILD_DIR)
+$(CC) -c -o $@ $< $(CFLAGS)
+
+#伪目标
+.PHONY: clean cleanall
+#按架构删除
+clean:
+rm -rf $(BUILD_DIR)
+
+#全部删除
+cleanall:
+rm -rf build_x86 build_arm
+```
