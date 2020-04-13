@@ -1,7 +1,7 @@
 ---
 title: QMainwindow
 date: 2020-04-13 13:59:06
-categories: QT
+categories: Qt
 tags:
 ---
 
