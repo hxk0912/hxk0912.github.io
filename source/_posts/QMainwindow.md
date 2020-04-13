@@ -12,6 +12,10 @@ tags:
 #include <QMenuBar>
 #include <QToolBar>
 #include <QPushButton>
+#include <QStatusBar>
+#include <QLabel>
+#include <QDockWidget>
+#include <QTextEdit>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -60,6 +64,25 @@ MainWindow::MainWindow(QWidget *parent)
     //添加控件
     QPushButton * btn = new QPushButton("aa",this);
     tbar->addWidget(btn);
+
+    //状态栏（同菜单栏一样，只能有一个而且不用自己创建）
+    QStatusBar *sbar = statusBar();
+    setStatusBar(sbar);
+
+    //放标签控件
+    QLabel * label1 = new QLabel("提示信息",this);
+    sbar->addWidget(label1);
+    //右侧
+    QLabel * label2 = new QLabel("署名",this);
+    sbar->addPermanentWidget(label2);
+
+    //铆接部件（浮动窗口）
+    QDockWidget * dw1 = new QDockWidget("浮动窗口",this);
+    addDockWidget(Qt::BottomDockWidgetArea,dw1);
+
+    //添加中心部件(只能有一个)
+    QTextEdit * te = new QTextEdit(this);
+    setCentralWidget(te);
 
 }
 ```
