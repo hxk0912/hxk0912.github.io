@@ -7,6 +7,8 @@ tags:
 
 ## QMainwindow类常用操作
 
+包括菜单、工具、状态栏和中心部件。
+
 ``` C++
 #include "mainwindow.h"
 #include <QMenuBar>
