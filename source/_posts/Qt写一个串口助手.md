@@ -9,6 +9,8 @@ tags:
 
 widget.cpp
 
+可以实现基本的功能，收发信息，配置打开串口。
+
 ``` C++
 #include "widget.h"
 #include "ui_widget.h"
