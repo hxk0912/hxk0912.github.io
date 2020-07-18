@@ -140,7 +140,7 @@ def main():
 
     m, n = ans1.shape
 
-    ans2 = np.array([ans1[:, 0], PositiveMinToMax(ans1[:, 2]), PositiveMidToMax(ans1[:, 1], 7),
+    ans2 = np.array([ans1[:, 0], PositiveMidToMax(ans1[:, 1], 7), PositiveMinToMax(ans1[:, 2]),
                      PositiveIntToMax(ans1[:, 3], 10, 20)])
 
     ans3 = np.array(ans2).T
@@ -166,12 +166,11 @@ def main():
 
     # np.savetxt("a.csv",out_S,delimiter=',')
 
-    column = ['含氧量（ppm)','PH值','细菌总数(个 / mL)','植物性营养物量（ppm)','得分']
+    column = ['含氧量（ppm)', 'PH值', '细菌总数(个 / mL)', '植物性营养物量（ppm)', '得分', '熵权得分排序后结果']
 
-    pd_data = pd.DataFrame(out_S,columns=column)
+    pd_data = pd.DataFrame(out_S, columns=column)
 
-    pd_data.to_csv('b.csv')
-
+    pd_data.to_csv('b.csv', encoding="gb2312")
 
 main()
 
