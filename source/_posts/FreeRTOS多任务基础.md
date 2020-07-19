@@ -44,3 +44,100 @@ tags:
 
 功能：按键检测，按下按键挂起任务，松开按键恢复任务
 
+### cubemx配置
+
+按键检测使用外部中断
+
+1. 配置需要外部中断的管脚位GPIO_EXTI模式
+2. GPIO中选择该引脚外部中断的触发模式
+3. 在NVIC中使能EXTI中断
+
+创建两个任务，ledtask和keytask
+
+注意还要在SYS选项中Timebase Sourse修改为除Systick外其他一个定时器
+
+### mdk代码
+
+main.c中添加`GPIO_PinState KEY_Status = GPIO_PIN_SET;`这个变量用于指示按键状态。
+
+gpio.c
+
+``` c
+extern GPIO_PinState KEY_Status;
+
+void delay_ms(uint16_t time)
+{    
+   uint16_t i=0;  
+   while(time--)
+   {
+      i=12000;  
+      while(i--) ;    
+   }
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(GPIO_Pin == KEY_Pin)
+	{
+		if(HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin)==GPIO_PIN_SET)
+		{
+			delay_ms(10);
+			if(HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin)==GPIO_PIN_SET)
+			{
+				KEY_Status = GPIO_PIN_SET;
+			}
+		}
+		else if(HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin)==GPIO_PIN_RESET)
+		{
+			delay_ms(10);
+			if(HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin)==GPIO_PIN_RESET)
+			{
+				KEY_Status = GPIO_PIN_RESET;
+			}
+		}
+	}
+}
+
+
+```
+
+freertos.c
+
+``` c
+
+extern GPIO_PinState KEY_Status;
+
+void KEY_Task(void *argument)
+{
+  /* USER CODE BEGIN KEY_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+		if(KEY_Status == GPIO_PIN_RESET)
+		{
+			vTaskSuspend(LEDTaskHandle);
+		}
+		else if(KEY_Status == GPIO_PIN_SET)
+		{
+			vTaskResume(LEDTaskHandle);
+		}
+    osDelay(1);
+  }
+  /* USER CODE END KEY_Task */
+}
+
+
+void LED_Task(void *argument)
+{
+  /* USER CODE BEGIN LED_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+    osDelay(1000);
+  }
+  /* USER CODE END LED_Task */
+}
+
+
+```
