@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="plot函数最基本的绘图函数，用于绘制线性坐标曲线。 基本格式：plot(x,y)x,y存储着点的坐标 比如X=[1,2,3];Y=[4,5,6];plot(x,y) 也可以使用复数向量绘图cx=x+yiplot(cx) plot函数的变化形式 当x是向量，y是矩阵时 矩阵一定行数或是列数与向量长度相同，这时就是每个x对应的横坐标，以每个y的行或列向量为纵坐标画线，就可以同时得到多条曲线。   当">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="matlab绘图">
+<meta property="og:url" content="https://hxk0912.github.io/2020/01/18/matlab绘图/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="plot函数最基本的绘图函数，用于绘制线性坐标曲线。 基本格式：plot(x,y)x,y存储着点的坐标 比如X=[1,2,3];Y=[4,5,6];plot(x,y) 也可以使用复数向量绘图cx=x+yiplot(cx) plot函数的变化形式 当x是向量，y是矩阵时 矩阵一定行数或是列数与向量长度相同，这时就是每个x对应的横坐标，以每个y的行或列向量为纵坐标画线，就可以同时得到多条曲线。   当">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="matlab绘图">
+<meta name="twitter:description" content="plot函数最基本的绘图函数，用于绘制线性坐标曲线。 基本格式：plot(x,y)x,y存储着点的坐标 比如X=[1,2,3];Y=[4,5,6];plot(x,y) 也可以使用复数向量绘图cx=x+yiplot(cx) plot函数的变化形式 当x是向量，y是矩阵时 矩阵一定行数或是列数与向量长度相同，这时就是每个x对应的横坐标，以每个y的行或列向量为纵坐标画线，就可以同时得到多条曲线。   当">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/01/18/matlab绘图/">
+
+
+
+
+
+  <title>matlab绘图 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/01/18/matlab绘图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">matlab绘图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-18T13:33:12+08:00">
+                2020-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/matlab/" itemprop="url" rel="index">
+                    <span itemprop="name">matlab</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="plot函数"><a href="#plot函数" class="headerlink" title="plot函数"></a>plot函数</h2><p>最基本的绘图函数，用于绘制线性坐标曲线。</p>
+<p>基本格式：plot(x,y)<br>x,y存储着点的坐标</p>
+<p>比如<br>X=[1,2,3];<br>Y=[4,5,6];<br>plot(x,y)</p>
+<p>也可以使用复数向量绘图<br>cx=x+yi<br>plot(cx)</p>
+<h3 id="plot函数的变化形式"><a href="#plot函数的变化形式" class="headerlink" title="plot函数的变化形式"></a>plot函数的变化形式</h3><ul>
+<li>当x是向量，y是矩阵时<ul>
+<li>矩阵一定行数或是列数与向量长度相同，这时就是每个x对应的横坐标，以每个y的行或列向量为纵坐标画线，就可以同时得到多条曲线。</li>
+</ul>
+</li>
+<li>当x,y是同型矩阵时<ul>
+<li>以x，y对应列元素为横、纵坐标分别绘制曲线，曲线条数等于矩阵的列数。（这个也就是说每个曲线所去的点的横坐标不再是完全相同的了。）</li>
+</ul>
+</li>
+<li>也可以使用多输入的plot函数：plot(x1,y1,x2,y2,···)</li>
+<li>含选项的ploy函数 <ul>
+<li>plot（x，y，选项）</li>
+</ul>
+</li>
+</ul>
+<p>常用选项<br>线型|颜色|数据点标记<br>-|-|-<br>“-”：实线|“r”：红色|“*”：星号<br>“:”：虚线|“g”：绿色|“o”：圆圈<br>“-.”：点画线|“k”:黑色|“s”：方块<br>“—”：双画线|“w”：白色|“p”：五角星<br>·|“b”：蓝色|”^”：朝上三角符号</p>
+<h2 id="fplot函数"><a href="#fplot函数" class="headerlink" title="fplot函数"></a>fplot函数</h2><p>fplot(f,lims,选项)可以自适应改变选择取值点。<br>其中f代表一个函数，通常采用函数句柄的形式。lims为x轴的取值范围，用二元向量[xmin,xmax]描述，默认值为[-5,5]。选项定义与plot函数相同。</p>
+<h3 id="双输入函数参数的用法"><a href="#双输入函数参数的用法" class="headerlink" title="双输入函数参数的用法"></a>双输入函数参数的用法</h3><p>参数方程时，fplot(xt,yt,tlims,选项)</p>
+<h2 id="绘图辅助操作"><a href="#绘图辅助操作" class="headerlink" title="绘图辅助操作"></a>绘图辅助操作</h2><h3 id="图形标注"><a href="#图形标注" class="headerlink" title="图形标注"></a>图形标注</h3><ul>
+<li>title（图形标题）<ul>
+<li>显示多行标题｛’titlea’,’titleb’｝</li>
+<li>可以使用LaTeX，但是要用大括号</li>
+</ul>
+</li>
+<li>xlabel（x轴说明）</li>
+<li>ylabel（y轴说明）</li>
+<li>text（x，y，图形说明）</li>
+<li>legend（图例1，图例2，···）</li>
+</ul>
+<h3 id="坐标控制"><a href="#坐标控制" class="headerlink" title="坐标控制"></a>坐标控制</h3><ul>
+<li>axis函数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>用法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>axis（x1,x2,y1,y2）</td>
+<td>设置坐标轴刻度范围</td>
+</tr>
+<tr>
+<td>axis equal</td>
+<td>x，y轴等长刻度</td>
+</tr>
+<tr>
+<td>axis square</td>
+<td>正方形坐标系</td>
+</tr>
+<tr>
+<td>axis auto</td>
+<td>默认设置</td>
+</tr>
+<tr>
+<td>axis off</td>
+<td>取消坐标轴</td>
+</tr>
+<tr>
+<td>axis on</td>
+<td>显示坐标轴</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>给坐标系加网格和边框</li>
+</ul>
+<p>加网格线：grid on/grid off/grid (用于切换状态) </p>
+<p>加边框：box，同样用法</p>
+<ul>
+<li>图形保持</li>
+</ul>
+<p>hold 与上述用法相同</p>
+<ul>
+<li>图形窗口分割</li>
+</ul>
+<p>subplot（m，n，p）其中，m和n指定将图形窗口分成m×n个绘图区，p指定当前活动区。</p>
+<h2 id="其他形式的二维曲线"><a href="#其他形式的二维曲线" class="headerlink" title="其他形式的二维曲线"></a>其他形式的二维曲线</h2><h3 id="其他坐标系下的二维曲线图"><a href="#其他坐标系下的二维曲线图" class="headerlink" title="其他坐标系下的二维曲线图"></a>其他坐标系下的二维曲线图</h3><ul>
+<li>极坐标图</li>
+</ul>
+<p>polar（θ，ρ，选项）选项内容和plot函数相同</p>
+<ul>
+<li>统计图<br>  1.条形图类<br>  bar（x，y，style）<br>  其中x是横坐标，y是数据，选项style用于指定分组排列模式。<br>  2.直方图类<br>  hist（y，x）y是数据，x是区间划分方式<br>  rose（y，x）极坐标情况<br>  3.面积类<br>  pie（x，explode） explode控制图块显示模式</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/18/matlab函数使用/" rel="next" title="matlab函数使用">
+                <i class="fa fa-chevron-left"></i> matlab函数使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/18/matlab多项式处理/" rel="prev" title="matlab多项式处理">
+                matlab多项式处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#plot函数"><span class="nav-number">1.</span> <span class="nav-text">plot函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#plot函数的变化形式"><span class="nav-number">1.1.</span> <span class="nav-text">plot函数的变化形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fplot函数"><span class="nav-number">2.</span> <span class="nav-text">fplot函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#双输入函数参数的用法"><span class="nav-number">2.1.</span> <span class="nav-text">双输入函数参数的用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘图辅助操作"><span class="nav-number">3.</span> <span class="nav-text">绘图辅助操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图形标注"><span class="nav-number">3.1.</span> <span class="nav-text">图形标注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坐标控制"><span class="nav-number">3.2.</span> <span class="nav-text">坐标控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他形式的二维曲线"><span class="nav-number">4.</span> <span class="nav-text">其他形式的二维曲线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他坐标系下的二维曲线图"><span class="nav-number">4.1.</span> <span class="nav-text">其他坐标系下的二维曲线图</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

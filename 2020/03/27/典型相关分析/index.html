@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="典型相关分析定义 典型相关分析由Hotelling提出，其基本思想和主成分分析非常相似。 首先在每组变量中找出变量的线性组合，使得两组的线性组合之间具有最大的相关系数； 然后选取和最初挑选的这对线性组合不相关的线性组合，使其配对，并选取相关系数最大的一对； 如此继续下去，直到两组变量之间的相关性被提取完毕为此。 被选出的线性组合配对称为典型变量，它们的相关系数称为典型相关系数。典型相关系数度量了这">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="典型相关分析">
+<meta property="og:url" content="https://hxk0912.github.io/2020/03/27/典型相关分析/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="典型相关分析定义 典型相关分析由Hotelling提出，其基本思想和主成分分析非常相似。 首先在每组变量中找出变量的线性组合，使得两组的线性组合之间具有最大的相关系数； 然后选取和最初挑选的这对线性组合不相关的线性组合，使其配对，并选取相关系数最大的一对； 如此继续下去，直到两组变量之间的相关性被提取完毕为此。 被选出的线性组合配对称为典型变量，它们的相关系数称为典型相关系数。典型相关系数度量了这">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="典型相关分析">
+<meta name="twitter:description" content="典型相关分析定义 典型相关分析由Hotelling提出，其基本思想和主成分分析非常相似。 首先在每组变量中找出变量的线性组合，使得两组的线性组合之间具有最大的相关系数； 然后选取和最初挑选的这对线性组合不相关的线性组合，使其配对，并选取相关系数最大的一对； 如此继续下去，直到两组变量之间的相关性被提取完毕为此。 被选出的线性组合配对称为典型变量，它们的相关系数称为典型相关系数。典型相关系数度量了这">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/03/27/典型相关分析/">
+
+
+
+
+
+  <title>典型相关分析 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/03/27/典型相关分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">典型相关分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T23:13:42+08:00">
+                2020-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学建模/" itemprop="url" rel="index">
+                    <span itemprop="name">数学建模</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="典型相关分析定义"><a href="#典型相关分析定义" class="headerlink" title="典型相关分析定义"></a>典型相关分析定义</h2><ul>
+<li>典型相关分析由Hotelling提出，其基本思想和主成分<br>分析非常相似。</li>
+<li>首先在每组变量中找出变量的线性组合，使得两组的<br>线性组合之间具有最大的相关系数；</li>
+<li>然后选取和最初挑选的这对线性组合不相关的线性组<br>合，使其配对，并选取相关系数最大的一对；</li>
+<li>如此继续下去，直到两组变量之间的相关性被提取完<br>毕为此。</li>
+<li>被选出的线性组合配对称为典型变量，它们的相关系<br>数称为典型相关系数。典型相关系数度量了这两组变量之<br>间联系的强度。</li>
+</ul>
+<h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>典型相关分析（CCA）的思想是：</p>
+<ul>
+<li><p>分析自变量组 X = [x1,x2,x3…xp]，因变量组 Y = [y1,y2,y3…yq] 之间的相关性。(注意这里X的每一个自变量x1是个列向量，代表有多个观测值)。</p>
+</li>
+<li><p>如果采用传统的相关分析，只要求X的每一个变量与Y的每一个变量的相关系数，从而组成相关系数矩阵 R = [rij]p*q ,rij表示第i个自变量xi与第j个因变量yj之间的相关系数。</p>
+</li>
+<li><p>然而，这是有缺陷的：只粗暴的考虑了X与Y的关系，却忽略了X自变量之间也可能有相关关系，Y因变量之间亦如此。</p>
+</li>
+<li><p>解决的方法类似于主成分分析，我们可以把X提取出主成分，Y也提取出主成分，从而X、Y内部线性不相关了，这样利用主成分研究X与Y之间相关性就解决了上述缺点。</p>
+</li>
+</ul>
+<h2 id="直观描述"><a href="#直观描述" class="headerlink" title="直观描述"></a>直观描述</h2><ul>
+<li><p>首先在X中找出线性组合u1, 在Y中找出线性组合v1，使得 r(u1,v1)达到最大。</p>
+</li>
+<li><p>其次，在X中找第二个线性组合u2，Y中找第二个线性组合v2,要求使得u2与u1线性不相关，v2与v1线性不相关，并且: r(u2,v2)达到次大。</p>
+</li>
+<li><p>继续。直到两组变量之间的相关性被提取完毕。</p>
+</li>
+</ul>
+<h2 id="matlab实现"><a href="#matlab实现" class="headerlink" title="matlab实现"></a>matlab实现</h2><p>典型相关分析函数：[a,b,r,u,v,stats] = cononcorr(x,y):</p>
+<p>param:</p>
+<p>　　x：原始变量x矩阵，每列一个自变量指标，第i列是 xi 的样本值</p>
+<p>　　y：原始变量y矩阵，每列一个因变量指标，第j列是 yj 的样本值</p>
+<p>return:</p>
+<p>　　a：自变量x的典型相关变量系数矩阵，每列是一组系数。</p>
+<p>列数为典型相关变量数</p>
+<p>　　b：因变量y的典型相关变量系数矩阵，每列是一个系数</p>
+<p>　　r： 典型相关系数。即第一对<u1,v1>之间的相关系数、第二对<u2,v2>之间的相关系数…</u2,v2></u1,v1></p>
+<p>　　u：对于X的典型相关变量的值</p>
+<p>　　v：对于Y的典型相关变量的值</p>
+<p>　　stats：假设检验的值&lt;详细用一下就知道了&gt;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/26/相关系数/" rel="next" title="相关系数">
+                <i class="fa fa-chevron-left"></i> 相关系数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/28/多元线性分析/" rel="prev" title="多元线性回归分析">
+                多元线性回归分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#典型相关分析定义"><span class="nav-number">1.</span> <span class="nav-text">典型相关分析定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直观描述"><span class="nav-number">3.</span> <span class="nav-text">直观描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matlab实现"><span class="nav-number">4.</span> <span class="nav-text">matlab实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

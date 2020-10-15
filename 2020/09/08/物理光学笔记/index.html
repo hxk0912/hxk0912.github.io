@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一节物理光学方法 可以解释光波的干涉和衍射 说明衍射仪的工作原理 说明干涉仪的工作原理  1960年 激光的发明及应用 1960年5月15日，美国加利福尼亚州休斯实验室的科学家梅曼宣布获得了波长为0.6943微米的激光，这是人类有史以来获得的第一束激光，梅曼因而也成为世界上第一个将激光引入实用领域的科学家。  激光的理论基础起源于物理学家爱因斯坦，1917年爱因斯坦提出了一套全新的技术理论‘光与">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="物理光学笔记">
+<meta property="og:url" content="https://hxk0912.github.io/2020/09/08/物理光学笔记/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="第一节物理光学方法 可以解释光波的干涉和衍射 说明衍射仪的工作原理 说明干涉仪的工作原理  1960年 激光的发明及应用 1960年5月15日，美国加利福尼亚州休斯实验室的科学家梅曼宣布获得了波长为0.6943微米的激光，这是人类有史以来获得的第一束激光，梅曼因而也成为世界上第一个将激光引入实用领域的科学家。  激光的理论基础起源于物理学家爱因斯坦，1917年爱因斯坦提出了一套全新的技术理论‘光与">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-10-02T05:00:23.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="物理光学笔记">
+<meta name="twitter:description" content="第一节物理光学方法 可以解释光波的干涉和衍射 说明衍射仪的工作原理 说明干涉仪的工作原理  1960年 激光的发明及应用 1960年5月15日，美国加利福尼亚州休斯实验室的科学家梅曼宣布获得了波长为0.6943微米的激光，这是人类有史以来获得的第一束激光，梅曼因而也成为世界上第一个将激光引入实用领域的科学家。  激光的理论基础起源于物理学家爱因斯坦，1917年爱因斯坦提出了一套全新的技术理论‘光与">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/09/08/物理光学笔记/">
+
+
+
+
+
+  <title>物理光学笔记 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/09/08/物理光学笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">物理光学笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-08T14:19:15+08:00">
+                2020-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/物理光学/" itemprop="url" rel="index">
+                    <span itemprop="name">物理光学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><h3 id="物理光学方法"><a href="#物理光学方法" class="headerlink" title="物理光学方法"></a>物理光学方法</h3><ol>
+<li><strong>可以解释光波的干涉和衍射</strong></li>
+<li>说明衍射仪的工作原理</li>
+<li>说明干涉仪的工作原理</li>
+</ol>
+<p>1960年 激光的发明及应用</p>
+<pre><code>1960年5月15日，美国加利福尼亚州休斯实验室的科学家梅曼宣布获得了波长为0.6943微米的激光，这是人类有史以来获得的第一束激光，梅曼因而也成为世界上第一个将激光引入实用领域的科学家。
+
+激光的理论基础起源于物理学家爱因斯坦，1917年爱因斯坦提出了一套全新的技术理论‘光与物质相互作用。这一理论是说在组成物质的原子中，有不同数量的粒子（电子）分布在不同的能级上，在高能级上的粒子受到某种光子的激发。会从高能级跳到（跃迁）到低能级上，这时将会辐射出与激发它的光相同性质的光，而且在某种状态下，能出现一个弱光激发出一个强光的现象。这就叫做“受激辐射的光放大”，简称激光。
+</code></pre><h3 id="相衬显微镜"><a href="#相衬显微镜" class="headerlink" title="相衬显微镜"></a>相衬显微镜</h3><p><a href="https://baike.baidu.com/item/%E7%9B%B8%E8%A1%AC%E6%98%BE%E5%BE%AE%E6%8A%80%E6%9C%AF/22709023?fr=aladdin" target="_blank" rel="noopener"><strong>相称显微技术 - 百度百科</strong></a></p>
+<p><a href="https://baike.baidu.com/item/%E7%9B%B8%E7%A7%B0%E6%98%BE%E5%BE%AE%E9%95%9C/15527012?fr=aladdin" target="_blank" rel="noopener"><strong>相差显微镜 - 百度百科</strong></a></p>
+<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><pre><code>相差成像
+　　人的眼睛能够识别明与暗之差（光的强度）和颜色不同（光的波长不同），但难以识别差别小的无色的透明物体。
+　　光对无色透明物体（相位物体）并不引起明、暗和颜色的变化，而只产生所谓的相位差。可是这种相位差不能用肉眼识别，也就看不见这种相位物体了。
+　　相差显微镜利用阿贝成像原理，把相位变化转化为振幅变化，是观察透明物体的关键。
+
+光路原理
+　　相差光路比普通光学显微镜多了两个元件：环形光阑（annular diaphragm）和相位板 （annular phaseplate ）
+　　环形光阑：位于光源和聚光器之间。不同的环状孔形成的光阑，它们的直径和孔宽是与不同的物镜相匹配的。由于透明圆环所成的像恰好落在物镜后焦点平面和相板上的共轭面重合。因此，未发生偏斜的直射光便通过共轭面。其作用是将直射光所形成的像从一些衍射旁像中分出来。
+　　相位板：安装在物镜的后焦面处，相板装有吸收光线的吸收膜和推迟相位的相位膜。它除能推迟直射光线或衍射光的相位以外，还有吸收光使亮度发生变化的作用。
+
+利用位相差聚光镜及内部位相环所构成的环状光圈，产生中空光锥通过 聚光镜、穿过检体，经过物镜内的光延迟位环板而成，因检体折射指数不同，造成绕射光束与直射光束发生干涉作用，得到明暗对比的效果。调整位相差装置，先选择聚光镜上与物镜相同倍率之位相差环，所形成的亮环与物镜内的暗环配合，调整聚光镜上亮环，使之重叠即可。
+</code></pre><h4 id="四个特殊结构："><a href="#四个特殊结构：" class="headerlink" title="四个特殊结构："></a>四个特殊结构：</h4><ol>
+<li>相称物镜</li>
+<li>具有环状光阑的转盘聚光器</li>
+<li>合轴调中望远镜</li>
+<li>绿色滤光片</li>
+</ol>
+<p>傅里叶光学：把图像中缓慢变化的成分看作图像的“低频”，而把急剧变化的成分看作图像的“高频”。</p>
+<p>光学传递函数：以空间频率为变量，表征成像过程中调制度和横向相移的相对变化的函数。</p>
+<h2 id="1-1-麦克斯韦方程组"><a href="#1-1-麦克斯韦方程组" class="headerlink" title="1.1 麦克斯韦方程组"></a>1.1 麦克斯韦方程组</h2><script type="math/tex; mode=display">
+
+\nabla\cdot\vec{D} = \rho\\
+\nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}\\
+\nabla\cdot\vec{B} = 0\\
+\nabla\times\vec{H} = \vec{j} + \frac{\partial\vec{D}}{\partial t}\\
+在无源区域\\
+\nabla\cdot\vec{D} = 0\\
+\nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}\\
+\nabla\cdot\vec{B} = 0\\
+\nabla\times\vec{H} = \frac{\partial\vec{D}}{\partial t}</script><p>散度： </p>
+<script type="math/tex; mode=display">
+\nabla\cdot\vec{A}=\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial y}+\frac{\partial A_z}{\partial z}</script><p>旋度：</p>
+<script type="math/tex; mode=display">
+\nabla\times\vec{A}=
+\left|
+    \begin{matrix}
+        e_x&e_y&e_z\\
+        \frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\
+        A_x&A_y&A_z\\
+    \end{matrix}
+\right|
+= (\frac{\partial F_z}{\partial F_y}-\frac{\partial F_y}{\partial F_z})\vec{x_0}+(\frac{\partial F_x}{\partial F_z}-\frac{\partial F_z}{\partial F_x})\vec{y_0}+(\frac{\partial F_y}{\partial F_x}-\frac{\partial F_x}{\partial F_y})\vec{z_0}</script><h2 id="第二节"><a href="#第二节" class="headerlink" title="第二节"></a>第二节</h2><h3 id="波动方程"><a href="#波动方程" class="headerlink" title="波动方程"></a>波动方程</h3><script type="math/tex; mode=display">
+
+\nabla^2 \vec{E} - \frac{1}{v^2}\frac{\partial^2E}{\partial t^2} = 0</script><h3 id="亥姆霍兹方程"><a href="#亥姆霍兹方程" class="headerlink" title="亥姆霍兹方程"></a>亥姆霍兹方程</h3><script type="math/tex; mode=display">
+
+\nabla^2 U(r) + k^2 U(r) = 0</script><h3 id="光外差探测"><a href="#光外差探测" class="headerlink" title="光外差探测"></a>光外差探测</h3><p><a href="https://baike.baidu.com/item/%E5%85%89%E5%A4%96%E5%B7%AE%E6%8E%A2%E6%B5%8B/22689344?fr=aladdin" target="_blank" rel="noopener">光外差探测 - 百度百科</a></p>
+<pre><code>光外差探测的基本原理是基于两束光的相干。必须采用相干性好的激光器作光源，在接收信号光的同时加入本振光。本振光的频率与信号光频率极为接近，使本振光和信号光在光电探测器的光敏面上形成拍频信号。只要光电探测器对拍频信号的响应速度足够高，就能输出中频光电流，从而检测出信号光中的调制信号。由于光外差探测是基于两束光波在光电探测器光敏面上的相干效应，所以光频外差探测也常常称为光波的相干探测。
+</code></pre><h3 id="证实电磁波的传播速度等于光速"><a href="#证实电磁波的传播速度等于光速" class="headerlink" title="证实电磁波的传播速度等于光速"></a>证实电磁波的传播速度等于光速</h3><p>赫兹</p>
+<ol>
+<li>用驻波方法先测出驻波波节波长</li>
+<li>根据麦克斯韦电磁波速等于光速，算出该的电磁波的振荡周期</li>
+<li>利用振荡器振荡周期公式，计算出偶极振荡器的振荡周期</li>
+</ol>
+<h3 id="物质方程"><a href="#物质方程" class="headerlink" title="物质方程"></a>物质方程</h3><p>物质方程描写物质在电磁场作用下的特性：</p>
+<script type="math/tex; mode=display">
+
+D = \varepsilon(E_1,E_2,E_3)\\
+B = \mu(H_1,H_2,H_3)\\
+j = \sigma(E_1,E_2,E_3)</script><p>各向同性介质满足：</p>
+<p>$D=\varepsilon E ,B=\mu H,j=\sigma E$</p>
+<p>电磁波在介质中传播速度：$v=\frac{1}{\sqrt{\varepsilon\mu}}$</p>
+<p>电磁波在真空中传播速度：$c=\frac{1}{\sqrt{\varepsilon_0\mu_0}}$</p>
+<p>折射率：$n = \sqrt{\varepsilon_r\mu_r}$</p>
+<p>由于大多数物质的$\mu_r\approx1$,因而有麦克斯韦关系式：$n=\sqrt{\varepsilon_r}$</p>
+<h3 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h3><script type="math/tex; mode=display">
+\oiint \vec{B}\cdot\vec{n}ds = 0\\
+n_{12}\cdot(\vec{B_1}-\vec{B_2})=0\\
+\iiint\rho dV = \oiint \vec{D} \cdot \vec{n}ds\\
+D_1 \cdot n_{12} - D_2 \cdot n_{12} = \rho_{sur}</script><p>通过突变面时磁感应强度法向分量连续。</p>
+<p>当两介质交界处存在面电荷时，电位移矢量的法向分量发生突变，改变量等于表面电荷密度；当界面没有面电荷时，电位移矢量的法向分量连续。</p>
+<p>在通过两介质交界面时电矢量的切向分量是连续的。</p>
+<p>当存在面电流密度$j<em>{sur}$时，H矢量切向分量发生突变，突变量为$j</em>{sur}\times\vec{n_{12}}$;当没有面电流时，H矢量切向分量连续。</p>
+<h3 id="波动方程推导"><a href="#波动方程推导" class="headerlink" title="波动方程推导"></a>波动方程推导</h3><p>波动方程推导来源于简化的麦克斯韦方程组。</p>
+<script type="math/tex; mode=display">
+\nabla\cdot\vec{D} = 0\\
+\nabla\times\vec{E} = -\frac{\partial\vec{B}}{\partial t}\\
+\nabla\cdot\vec{B} = 0\\
+\nabla\times\vec{H} = \frac{\partial\vec{D}}{\partial t}\\
+
+\nabla\times(\nabla\times E) = \nabla(\nabla\cdot E) - \nabla^2 E\\
+\downarrow\newline
+\nabla\times(-\frac{\partial B}{\partial t}) = -\nabla^2 E\\
+
+\downarrow\newline
+
+\mu\nabla\times(-\frac{\partial H}{\partial t}) = -\nabla^2 E\\
+
+\downarrow\newline
+
+- \mu \frac{\partial}{\partial t}(\nabla\times H) = -\nabla^2 E\\
+\downarrow\newline
+- \mu \frac{\partial}{\partial t}(\frac{\partial D}{\partial t}) = -\nabla^2 E\\
+\downarrow\newline
+- \mu\varepsilon\frac{\partial}{\partial t}(\frac{\partial E}{\partial t}) = -\nabla^2 E\\
+\downarrow\newline
+\nabla^2 \vec{E} - \frac{1}{v^2}\frac{\partial^2E}{\partial t^2} = 0</script><h3 id="平面波的波函数"><a href="#平面波的波函数" class="headerlink" title="平面波的波函数"></a>平面波的波函数</h3><p>波函数就是波动方程的解，波动方程有平面波、球面波、柱面波等多种形式的解，各种简谐波及其叠加也是波动方程的解。</p>
+<script type="math/tex; mode=display">
+E(r,t) = Acos(\frac{\omega}{c}nk_0\cdot r - \omega t)</script><p>k称为波矢，其定义为$k=\frac{\omega}{c}nk_0$</p>
+<p>大小为波数，$k=\frac{\omega}{\upsilon}$</p>
+<p>k的方向是波阵面的法线方向。$\lambda$为光波在介质中的波长，w是角频率。有如下关系：</p>
+<script type="math/tex; mode=display">
+\omega = 2\pi\upsilon = \frac{2\pi}{T},\lambda = \upsilon T ,\lambda_0 = cT, \lambda = \frac{\lambda_0}{n}</script><p>为方便运算，常将平面光波的波函数写成复数形式：</p>
+<script type="math/tex; mode=display">
+E(r,t) = Aexp[i(k\cdot r - \omega t)]
+E(r) = Aexp(ik\cdot r)</script><p>球面波的波函数</p>
+<script type="math/tex; mode=display">
+E(r,t) = \frac{A_1}{|r|}exp[i(kr-\omega t)]\\</script><p>柱面波</p>
+<script type="math/tex; mode=display">
+E(r,t) = \frac{A_1}{\sqrt{|r|}}exp[i(kr-\omega t)]</script><h3 id="能量守恒"><a href="#能量守恒" class="headerlink" title="能量守恒"></a>能量守恒</h3><p>坡印廷矢量</p>
+<p>$S = E\times H = \frac{1}{\mu}E\times B$</p>
+<p>光强I与平面波的振幅A的平方成正比。</p>
+<script type="math/tex; mode=display">
+ I = \frac{\sqrt{\frac{\varepsilon}{\mu}}A^2}{2}</script><h2 id="第三节"><a href="#第三节" class="headerlink" title="第三节"></a>第三节</h2><h3 id="光压"><a href="#光压" class="headerlink" title="光压"></a>光压</h3><p>当一束光照射到物体表面上时，由于吸收和反射，光的动量将发生变化。根据动量转换和守恒，</p>
+<p>电磁动量流密度：$g= \frac{S}{c^2} = \frac{w}{c}$</p>
+<p>光压表示为：$p=\frac{1+R}{2c}(H\cdot B + E \cdot D)$</p>
+<p>R为反射系数</p>
+<h3 id="光的偏振"><a href="#光的偏振" class="headerlink" title="光的偏振"></a>光的偏振</h3><p>光的偏振态：在垂直于光的传播方向的平面上，光矢量可能有不同的振动状态，通常称为光的偏振态。</p>
+<p>就偏振状态而言，光分为三类：自然光、完全偏振光和部分偏振光，通常用偏振度表示偏振的程度。</p>
+<script type="math/tex; mode=display">
+P = \frac{I_{max}-I_{min}}{I_{max}+I_{min}}</script><p>当$I<em>{max} = I</em>{min}$ ，偏振度为0，自然光</p>
+<p>当$I_{min} = 0$ ,偏振度P=1，完全偏振光</p>
+<p>当偏振度在0~1之间时，就是部分偏振光。</p>
+<p>偏振片： 用来产生偏振光的偏振片叫起偏器，用来检验偏振光偏振状态的偏振片叫检偏器。</p>
+<p>马吕斯定律：$I = I_0 cos^2\alpha$</p>
+<h3 id="光的吸收、色散、散射"><a href="#光的吸收、色散、散射" class="headerlink" title="光的吸收、色散、散射"></a>光的吸收、色散、散射</h3><p>光的吸收：</p>
+<p>$I=I_0exp(-KI)$，朗伯定律吸收定律</p>
+<p>$I$是从厚度为$l$的薄层出射后的光强。</p>
+<p>溶液中：$I=I_0exp(-\alpha\rho l)$，比尔吸收定律</p>
+<p>光的色散：</p>
+<p>光波在介质中的传播速度或折射率随波长而变的现象称为光的色散。折射率随波长变化的曲线就是色散曲线。介质的色散程度用色散率来表示，它的定义是介质折射率随波长变化的快慢。即</p>
+<script type="math/tex; mode=display">
+\frac{n_2-n_1}{\lambda_2-\lambda_1} = \frac{\Delta n}{\Delta\lambda} = \frac{dn}{d\lambda}</script><p>光的色散可分为正常色散和反常色散。</p>
+<p>柯西色散公式：</p>
+<script type="math/tex; mode=display">
+n=a+\frac{b}{\lambda^2} + \frac{c}{\lambda^4}</script><p>光的散射：</p>
+<p>光通过不均匀介质（有随机运动的分子、原子、烟雾或尘土的气体，混入小颗粒的液体，以及存在缺陷的晶体等）产生的偏离原来传播方向、向四周散射的现象，就是光的散射。</p>
+<p>从分散系的角度来看，介质可看做由一种（或几种）物质的微粒（分子、离子或分子集合体等）分布在另一种物质中而形成的混合物。</p>
+<p>丁达尔效应：当一束光线透过胶体，从入射光的垂直方向可以观察到胶体里出现一条光亮的“通路”，这种现象叫做丁达尔现象。</p>
+<p>瑞利散射：</p>
+<p>瑞利散射适用于孤立原子或分子的散射，也适用于纯净介质的密度起伏导致的散射。当粒子的尺寸小于可见光波长时，瑞利散射具有以下几个特征：</p>
+<ol>
+<li>波长不变，即散射光波长与入射光波长相同。</li>
+<li>散射光强度与波长四次方成反比</li>
+<li>瑞利散射具有光波长的选择性，波长较短的光比波长较长的光散射强烈。</li>
+<li>瑞利散射光强具有方向的选择性，散射光强依空间方位成哑铃形角分布<br> 设入射光是自然光，则在与入射光方向成$\theta$角的方向上，散射光强为$I=I_{\perp}(1+cos^2\theta)$</li>
+<li>瑞利散射具有一定的偏振度<br> 当自然光入射时，各方向的散射光一般为部分偏振光，但在垂直入射光方向上的散射光是线偏振光，沿入射光方向或其逆方向的散射光仍是自然光。线偏振光入射时，散射光也为线偏振光。</li>
+</ol>
+<p>反射和折射定律</p>
+<p>有任意偏振方向的平面波都可分解为s波（垂直）和p波（平行）</p>
+<p>反射折射定律：</p>
+<script type="math/tex; mode=display">
+n_1sin\theta_1 = n_2sin\theta_2</script><h2 id="第四节"><a href="#第四节" class="headerlink" title="第四节"></a>第四节</h2><h3 id="单色波的干涉"><a href="#单色波的干涉" class="headerlink" title="单色波的干涉"></a>单色波的干涉</h3><p>干涉现象：两束或更多的光波在空间叠加时，在叠加区域的光强从一点的最大值变到另一点的最小值，最大值大于那一点所有光束光强之和，最小值可以变为0，这种现象就是干涉。</p>
+<h3 id="波的叠加原理"><a href="#波的叠加原理" class="headerlink" title="波的叠加原理"></a>波的叠加原理</h3><p>在几列波相遇而互相交叠的区域中，某点的振动是各列波单独传播时在该点引起的振动的合成。</p>
+<h3 id="产生干涉的基本条件"><a href="#产生干涉的基本条件" class="headerlink" title="产生干涉的基本条件"></a>产生干涉的基本条件</h3><ol>
+<li>频率相同</li>
+<li>有恒定的相位差</li>
+<li>振动方向相同</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/04/C-读写文件/" rel="next" title="C++读写文件">
+                <i class="fa fa-chevron-left"></i> C++读写文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/10/现代通信技术笔记/" rel="prev" title="现代通信技术笔记">
+                现代通信技术笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一节"><span class="nav-number">1.</span> <span class="nav-text">第一节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#物理光学方法"><span class="nav-number">1.1.</span> <span class="nav-text">物理光学方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相衬显微镜"><span class="nav-number">1.2.</span> <span class="nav-text">相衬显微镜</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本原理"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四个特殊结构："><span class="nav-number">1.2.2.</span> <span class="nav-text">四个特殊结构：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-麦克斯韦方程组"><span class="nav-number">2.</span> <span class="nav-text">1.1 麦克斯韦方程组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二节"><span class="nav-number">3.</span> <span class="nav-text">第二节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#波动方程"><span class="nav-number">3.1.</span> <span class="nav-text">波动方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#亥姆霍兹方程"><span class="nav-number">3.2.</span> <span class="nav-text">亥姆霍兹方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光外差探测"><span class="nav-number">3.3.</span> <span class="nav-text">光外差探测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证实电磁波的传播速度等于光速"><span class="nav-number">3.4.</span> <span class="nav-text">证实电磁波的传播速度等于光速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物质方程"><span class="nav-number">3.5.</span> <span class="nav-text">物质方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边界条件"><span class="nav-number">3.6.</span> <span class="nav-text">边界条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#波动方程推导"><span class="nav-number">3.7.</span> <span class="nav-text">波动方程推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平面波的波函数"><span class="nav-number">3.8.</span> <span class="nav-text">平面波的波函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#能量守恒"><span class="nav-number">3.9.</span> <span class="nav-text">能量守恒</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三节"><span class="nav-number">4.</span> <span class="nav-text">第三节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#光压"><span class="nav-number">4.1.</span> <span class="nav-text">光压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光的偏振"><span class="nav-number">4.2.</span> <span class="nav-text">光的偏振</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光的吸收、色散、散射"><span class="nav-number">4.3.</span> <span class="nav-text">光的吸收、色散、散射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四节"><span class="nav-number">5.</span> <span class="nav-text">第四节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单色波的干涉"><span class="nav-number">5.1.</span> <span class="nav-text">单色波的干涉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#波的叠加原理"><span class="nav-number">5.2.</span> <span class="nav-text">波的叠加原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生干涉的基本条件"><span class="nav-number">5.3.</span> <span class="nav-text">产生干涉的基本条件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

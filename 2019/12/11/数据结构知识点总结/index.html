@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章 绪论一些概念数据结构就是研究数据的逻辑结构和物理结构以及它们之间相互关系，并对这种结构定义相应的运算，而且确保经过这些运算后所得到的新结构仍然是原来的结构类型。  数据：所有能被输入到计算机中，且能被计算机处理的符号的集合。是计算机操作的对象的总称。 数据元素：数据（集合）中的一个“个体”，数据及结构中讨论的基本单位 数据项：数据的不可分割的最小单位。一个数据元素可由若干个数据项组成。 数">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构知识点总结">
+<meta property="og:url" content="https://hxk0912.github.io/2019/12/11/数据结构知识点总结/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="第一章 绪论一些概念数据结构就是研究数据的逻辑结构和物理结构以及它们之间相互关系，并对这种结构定义相应的运算，而且确保经过这些运算后所得到的新结构仍然是原来的结构类型。  数据：所有能被输入到计算机中，且能被计算机处理的符号的集合。是计算机操作的对象的总称。 数据元素：数据（集合）中的一个“个体”，数据及结构中讨论的基本单位 数据项：数据的不可分割的最小单位。一个数据元素可由若干个数据项组成。 数">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V11NehB63qJi50/VLB3IGAaU7.pTGkFam39YuICaQQw6VbjmTsM8wFxOGk!/b/dLYAAAAAAAAA&bo=iAHiAAAAAAARF0s!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V11NehB63qJi50/tom8MlBpHRCpBSbWAUXm3pdUboBSgWKgSDRE5UPhIWQ!/b/dFIBAAAAAAAA&bo=lAH4AAAAAAARB10!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构知识点总结">
+<meta name="twitter:description" content="第一章 绪论一些概念数据结构就是研究数据的逻辑结构和物理结构以及它们之间相互关系，并对这种结构定义相应的运算，而且确保经过这些运算后所得到的新结构仍然是原来的结构类型。  数据：所有能被输入到计算机中，且能被计算机处理的符号的集合。是计算机操作的对象的总称。 数据元素：数据（集合）中的一个“个体”，数据及结构中讨论的基本单位 数据项：数据的不可分割的最小单位。一个数据元素可由若干个数据项组成。 数">
+<meta name="twitter:image" content="http://m.qpic.cn/psb?/V11NehB63qJi50/VLB3IGAaU7.pTGkFam39YuICaQQw6VbjmTsM8wFxOGk!/b/dLYAAAAAAAAA&bo=iAHiAAAAAAARF0s!&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2019/12/11/数据结构知识点总结/">
+
+
+
+
+
+  <title>数据结构知识点总结 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2019/12/11/数据结构知识点总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构知识点总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-11T20:37:38+08:00">
+                2019-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h2><h3 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h3><p><em>数据结构就是研究数据的逻辑结构和物理结构以及它们之间相互关系，并对这种结构定义相应的运算，而且确保经过这些运算后所得到的新结构仍然是原来的结构类型。</em></p>
+<ol>
+<li>数据：所有能被输入到计算机中，且能被计算机处理的符号的集合。是计算机操作的对象的总称。</li>
+<li>数据元素：数据（集合）中的一个“个体”，数据及结构中讨论的基本单位</li>
+<li>数据项：数据的不可分割的最小单位。一个数据元素可由若干个数据项组成。</li>
+<li>数据类型：在一种程序设计语言中，变量所具有的数据种类。整型、浮点型、字符型等等</li>
+</ol>
+<h3 id="四类基本数据结构"><a href="#四类基本数据结构" class="headerlink" title="四类基本数据结构"></a>四类基本数据结构</h3><ol>
+<li>集合结构。该结构的数据元素间的关系是“属于同一个集合”。</li>
+<li>线性结构。该结构的数据元素之间存在着一对一的关系。</li>
+<li>树型结构。该结构的数据元素之间存在着一对多的关系。</li>
+<li>图形结构。该结构的数据元素之间存在着多对多的关系，也称网状结构。</li>
+</ol>
+<h3 id="逻辑结构与物理结构的基本概念"><a href="#逻辑结构与物理结构的基本概念" class="headerlink" title="逻辑结构与物理结构的基本概念"></a>逻辑结构与物理结构的基本概念</h3><p>逻辑结构：数据之间的相互关系。（可以分为线性结构和非线性结构）</p>
+<p>物理结构：数据在计算机中的表示。物理结构是描述数据具体在内存中的存储（如：顺序结构、链式结构、索引结构、哈希结构）等。</p>
+<p>数据结构的基本操作的设置的最重要的准则是, <strong>实现应用程序与存储结构的独立</strong>。</p>
+<h3 id="算法及其特性、算法设计的要求、算法的时间复杂度和空间复杂度"><a href="#算法及其特性、算法设计的要求、算法的时间复杂度和空间复杂度" class="headerlink" title="算法及其特性、算法设计的要求、算法的时间复杂度和空间复杂度"></a>算法及其特性、算法设计的要求、算法的时间复杂度和空间复杂度</h3><p>算法五个特性： 有穷性、确定性、可行性、输入、输出。</p>
+<p>算法设计要求：正确性、可读性、健壮性、高效率与低存储量需求。(好的算法)</p>
+<p>时间复杂度：算法的执行时间与原操作执行次数之和成正比。时间复杂度有小到大：O(1)、O(logn)、O(n)、O(nlogn)、O(n<sup>2</sup>)、O(n<sup>3</sup>)。幂次时间复杂度有小到大O(2<sup>n</sup>)、O(n!)、O(n<sup>n</sup>)</p>
+<p>空间复杂度：若输入数据所占空间只取决于问题本身，和算法无关，则只需要分析除输入和程序之外的辅助变量所占额外空间。</p>
+<h2 id="第二章-线性表"><a href="#第二章-线性表" class="headerlink" title="第二章 线性表"></a>第二章 线性表</h2><h3 id="线性表的概念"><a href="#线性表的概念" class="headerlink" title="线性表的概念"></a>线性表的概念</h3><p>线性表中数据元素之间的关系是一对一的关系，即除了第一个和最后一个数据元素之外，其它数据元素都是首尾相接的（注意，这句话只适用大部分线性表，而不是全部。比如，循环链表逻辑层次上也是一种线性表（存储层次上属于链式存储），但是把最后一个数据元素的尾指针指向了首位结点）。</p>
+<h3 id="顺序存储和链式存储的原理及不同特点"><a href="#顺序存储和链式存储的原理及不同特点" class="headerlink" title="顺序存储和链式存储的原理及不同特点"></a>顺序存储和链式存储的原理及不同特点</h3><h4 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h4><p>线性表的顺序存储结构：把线性表的结点按逻辑顺序依次存放在一组地址连续的存储单元里。用这种方法存储的线性表简称顺序表。是一种随机存取的存储结构。顺序存储指内存地址是一块的。</p>
+<p>特点：</p>
+<ul>
+<li>便于线性表的构造和任意元素的访问</li>
+<li>插入：插入新结点，之后结点后移。平均时间复杂度: O(n)</li>
+<li>删除：删除节点，之后结点前移。平均时间复杂度: O(n)</li>
+</ul>
+<h4 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h4><p>线性链表：用一组任意的存储单元来依次存放线性表的结点，这组存储单元即可以是连续的，也可以是不连续的，甚至是零散分布在内存中的任意位置上的。因此，链表中结点的逻辑次序和物理次序不一定相同。为了能正确表示结点间的逻辑关系，在存储每个结点值的同时，还必须存储指示其后继结点的地址。data域是数据域，用来存放结点的值。next是指针域（亦称链域），用来存放结点的直接后继的地址（或位置）。不需要事先估计存储空间大小。</p>
+<p>特点：</p>
+<ul>
+<li>查找：只能从链表的头指针出发，顺链域next逐个结点往下搜索，直到搜索到第i个结点为止。因此，链表不是随机存取结构。</li>
+<li>插入：先找到表的第i-1的存储位置，然后插入。新结点先连后继，再连前驱。</li>
+<li>删除：首先找到ai-1的存储位置p。然后令p–&gt;next指向ai的直接后继结点，即把ai从链上摘下。最后释放结点ai的空间.r=p-&gt;next; p-&gt;next=r-&gt;next; delete r。</li>
+</ul>
+<h4 id="顺序表和链表的优缺点比较："><a href="#顺序表和链表的优缺点比较：" class="headerlink" title="顺序表和链表的优缺点比较："></a>顺序表和链表的优缺点比较：</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>顺序表</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>优点</td>
+<td>1. 存储空间连续，便于随机访问；2. 查找算法的时间复杂性为O(1)， 即常量级。</td>
+<td>1. 插入与删除运算的效率高，时间复杂性为O(1)；2. 长度不固定，可以随意增删改</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>1. 需预先分配相应的存储空间；2. 插入与删除运算的效率很低，时间复杂性为O(n)；3. 不可以增长长度。</td>
+<td>1. 不可随机存取；2. 占用额外的空间以存储指针；3. 查找速度慢，时间复杂性为O(n)。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="循环链表和双链表的概念"><a href="#循环链表和双链表的概念" class="headerlink" title="循环链表和双链表的概念"></a>循环链表和双链表的概念</h3><p>循环链表：是一种头尾相接的链表。其特点是无须增加存储量，仅对表的链接方式稍作改变，即可使得表处理更加方便灵活。</p>
+<p>在单链表中，将终端结点的指针域NULL改为指向表头结点的或开始结点，就得到了单链形式的循环链表，并简单称为单循环链表。由于循环链表中没有NULL指针，故涉及遍历操作时，其终止条件就不再像非循环链表那样判断p或p—&gt;next是否为空，而是判断它们是否等于某一指定指针，如头指针或尾指针等。</p>
+<p>双向链表: 在单链表的每个结点里再增加一个指向其直接前趋的指针域prior。这样就形成的链表中有两个方向不同的链。双链表一般由头指针唯一确定的，将头结点和尾结点链接起来构成循环链表，并称之为双向链表。设指针p指向某一结点，则双向链表结构的对称性可用下式描述：</p>
+<p><code>p—&gt;prior—&gt;next=p=p—&gt;next—&gt;prior</code> </p>
+<p>特点：</p>
+<ul>
+<li>插入：先搞定插入节点的前驱和后继，再搞定后结点的前驱，最后搞定前结点的后继。</li>
+<li>在有序双向链表中定位删除一个元素的平均时间复杂度为O(n)</li>
+<li>可以直接删除当前指针所指向的节点。而不需要像单向链表中，删除一个元素必须找到其前驱。因此在插入数据时，单向链表和双向链表操作复杂度相同，而删除数据时，双向链表的性能优于单向链表</li>
+</ul>
+<h2 id="第三章-栈和队列"><a href="#第三章-栈和队列" class="headerlink" title="第三章 栈和队列"></a>第三章 栈和队列</h2><h3 id="栈和队列的概念、特点"><a href="#栈和队列的概念、特点" class="headerlink" title="栈和队列的概念、特点"></a>栈和队列的概念、特点</h3><p>栈(Stack)是限制在表的一端进行插入和删除运算的线性表，通常称插入、删除的这一端为栈顶(Top)，另一端为栈底(Bottom)。先进后出。top= -1时为空栈，top=0只能说明栈中只有一个元素，并且元素进栈时top应该自增</p>
+<p>队列(Queue)也是一种运算受限的线性表。它只允许在表的一端进行插入，而在另一端进行删除。允许删除的一端称为队头(front)，允许插入的一端称为队尾(rear)。先进先出。</p>
+<p>循环队列。在循环队列中进行出队、入队操作时，头尾指针仍要加1，朝前移动。只不过当头尾指针指向向量上界（MaxSize-1）时，其加1操作的结果是指向向量的下界0。除非向量空间真的被队列元素全部占用，否则不会上溢。因此，除一些简单的应用外，真正实用的顺序队列是循环队列。故队空和队满时头尾指针均相等。因此，我们无法通过front=rear来判断队列“空”还是“满”（通常两种解决方案：要么添加标志位，要么多使用一个数据空间强行将头尾分开）。循环队列不能用顺序结构实现，一般通过链队列实现。</p>
+<h3 id="两者异同"><a href="#两者异同" class="headerlink" title="两者异同"></a>两者异同</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>相同点</th>
+<th>不同点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入操作都是限定在表尾进行。（栈的栈顶，队列的队尾），都可以通过顺序存储结构和链式存储结构实现。（4）插入和删除的时间复杂度都是O(1)，在空间复杂度上两者也一样。</td>
+<td>1）删除元素的位置不同，栈的操作在表尾进行，队列的删除操作在表头进行。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="与线性表的关系"><a href="#与线性表的关系" class="headerlink" title="与线性表的关系"></a>与线性表的关系</h3><p>栈和队列都是线性表，都是限制了插入删除点的线性表（或者说是控制了访问点的线性表）。</p>
+<h3 id="栈和队列的应用"><a href="#栈和队列的应用" class="headerlink" title="栈和队列的应用"></a>栈和队列的应用</h3><h4 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h4><ol>
+<li>进制转换</li>
+<li>括号匹配的检验</li>
+<li>行编辑程序</li>
+<li>迷宫求解：若当前位置“可通”，则纳入路径，继续前进;若当前位置“不可通”，则后退，换方向继续探索;若四周“均无通路”，则将当前位置从路径中删除出去。</li>
+<li>表达式求解：前缀、中缀、后缀。</li>
+<li>实现递归：多个函数嵌套调用的规则是：后调用先返回。</li>
+</ol>
+<h4 id="队列的应用"><a href="#队列的应用" class="headerlink" title="队列的应用"></a>队列的应用</h4><ol>
+<li>迷宫求解：广度遍历。</li>
+<li>离散事件模拟：顾客来去。</li>
+</ol>
+<h2 id="第六章-树与二叉树"><a href="#第六章-树与二叉树" class="headerlink" title="第六章 树与二叉树"></a>第六章 树与二叉树</h2><h3 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h3><ol>
+<li>树结点：包含一个数据元素及若干指向子树的分支；</li>
+<li>孩子结点：结点的子树称为该结点的孩子；</li>
+<li>双亲结点：B结点是A结点的孩子，则A结点是B结点的双亲；</li>
+<li>兄弟结点：同一双亲的孩子结点；</li>
+<li>堂兄结点：同一层上结点；</li>
+<li>结点层次：根结点的层定义为1；根的孩子为第二层结点，依此类推；</li>
+<li>树的高（深）度：树中最大的结点层</li>
+<li>结点的度：结点子树的个数</li>
+<li>树的度： 树中最大的结点度。</li>
+<li>叶子结点：也叫终端结点，是度为0的结点；</li>
+<li>分枝结点：度不为0的结点（非终端结点）；</li>
+<li>森林：互不相交的树集合；</li>
+<li>有序树：子树有序的树，如：家族树；</li>
+<li>无序树：不考虑子树的顺序；</li>
+</ol>
+<h3 id="二叉树概念及其各种性质"><a href="#二叉树概念及其各种性质" class="headerlink" title="二叉树概念及其各种性质"></a>二叉树概念及其各种性质</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>二叉树是n(n&gt;=0)个结点的有限集合，该集合或者为空集（称为空二叉树），或者由一个根结点和两棵互不相交的、分别称为根结点的左子树和右子树组成。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li>每个结点最多有两颗子树，所以二叉树中不存在度大于2的结点。</li>
+<li>左子树和右子树是有顺序的，次序不能任意颠倒。</li>
+<li>即使树中某结点只有一棵子树，也要区分它是左子树还是右子树。</li>
+</ol>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ol>
+<li>在二叉树的第i层上最多有2<sup>i-1</sup> 个节点 。（i&gt;=1）</li>
+<li>二叉树中如果深度为k,那么最多有2<sup>k</sup>-1个节点。(k&gt;=1）</li>
+<li>n<sub>0</sub>=n<sub>2</sub>+1 n<sub>0</sub>表示度数为0的节点数(叶子结点)，n<sub>2</sub>表示度数为2的节点数（左右子树都有的结点）。</li>
+<li>在完全二叉树中，具有n个节点的完全二叉树的深度为[log<sub>2</sub>n]+1，其中[log<sub>2</sub>n]是向下取整。</li>
+<li>若对含 n 个结点的完全二叉树从上到下且从左至右进行 1 至 n 的编号，则对完全二叉树中任意一个编号为 i 的结点有如下特性：</li>
+</ol>
+<ul>
+<li>若 i=1，则该结点是二叉树的根，无双亲, 否则，编号为 [i/2] 的结点为其双亲结点; </li>
+<li>若 2i&gt;n，则该结点无左孩子， 否则，编号为 2i 的结点为其左孩子结点；</li>
+<li>若 2i+1&gt;n，则该结点无右孩子结点， 否则，编号为2i+1 的结点为其右孩子结点。</li>
+</ul>
+<h3 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h3><p>满二叉树：在一棵二叉树中。如果所有分支结点都存在左子树和右子树，并且所有叶子都在同一层上，这样的二叉树称为满二叉树。</p>
+<h4 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h4><p>满二叉树的特点有：</p>
+<ol>
+<li>叶子只能出现在最下一层。出现在其它层就不可能达成平衡。</li>
+<li>非叶子结点的度一定是2。</li>
+<li>在同样深度的二叉树中，满二叉树的结点个数最多，叶子数最多。</li>
+</ol>
+<p><img src="http://m.qpic.cn/psb?/V11NehB63qJi50/VLB3IGAaU7.pTGkFam39YuICaQQw6VbjmTsM8wFxOGk!/b/dLYAAAAAAAAA&amp;bo=iAHiAAAAAAARF0s!&amp;rf=viewer_4" alt="alt"></p>
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>完全二叉树：对一颗具有n个结点的二叉树按层编号，如果编号为i(1&lt;=i&lt;=n)的结点与同样深度的满二叉树中编号为i的结点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。</p>
+<h4 id="性质-2"><a href="#性质-2" class="headerlink" title="性质"></a>性质</h4><ol>
+<li>叶子结点只能出现在最下层和次下层。</li>
+<li>最下层的叶子结点集中在树的左部。</li>
+<li>倒数第二层若存在叶子结点，一定在右部连续位置。</li>
+<li>如果结点度为1，则该结点只有左孩子，即没有右子树。</li>
+<li>同样结点数目的二叉树，完全二叉树深度最小。<strong>注</strong>：满二叉树一定是完全二叉树，但反过来不一定成立。</li>
+</ol>
+<p><img src="http://m.qpic.cn/psb?/V11NehB63qJi50/tom8MlBpHRCpBSbWAUXm3pdUboBSgWKgSDRE5UPhIWQ!/b/dFIBAAAAAAAA&amp;bo=lAH4AAAAAAARB10!&amp;rf=viewer_4" alt="alt"></p>
+<h3 id="遍历二叉树"><a href="#遍历二叉树" class="headerlink" title="遍历二叉树"></a>遍历二叉树</h3><p>遍历二叉树：使得每一个结点均被访问一次，而且仅被访问一次。非递归的遍历实现要利用栈。</p>
+<ul>
+<li>先序遍历DLR：根节点-&gt;左子树-&gt;右子树</li>
+<li>中序遍历LDR：左子树-&gt;根节点-&gt;右子树。必须要有中序遍历才能得到一棵二叉树的正确顺序</li>
+<li>后续遍历LRD：左子树-&gt;右子树-&gt;根节点。需要栈的支持。</li>
+<li>层次遍历：用一维数组存储二叉树时, 总是以层次遍历的顺序存储结点。层次遍历应该借助队列。</li>
+</ul>
+<h3 id="哈夫曼编码树"><a href="#哈夫曼编码树" class="headerlink" title="哈夫曼编码树"></a>哈夫曼编码树</h3><h4 id="一些概念-1"><a href="#一些概念-1" class="headerlink" title="一些概念"></a>一些概念</h4><ol>
+<li>路径：从一个祖先结点到子孙结点之间的分支构成这两个结点间的路径；</li>
+<li>路径长度：路径上的分支数目称为路径长度；</li>
+<li>树的路径长度：从根到每个结点的路径长度之和。</li>
+<li>结点的权：根据应用的需要可以给树的结点赋权值；</li>
+<li>结点的带权路径长度：从根到该结点的路径长度与该结点权的乘积；</li>
+<li>树的带权路径长度=树中所有叶子结点的带权路径之和；通常记作 WPL=∑wi×li</li>
+<li>哈夫曼树：假设有n个权值(w1, w2, … , wn)，构造有n个叶子结点的二叉树，每个叶子结点有一个 wi作为它的权值。则带权路径长度最小的二叉树称为哈夫曼树。最优二叉树。</li>
+</ol>
+<h4 id="性质-3"><a href="#性质-3" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>给定n个权值作为n的叶子结点，构造一棵二叉树，若带权路径长度达到最小，称这样的二叉树为最优二叉树。</li>
+<li>假设哈夫曼树是二叉的话，则度为0的结点个数为N，度为2的结点个数为N-1，则结点总数为2N-1。哈夫曼树的结点个数必为奇数。</li>
+<li>哈夫曼树不一定是完全二叉树，但一定是最优二叉树。</li>
+<li>若度为m的哈夫曼树中, 其叶结点个数为n, 则非叶结点的个数为[(n-1)/(m-1)]。边的数目等于度。</li>
+</ul>
+<p><a href="https://blog.csdn.net/qingdujun/article/details/54093419#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E6%9E%84%E9%80%A0" target="_blank" rel="noopener">构造哈夫曼树</a></p>
+<p><a href="https://hxk0912.github.io/2019/10/22/%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">哈夫曼编码</a></p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p><a href="https://hxk0912.github.io/2019/10/29/%E5%A0%86/">堆的理解</a></p>
+<h2 id="第九章-查找"><a href="#第九章-查找" class="headerlink" title="第九章 查找"></a>第九章 查找</h2><h3 id="顺序查找和二分查找的原理与特点"><a href="#顺序查找和二分查找的原理与特点" class="headerlink" title="顺序查找和二分查找的原理与特点"></a>顺序查找和二分查找的原理与特点</h3><p>顺序查找：应用于顺序表或线性链表表示的表，表内元素之间无序。查找过程：从表的一端开始逐个进行记录的关键字和给定值的比较。</p>
+<p>二分查找：应用于有序的表，所以若表的元素的插入与删除很频繁，维持表有序的工作量极大。查找方式：从中间开始，类似于二分法的方式查找。</p>
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p><a href="https://hxk0912.github.io/2019/10/17/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a></p>
+<h3 id="二叉查找树（BST）"><a href="#二叉查找树（BST）" class="headerlink" title="二叉查找树（BST）"></a>二叉查找树（BST）</h3><p><a href="https://hxk0912.github.io/2019/12/12/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/">二叉查找树</a></p>
+<h3 id="查找方法之间比较"><a href="#查找方法之间比较" class="headerlink" title="查找方法之间比较"></a>查找方法之间比较</h3><h2 id="第十章-内部排序"><a href="#第十章-内部排序" class="headerlink" title="第十章 内部排序"></a>第十章 内部排序</h2><p><a href="https://hxk0912.github.io/2019/10/29/%E5%86%85%E9%83%A8%E6%8E%92%E5%BA%8F/">内部排序</a></p>
+<h2 id="第十一章-外部排序"><a href="#第十一章-外部排序" class="headerlink" title="第十一章 外部排序"></a>第十一章 外部排序</h2><h3 id="磁盘结构及相关术语"><a href="#磁盘结构及相关术语" class="headerlink" title="磁盘结构及相关术语"></a>磁盘结构及相关术语</h3><h3 id="设计基于磁盘的应用程序的最高原则"><a href="#设计基于磁盘的应用程序的最高原则" class="headerlink" title="设计基于磁盘的应用程序的最高原则"></a>设计基于磁盘的应用程序的最高原则</h3><h3 id="外排序的基本原理"><a href="#外排序的基本原理" class="headerlink" title="外排序的基本原理"></a>外排序的基本原理</h3><h3 id="好的外排序方法的基本原则"><a href="#好的外排序方法的基本原则" class="headerlink" title="好的外排序方法的基本原则"></a>好的外排序方法的基本原则</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/11/在博客里添加图片/" rel="next" title="在博客里添加图片">
+                <i class="fa fa-chevron-left"></i> 在博客里添加图片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/12/二叉查找树/" rel="prev" title="二叉查找树">
+                二叉查找树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-绪论"><span class="nav-number">1.</span> <span class="nav-text">第一章 绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些概念"><span class="nav-number">1.1.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四类基本数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">四类基本数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑结构与物理结构的基本概念"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑结构与物理结构的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法及其特性、算法设计的要求、算法的时间复杂度和空间复杂度"><span class="nav-number">1.4.</span> <span class="nav-text">算法及其特性、算法设计的要求、算法的时间复杂度和空间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-线性表"><span class="nav-number">2.</span> <span class="nav-text">第二章 线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的概念"><span class="nav-number">2.1.</span> <span class="nav-text">线性表的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序存储和链式存储的原理及不同特点"><span class="nav-number">2.2.</span> <span class="nav-text">顺序存储和链式存储的原理及不同特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序存储"><span class="nav-number">2.2.1.</span> <span class="nav-text">顺序存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式存储"><span class="nav-number">2.2.2.</span> <span class="nav-text">链式存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序表和链表的优缺点比较："><span class="nav-number">2.2.3.</span> <span class="nav-text">顺序表和链表的优缺点比较：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环链表和双链表的概念"><span class="nav-number">2.3.</span> <span class="nav-text">循环链表和双链表的概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-栈和队列"><span class="nav-number">3.</span> <span class="nav-text">第三章 栈和队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈和队列的概念、特点"><span class="nav-number">3.1.</span> <span class="nav-text">栈和队列的概念、特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两者异同"><span class="nav-number">3.2.</span> <span class="nav-text">两者异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与线性表的关系"><span class="nav-number">3.3.</span> <span class="nav-text">与线性表的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈和队列的应用"><span class="nav-number">3.4.</span> <span class="nav-text">栈和队列的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的应用"><span class="nav-number">3.4.1.</span> <span class="nav-text">栈的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的应用"><span class="nav-number">3.4.2.</span> <span class="nav-text">队列的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-树与二叉树"><span class="nav-number">4.</span> <span class="nav-text">第六章 树与二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本术语"><span class="nav-number">4.1.</span> <span class="nav-text">基本术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树概念及其各种性质"><span class="nav-number">4.2.</span> <span class="nav-text">二叉树概念及其各种性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念"><span class="nav-number">4.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">4.2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性质"><span class="nav-number">4.2.3.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#满二叉树"><span class="nav-number">4.3.</span> <span class="nav-text">满二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性质-1"><span class="nav-number">4.3.1.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完全二叉树"><span class="nav-number">4.4.</span> <span class="nav-text">完全二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性质-2"><span class="nav-number">4.4.1.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历二叉树"><span class="nav-number">4.5.</span> <span class="nav-text">遍历二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈夫曼编码树"><span class="nav-number">4.6.</span> <span class="nav-text">哈夫曼编码树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一些概念-1"><span class="nav-number">4.6.1.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性质-3"><span class="nav-number">4.6.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆"><span class="nav-number">4.7.</span> <span class="nav-text">堆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九章-查找"><span class="nav-number">5.</span> <span class="nav-text">第九章 查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找和二分查找的原理与特点"><span class="nav-number">5.1.</span> <span class="nav-text">顺序查找和二分查找的原理与特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表"><span class="nav-number">5.2.</span> <span class="nav-text">哈希表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉查找树（BST）"><span class="nav-number">5.3.</span> <span class="nav-text">二叉查找树（BST）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找方法之间比较"><span class="nav-number">5.4.</span> <span class="nav-text">查找方法之间比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-内部排序"><span class="nav-number">6.</span> <span class="nav-text">第十章 内部排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十一章-外部排序"><span class="nav-number">7.</span> <span class="nav-text">第十一章 外部排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘结构及相关术语"><span class="nav-number">7.1.</span> <span class="nav-text">磁盘结构及相关术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计基于磁盘的应用程序的最高原则"><span class="nav-number">7.2.</span> <span class="nav-text">设计基于磁盘的应用程序的最高原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外排序的基本原理"><span class="nav-number">7.3.</span> <span class="nav-text">外排序的基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好的外排序方法的基本原则"><span class="nav-number">7.4.</span> <span class="nav-text">好的外排序方法的基本原则</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

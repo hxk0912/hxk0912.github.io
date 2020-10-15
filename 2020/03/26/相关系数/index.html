@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="皮尔逊相关系数 总体协方差：Cov(X,Y)=\frac{\sum_{i=1}^n (X_i-E(X)(Y_i-E(Y)}{n}\\ 总体皮尔逊相关系数：\rho_{XY}=\frac{Cov(X,Y)}{\sigma_X\sigma_Y}=\frac{\sum_{i=1}^n \frac{(X_i-E(X))}{\sigma_X}\frac{(Y_i-E(Y))}{\sigma_Y}}{n}注意">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相关系数">
+<meta property="og:url" content="https://hxk0912.github.io/2020/03/26/相关系数/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="皮尔逊相关系数 总体协方差：Cov(X,Y)=\frac{\sum_{i=1}^n (X_i-E(X)(Y_i-E(Y)}{n}\\ 总体皮尔逊相关系数：\rho_{XY}=\frac{Cov(X,Y)}{\sigma_X\sigma_Y}=\frac{\sum_{i=1}^n \frac{(X_i-E(X))}{\sigma_X}\frac{(Y_i-E(Y))}{\sigma_Y}}{n}注意">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*S5GuLfx9T5UlPFpNtOSYFhdbzFNx3b6E.NY.kMUubuIFHyEtZ28S05u.g16*SJ2bg!!/b&bo=CQRJAgAAAAARB3Y!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.412Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="相关系数">
+<meta name="twitter:description" content="皮尔逊相关系数 总体协方差：Cov(X,Y)=\frac{\sum_{i=1}^n (X_i-E(X)(Y_i-E(Y)}{n}\\ 总体皮尔逊相关系数：\rho_{XY}=\frac{Cov(X,Y)}{\sigma_X\sigma_Y}=\frac{\sum_{i=1}^n \frac{(X_i-E(X))}{\sigma_X}\frac{(Y_i-E(Y))}{\sigma_Y}}{n}注意">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*S5GuLfx9T5UlPFpNtOSYFhdbzFNx3b6E.NY.kMUubuIFHyEtZ28S05u.g16*SJ2bg!!/b&bo=CQRJAgAAAAARB3Y!&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/03/26/相关系数/">
+
+
+
+
+
+  <title>相关系数 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/03/26/相关系数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">相关系数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T15:56:27+08:00">
+                2020-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学建模/" itemprop="url" rel="index">
+                    <span itemprop="name">数学建模</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="皮尔逊相关系数"><a href="#皮尔逊相关系数" class="headerlink" title="皮尔逊相关系数"></a>皮尔逊相关系数</h2><script type="math/tex; mode=display">
+总体协方差：Cov(X,Y)=\frac{\sum_{i=1}^n (X_i-E(X)(Y_i-E(Y)}{n}\\
+总体皮尔逊相关系数：\rho_{XY}=\frac{Cov(X,Y)}{\sigma_X\sigma_Y}=\frac{\sum_{i=1}^n \frac{(X_i-E(X))}{\sigma_X}\frac{(Y_i-E(Y))}{\sigma_Y}}{n}</script><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>非线性相关也会导致线性相关系数很大。</li>
+<li>离群点对相关系数的影响很大。</li>
+<li>如果两个变量的相关系数很大也不能说明两者相关，可能是受到<br>了异常值的影响。</li>
+<li>相关系数计算结果为0，只能说不是线性相关，但说不定会有更复杂的相关关系（非线性相关）。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>如果两个变量本身就是线性的关系，那么皮尔逊相关系数绝对值大的就是相关性强，小的就是相关性弱；</li>
+<li>在不确定两个变量是什么关系的情况下，即使算出皮尔逊相关系数，发现很大，也不能说明那两个变量线性相关，甚至不能说他们相关，我们一定要画出散点图来看才行。</li>
+</ol>
+<h2 id="斯皮尔斯相关系数"><a href="#斯皮尔斯相关系数" class="headerlink" title="斯皮尔斯相关系数"></a>斯皮尔斯相关系数</h2><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*S5GuLfx9T5UlPFpNtOSYFhdbzFNx3b6E.NY.kMUubuIFHyEtZ28S05u.g16*SJ2bg!!/b&bo=CQRJAgAAAAARB3Y!&rf=viewer_4"></p>
+<p>另一种定义：斯皮尔曼相关系数被定义成等级之间的皮尔逊相关系数。</p>
+<h2 id="两个相关系数的比较"><a href="#两个相关系数的比较" class="headerlink" title="两个相关系数的比较"></a>两个相关系数的比较</h2><p>斯皮尔曼相关系数和皮尔逊相关系数选择:</p>
+<ol>
+<li>连续数据，正态分布，线性关系，用pearson相关系数是最恰当，当然用spearman相关系数也可以， 就是效率没有pearson相关系数高。</li>
+<li>上述任一条件不满足，就用spearman相关系数，不能用pearson相关系数。</li>
+<li><p>两个定序数据之间也用spearman相关系数，不能用pearson相关系数。</p>
+<pre><code> 定序数据是指仅仅反映观测对象等级、顺序关系的数据，是由定序尺度计量
+ 形成的，表现为类别，可以进行排序，属于品质数据。
+ 例如：优、良、差；
+ 我们可以用1表示差、2表示良、3表示优，但请注意，用2除以1得出的2并不
+ 代表任何含义。定序数据最重要的意义代表了一组数据中的某种逻辑顺序。
+</code></pre></li>
+</ol>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">%% 统计描述</span></span><br><span class="line">MIN = <span class="built_in">min</span>(Test);  <span class="comment">% 每一列的最小值</span></span><br><span class="line">MAX = <span class="built_in">max</span>(Test);   <span class="comment">% 每一列的最大值</span></span><br><span class="line">MEAN = <span class="built_in">mean</span>(Test);  <span class="comment">% 每一列的均值</span></span><br><span class="line">MEDIAN = median(Test);  <span class="comment">%每一列的中位数</span></span><br><span class="line">SKEWNESS = skewness(Test); <span class="comment">%每一列的偏度</span></span><br><span class="line">KURTOSIS = kurtosis(Test);  <span class="comment">%每一列的峰度</span></span><br><span class="line">STD = std(Test);  <span class="comment">% 每一列的标准差</span></span><br><span class="line">RESULT = [MIN;MAX;MEAN;MEDIAN;SKEWNESS;KURTOSIS;STD]  <span class="comment">%将这些统计量放到一个矩阵中中表示</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 计算各列之间的相关系数</span></span><br><span class="line"><span class="comment">% 在计算皮尔逊相关系数之前,一定要做出散点图来看两组变量之间是否有线性关系</span></span><br><span class="line"><span class="comment">% 这里使用Spss比较方便: 图形 - 旧对话框 - 散点图/点图 - 矩阵散点图</span></span><br><span class="line"></span><br><span class="line">R = corrcoef(Test)   <span class="comment">% correlation coefficient</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 假设检验部分</span></span><br><span class="line">x = <span class="number">-4</span>:<span class="number">0.1</span>:<span class="number">4</span>;</span><br><span class="line">y = tpdf(x,<span class="number">28</span>);  <span class="comment">%求t分布的概率密度值 28是自由度  </span></span><br><span class="line"><span class="built_in">figure</span>(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">plot</span>(x,y,<span class="string">'-'</span>)</span><br><span class="line">grid on  <span class="comment">% 在画出的图上加上网格线</span></span><br><span class="line"><span class="built_in">hold</span> on  <span class="comment">% 保留原来的图，以便继续在上面操作</span></span><br><span class="line"><span class="comment">% matlab可以求出临界值，函数如下</span></span><br><span class="line">tinv(<span class="number">0.975</span>,<span class="number">28</span>)    <span class="comment">%    2.0484</span></span><br><span class="line"><span class="comment">% 这个函数是累积密度函数cdf的反函数</span></span><br><span class="line"><span class="built_in">plot</span>([<span class="number">-2.048</span>,<span class="number">-2.048</span>],[<span class="number">0</span>,tpdf(<span class="number">-2.048</span>,<span class="number">28</span>)],<span class="string">'r-'</span>)</span><br><span class="line"><span class="built_in">plot</span>([<span class="number">2.048</span>,<span class="number">2.048</span>],[<span class="number">0</span>,tpdf(<span class="number">2.048</span>,<span class="number">28</span>)],<span class="string">'r-'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 计算p值</span></span><br><span class="line">x = <span class="number">-4</span>:<span class="number">0.1</span>:<span class="number">4</span>;</span><br><span class="line">y = tpdf(x,<span class="number">28</span>);</span><br><span class="line"><span class="built_in">figure</span>(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">plot</span>(x,y,<span class="string">'-'</span>)</span><br><span class="line">grid on </span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="comment">% 画线段的方法</span></span><br><span class="line"><span class="built_in">plot</span>([<span class="number">-3.055</span>,<span class="number">-3.055</span>],[<span class="number">0</span>,tpdf(<span class="number">-3.055</span>,<span class="number">28</span>)],<span class="string">'r-'</span>)</span><br><span class="line"><span class="built_in">plot</span>([<span class="number">3.055</span>,<span class="number">3.055</span>],[<span class="number">0</span>,tpdf(<span class="number">3.055</span>,<span class="number">28</span>)],<span class="string">'r-'</span>)</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">'该检验值对应的p值为：'</span>)</span><br><span class="line"><span class="built_in">disp</span>((<span class="number">1</span>-tcdf(<span class="number">3.055</span>,<span class="number">28</span>))*<span class="number">2</span>)  <span class="comment">%双侧检验的p值要乘以2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 计算各列之间的相关系数以及p值</span></span><br><span class="line">[R,P] = corrcoef(Test)</span><br><span class="line"><span class="comment">% 在EXCEL表格中给数据右上角标上显著性符号吧</span></span><br><span class="line">P &lt; <span class="number">0.01</span>  <span class="comment">% 标记3颗星的位置</span></span><br><span class="line">(P &lt; <span class="number">0.05</span>) .* (P &gt; <span class="number">0.01</span>)  <span class="comment">% 标记2颗星的位置</span></span><br><span class="line">(P &lt; <span class="number">0.1</span>) .* (P &gt; <span class="number">0.05</span>) <span class="comment">% % 标记1颗星的位置</span></span><br><span class="line"><span class="comment">% 也可以使用Spss操作哦 看我演示</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 正态分布检验</span></span><br><span class="line"><span class="comment">% 正态分布的偏度和峰度</span></span><br><span class="line">x = normrnd(<span class="number">2</span>,<span class="number">3</span>,<span class="number">100</span>,<span class="number">1</span>);   <span class="comment">% 生成100*1的随机向量，每个元素是均值为2，标准差为3的正态分布</span></span><br><span class="line">skewness(x)  <span class="comment">%偏度</span></span><br><span class="line">kurtosis(x)  <span class="comment">%峰度</span></span><br><span class="line">qqplot(x)</span><br><span class="line">    </span><br><span class="line"><span class="comment">% 检验第一列数据是否为正态分布</span></span><br><span class="line">[h,p] = jbtest(Test(:,<span class="number">1</span>),<span class="number">0.05</span>)</span><br><span class="line">[h,p] = jbtest(Test(:,<span class="number">1</span>),<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">% 用循环检验所有列的数据</span></span><br><span class="line">n_c = <span class="built_in">size</span>(Test,<span class="number">2</span>);  <span class="comment">% number of column 数据的列数</span></span><br><span class="line">H = <span class="built_in">zeros</span>(<span class="number">1</span>,<span class="number">6</span>);  <span class="comment">% 初始化节省时间和消耗</span></span><br><span class="line">P = <span class="built_in">zeros</span>(<span class="number">1</span>,<span class="number">6</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n_c</span><br><span class="line">    [h,p] = jbtest(Test(:,<span class="built_in">i</span>),<span class="number">0.05</span>);</span><br><span class="line">    H(<span class="built_in">i</span>)=h;</span><br><span class="line">    P(<span class="built_in">i</span>)=p;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">disp</span>(H)</span><br><span class="line"><span class="built_in">disp</span>(P)</span><br><span class="line"></span><br><span class="line"><span class="comment">% Q-Q图</span></span><br><span class="line">qqplot(Test(:,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 斯皮尔曼相关系数</span></span><br><span class="line">X = [<span class="number">3</span> <span class="number">8</span> <span class="number">4</span> <span class="number">7</span> <span class="number">2</span>]'  <span class="comment">% 一定要是列向量哦，一撇'表示求转置</span></span><br><span class="line">Y = [<span class="number">5</span> <span class="number">10</span> <span class="number">9</span> <span class="number">10</span> <span class="number">6</span>]'</span><br><span class="line"><span class="comment">% 第一种计算方法</span></span><br><span class="line"><span class="number">1</span><span class="number">-6</span>*(<span class="number">1</span>+<span class="number">0.25</span>+<span class="number">0.25</span>+<span class="number">1</span>)/<span class="number">5</span>/<span class="number">24</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 第二种计算方法</span></span><br><span class="line">coeff = corr(X , Y , <span class="string">'type'</span> , <span class="string">'Spearman'</span>)</span><br><span class="line"><span class="comment">% 等价于：</span></span><br><span class="line">RX = [<span class="number">2</span> <span class="number">5</span> <span class="number">3</span> <span class="number">4</span> <span class="number">1</span>]</span><br><span class="line">RY = [<span class="number">1</span> <span class="number">4.5</span> <span class="number">3</span> <span class="number">4.5</span> <span class="number">2</span>]</span><br><span class="line">R = corrcoef(RX,RY)</span><br><span class="line"></span><br><span class="line"><span class="comment">% 计算矩阵各列的斯皮尔曼相关系数</span></span><br><span class="line">R = corr(Test, <span class="string">'type'</span> , <span class="string">'Spearman'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">% 大样本下的假设检验</span></span><br><span class="line"><span class="comment">% 计算检验值</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="built_in">sqrt</span>(<span class="number">590</span>)*<span class="number">0.0301</span>)</span><br><span class="line"><span class="comment">% 计算p值</span></span><br><span class="line"><span class="built_in">disp</span>((<span class="number">1</span>-normcdf(<span class="number">0.7311</span>))*<span class="number">2</span>) <span class="comment">% normcdf用来计算标准正态分布的累积概率密度函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 直接给出相关系数和p值</span></span><br><span class="line">[R,P]=corr(Test, <span class="string">'type'</span> , <span class="string">'Spearman'</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/25/拟合/" rel="next" title="拟合">
+                <i class="fa fa-chevron-left"></i> 拟合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/27/典型相关分析/" rel="prev" title="典型相关分析">
+                典型相关分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#皮尔逊相关系数"><span class="nav-number">1.</span> <span class="nav-text">皮尔逊相关系数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">1.1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斯皮尔斯相关系数"><span class="nav-number">2.</span> <span class="nav-text">斯皮尔斯相关系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两个相关系数的比较"><span class="nav-number">3.</span> <span class="nav-text">两个相关系数的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码示例"><span class="nav-number">4.</span> <span class="nav-text">代码示例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

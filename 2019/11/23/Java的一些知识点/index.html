@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章Java开发的时候jre和jdk是两个安装，不要混淆。 使用CMD编译的时候不要放在c盘，可能没有权限。 如果使用的jre和jdk版本不一样会编译出错 第二章java中美元符号$也可以作为标识符 java中常量的声明：final 数据类型 常量名称比如 final double PI =3.1415926常量名通常使用大写字母，这样可以清楚的将常量与变量区分开 java基本数据类型1.整数类">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java的一些知识点">
+<meta property="og:url" content="https://hxk0912.github.io/2019/11/23/Java的一些知识点/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="第一章Java开发的时候jre和jdk是两个安装，不要混淆。 使用CMD编译的时候不要放在c盘，可能没有权限。 如果使用的jre和jdk版本不一样会编译出错 第二章java中美元符号$也可以作为标识符 java中常量的声明：final 数据类型 常量名称比如 final double PI =3.1415926常量名通常使用大写字母，这样可以清楚的将常量与变量区分开 java基本数据类型1.整数类">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.372Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java的一些知识点">
+<meta name="twitter:description" content="第一章Java开发的时候jre和jdk是两个安装，不要混淆。 使用CMD编译的时候不要放在c盘，可能没有权限。 如果使用的jre和jdk版本不一样会编译出错 第二章java中美元符号$也可以作为标识符 java中常量的声明：final 数据类型 常量名称比如 final double PI =3.1415926常量名通常使用大写字母，这样可以清楚的将常量与变量区分开 java基本数据类型1.整数类">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2019/11/23/Java的一些知识点/">
+
+
+
+
+
+  <title>Java的一些知识点 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2019/11/23/Java的一些知识点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java的一些知识点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-23T15:55:34+08:00">
+                2019-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>Java开发的时候jre和jdk是两个安装，不要混淆。</p>
+<p>使用CMD编译的时候不要放在c盘，可能没有权限。</p>
+<p>如果使用的jre和jdk版本不一样会编译出错</p>
+<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>java中美元符号$也可以作为标识符</p>
+<p>java中常量的声明：final 数据类型 常量名称<br>比如 final double PI =3.1415926<br>常量名通常使用大写字母，这样可以清楚的将常量与变量区分开</p>
+<p>java基本数据类型<br>1.整数类型（byte short int long）浮点类型（float double）<br>2.字符类型<br>3.布尔类型<br>byte为1字节8位，取值为128<br>由于long型的取值范围比int型大，且属于高级的数据类型，所以在赋值的时候要在后面加L或l<br>比如 long number =1234567L;</p>
+<p>浮点类型的数默认是double，所以声明float要在后面加上f</p>
+<p>布尔型判断程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginService</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        System.out.println(<span class="string">"请输入6位数字密码："</span>);</span><br><span class="line">        <span class="keyword">int</span> password = sc.nextInt();</span><br><span class="line">        <span class="keyword">boolean</span> result = (password==<span class="number">924867</span>);</span><br><span class="line">        System.out.println(<span class="string">"用户密码是否正确："</span>+ result);</span><br><span class="line">        sc.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>位移运算符 &lt;&lt; &gt;&gt; 不会改变数字的正负。<br>>&gt;&gt; 无符号右移只会产生整数。</p>
+<p>类型转换的时候高精度向低精度转换的时候一定要显式转换</p>
+<p>java中变量一定要初始化吗？<br>java中的变量包括成员变量和局部变量。其中，成员变量声明之后不论是否对其初始化，java虚拟机都会将其初始化默认值。局部变量声明之后，java虚拟机不会将其初始化为默认值，此时开发人员必须对其进行显式的初始化。</p>
+<h2 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h2><p>print和println的区别：print输出字符时不会换行，而println输出字符是会自动换行。</p>
+<p>java中if条件只能是布尔型变量或者是布尔表达式。不能用整数或是字符，因为不能自动将整数转化为布尔型变量。</p>
+<p>在switch多分支语句中，case后面的常量表达式的值可以是int、short、char、byte、String以及enum</p>
+<p>foreach语句是for语句的简化版本。<br>for(循环变量x：遍历对象obj)<br>{<br>    引用了x的java语句<br>}<br>利用foreach遍历数组成员</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">foreach</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> arr[]=&#123;<span class="number">7</span>,<span class="number">10</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        System.out.println(<span class="string">"一维数组中的元素分别为："</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x : arr) &#123;</span><br><span class="line">            System.out.println(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>java中如果想要跳出外层循环，可以用标签功能。<br>标签名：循环体｛break 标签名；｝<br>continue也是一样</p>
+<h2 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h2><p>创建一维数组的方法int arr[]  int[] arr</p>
+<p>声明数组后还不能访问任何元素，还需要分配内存空间。<br>分配方法：<code>arr=new int[5]</code></p>
+<p>获取数组长度方法：<code>arr.length</code></p>
+<p>使用fill方法将空数组填满数值<br>方法<code>Arrays.fill(int[] a , int value)</code></p>
+<h2 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h2><p>利用构造方法实例化字符串：String a = new String(“string”);</p>
+<p>利用字符数组实例化：char[] charArray = {‘t’,’I’,’m’,’e’};<br>String a = new  String(charArray);</p>
+<p>提取字符数组中的一部分创建字符串对象<br>Char[] charArray = {};<br>String a = new String(charArray,3,2);<br>表示从字符数组索引3的位置提取两个元素构成字符串</p>
+<p>使用加号将字符串进行连接时，只要加号一边是字符串，就会自动调用toSting()将另外一边转换为字符串进行连接。</p>
+<p>长度：<code>str.length()</code><br>指定位置字符：<code>str.charAt(index)</code><br>获取子字符串索引位置：<code>a.indexOf(substr)</code><br>如果没有会返回-1</p>
+<p>判断字符串首尾内容：<code>str.startsWith(prefix)  str.endsWith(suffix)</code></p>
+<p>获取字符数组：<code>str.toCharArray();</code><br>判断子字符串是否存在：<code>str.contains(string);</code></p>
+<p>截取字符串：<code>str.substring( beginIndex,endIndex);</code><br>其中起始索引包括，结束索引不包括。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.print.DocFlavor.STRING;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IDcard</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String idNum= <span class="string">"123456198002157890"</span>;</span><br><span class="line">        String year = idNum.substring(<span class="number">6</span>,<span class="number">10</span>);</span><br><span class="line">        String month = idNum.substring(<span class="number">10</span>, <span class="number">12</span>);</span><br><span class="line">        String date = idNum.substring(<span class="number">12</span>, <span class="number">14</span>);</span><br><span class="line">        System.out.println(<span class="string">"该身份证显示的出生日期是："</span>);</span><br><span class="line">        System.out.println(year+<span class="string">"年"</span>+month+<span class="string">"月"</span>+date+<span class="string">"日"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>字符串替换：<code>str.replace(oldstr,newstr);</code><br>返回一个字符串，如果没有找到需要被替换的字符串就会返回原字符串。<br>如果要替换的字符串出现多次，会全部替换。</p>
+<p>字符串分割：<code>str.split(regex)regex：分隔符</code><br>根据指定的分隔符对字符串进行拆分</p>
+<p>大小写转换<br><code>str.toLowerCase()</code><br><code>str.toUpperCase()</code></p>
+<p>去除空白内容：<code>str.trim()</code><br>可以将字符串首尾处的空白内容都删除。</p>
+<p>比较字符串是否相等：<br><code>a.equals(str);</code><br>当且仅当进行比较的字符串不为NULL且被比较的字符串内容相同，结果才为true；</p>
+<p>Java中String一旦赋值将无法修改，每次对String值的修改都是返回新的String。</p>
+<p>可变字符串StringBuffer类<br>StringBuffer类创建的对象是可以修改的。</p>
+<p>创建一个StringBuffer类必须使用关键字new，不能像String类里那样直接引用字符串常量。<br><code>StringBuffer sbf = new StringBuffer();</code></p>
+<p>Append方法<br><code>Sbf.append(obj);</code>可以将参数转化为字符串，然后追加到此序列中。</p>
+<p>setCharAt方法：<code>sbf.setCharAt(index,ch);</code><br>将给定索引处的字符修改为ch</p>
+<p>insert方法：<code>insert(offset,str);</code><br>将字符串插入到指定的索引处。</p>
+<p>delete方法：<code>sbf.delete(start,end)</code></p>
+<p>StringBuffer类中也有很多类似于String类的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringBufferTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StringBuffer sbf = <span class="keyword">new</span> StringBuffer(<span class="string">"ABCDEFG"</span>);</span><br><span class="line">        System.out.println(<span class="string">"sbf的原值是"</span>+sbf);</span><br><span class="line">        <span class="keyword">int</span> length = sbf.length();</span><br><span class="line">        System.out.println(<span class="string">"sbf的长度为"</span>+length);</span><br><span class="line">        <span class="keyword">char</span> chr = sbf.charAt(<span class="number">5</span>);</span><br><span class="line">        System.out.println(<span class="string">"索引为5的字符为："</span>+chr);</span><br><span class="line">        <span class="keyword">int</span>  index = sbf.indexOf(<span class="string">"DEF"</span>);</span><br><span class="line">        System.out.println(<span class="string">"DEF的位置为:"</span>+index);</span><br><span class="line">        String substr = sbf.substring(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">"索引0到2之间的字符串："</span>+substr);</span><br><span class="line">        StringBuffer tmp = sbf.replace(<span class="number">2</span>,<span class="number">5</span>,<span class="string">"1234"</span>);</span><br><span class="line">        System.out.println(<span class="string">"替换后的字符串："</span>+tmp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>StringBuffer与String的不同之处<br>StringBuffer每次都是操作自身对象，而不是生成新的对象，其所占的空间会随着字符内容增加而扩充，做大量的修改操作时，不会因生成大量匿名对象而影响系统性能。 </p>
+<h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><p>定义类的时候加public表示全局类，该类可以import到任何类内。不加public默认为保留类，只能被同一个包内的其他类引用</p>
+<p>成员方法中的不定长参数：<br>声明方法时，如果有若干个相同类型的参数，可以定义为不定长参数，该类型的参数声明如下：权限修饰符 返回值类型 方法名（参数类型… 参数名）</p>
+<p>构造方法 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>public要写，不然在类外无法初始化新的对象。</p>
+<p>无参数构造方法: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Make</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>static关键字<br>当一个类中两个不同的方法对同一个变量进行操作的时候，共享的变量用static修饰，那么该变量就是静态变量。</p>
+<p>静态方法<br>如果想要使用一个类中的成员方法，但是不想或者不能创建该类的对象时，就可以用静态方法。</p>
+<p>静态代码块</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">       <span class="comment">//此处编辑执行语句     </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码块的执行顺序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> String name;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        System.out.println(name+<span class="string">"静态代码块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(name+<span class="string">"非静态代码块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StaticTest</span><span class="params">(String a)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = a;</span><br><span class="line">        System.out.println(name+<span class="string">"构造方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(name+<span class="string">"成员方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StaticTest s1;</span><br><span class="line">        StaticTest s2 = <span class="keyword">new</span> StaticTest(<span class="string">"s2"</span>);</span><br><span class="line">        StaticTest s3 = <span class="keyword">new</span> StaticTest(<span class="string">"s3"</span>);</span><br><span class="line">        s3.method();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>静态代码块由始至终只运行了一次<br>非静态代码块，每次创建对象的时候，会在构造方法之前运行。所以读取成员变量name时，只能获取到String类型的默认值“null”<br>构造方法只有在使用new创建对象的时候才会运行。<br>成员方法只有在使用对象调用的时候才会运行。因为name是static修饰的静态成员变量，在创建s2对象时将字符串“s2”赋给了name，所以创建s3对象时，重新调用了类的非静态代码块，此时name的值还没有被s3对象改变，于是就会输出“s2非静态代码块”</p>
+<p>第七章<br>类的继承：child extends parents<br>注意：java仅支持单继承，即一个类只能有一个父类。</p>
+<p>方法的重写：重写方法实质上是在子类中将父类方法覆盖。<br>重写时修改方法的修饰权限只能从小到大，类似protected只能到public不能到private；<br>super关键字：如果重写后还想调用父类方法，可以用super.父类方法来调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"欢迎使用"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pad</span> <span class="keyword">extends</span> <span class="title">Computer</span></span>&#123;</span><br><span class="line">    <span class="function">String  <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.sayHello()+<span class="string">"iPad"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Computer pc = <span class="keyword">new</span> Computer();</span><br><span class="line">        System.out.println(pc.sayHello());</span><br><span class="line">        Pad pad = <span class="keyword">new</span> Pad();</span><br><span class="line">        System.out.println(pad.sayHello());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The public type must be defined in its own file<br>翻译：公共类必须被定义在它自己的文件中<br>产生错误的原因：<br>1.定义Java类名同文件名不一样<br>2.一个文件中有多个类，只有与文件名一致的类名，才能声明为：public<br>内部类不能声明为：public<br>一个文件中只能有一个public类</p>
+<p>Object类：<br>在java中所有的类都直接或间接继承了java.lang.Object类<br>Object类中主要包括clone()、finalize()、equals()、toString()等方法。由于所有的类都是Object的子类，因此这些函数都可以重写。</p>
+<p>getClass()方法：<br>返回某个对象执行时的Class实例。getClass().gerName();获取类的名称。</p>
+<p>toString()返回某个对象的字符串表示形式。</p>
+<p>equals()方法比较的是两个对象的引用地址是否相等。比如两个字符串是相等的但是两个对象就是不相等的。</p>
+<p>在java中函数参数出现顺序不一样也可以构成重载关系。</p>
+<p>向上转型：子类当作父类用，但是就不能用子类独有的方法。<br>F p = new s()；<br>p.methodsOfS()就不可以调用。</p>
+<p>向下转型一般不要使用，容易出现逻辑错误。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/10/NVIC理解/" rel="next" title="NVIC理解">
+                <i class="fa fa-chevron-left"></i> NVIC理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/24/Hello-world程序/" rel="prev" title="Hello,world程序">
+                Hello,world程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章"><span class="nav-number">1.</span> <span class="nav-text">第一章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章"><span class="nav-number">2.</span> <span class="nav-text">第二章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章"><span class="nav-number">3.</span> <span class="nav-text">第三章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章"><span class="nav-number">4.</span> <span class="nav-text">第四章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章"><span class="nav-number">5.</span> <span class="nav-text">第五章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章"><span class="nav-number">6.</span> <span class="nav-text">第六章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

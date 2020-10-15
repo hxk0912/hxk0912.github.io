@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="任务控制块FreeRTOS的每个任务都有一些属性需要存储，把这些属性集合到一起用一个结构体表示，这个结构体就是任务控制块(TCB_t) 任务操作业务流程任务动态创建业务流程 分配任务控制内存空间，分配任务堆栈空间 初始化任务控制块，初始化任务堆栈 添加任务到就绪列表中  任务删除业务流程 从就绪表中删除 从事件表中删除 释放任务控制块，释放任务堆栈内存 开始任务调度  任务挂起业务流程 从就绪表中">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FreeRTOS多任务调度">
+<meta property="og:url" content="https://hxk0912.github.io/2020/07/20/FreeRTOS多任务调度/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="任务控制块FreeRTOS的每个任务都有一些属性需要存储，把这些属性集合到一起用一个结构体表示，这个结构体就是任务控制块(TCB_t) 任务操作业务流程任务动态创建业务流程 分配任务控制内存空间，分配任务堆栈空间 初始化任务控制块，初始化任务堆栈 添加任务到就绪列表中  任务删除业务流程 从就绪表中删除 从事件表中删除 释放任务控制块，释放任务堆栈内存 开始任务调度  任务挂起业务流程 从就绪表中">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.372Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FreeRTOS多任务调度">
+<meta name="twitter:description" content="任务控制块FreeRTOS的每个任务都有一些属性需要存储，把这些属性集合到一起用一个结构体表示，这个结构体就是任务控制块(TCB_t) 任务操作业务流程任务动态创建业务流程 分配任务控制内存空间，分配任务堆栈空间 初始化任务控制块，初始化任务堆栈 添加任务到就绪列表中  任务删除业务流程 从就绪表中删除 从事件表中删除 释放任务控制块，释放任务堆栈内存 开始任务调度  任务挂起业务流程 从就绪表中">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/07/20/FreeRTOS多任务调度/">
+
+
+
+
+
+  <title>FreeRTOS多任务调度 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/07/20/FreeRTOS多任务调度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">FreeRTOS多任务调度</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-20T15:00:22+08:00">
+                2020-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/FreeRTOS/" itemprop="url" rel="index">
+                    <span itemprop="name">FreeRTOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="任务控制块"><a href="#任务控制块" class="headerlink" title="任务控制块"></a>任务控制块</h2><p>FreeRTOS的每个任务都有一些属性需要存储，把这些属性集合到一起用一个结构体表示，这个结构体就是任务控制块(TCB_t)</p>
+<h2 id="任务操作业务流程"><a href="#任务操作业务流程" class="headerlink" title="任务操作业务流程"></a>任务操作业务流程</h2><h3 id="任务动态创建业务流程"><a href="#任务动态创建业务流程" class="headerlink" title="任务动态创建业务流程"></a>任务动态创建业务流程</h3><ol>
+<li>分配任务控制内存空间，分配任务堆栈空间</li>
+<li>初始化任务控制块，初始化任务堆栈</li>
+<li>添加任务到就绪列表中</li>
+</ol>
+<h3 id="任务删除业务流程"><a href="#任务删除业务流程" class="headerlink" title="任务删除业务流程"></a>任务删除业务流程</h3><ol>
+<li>从就绪表中删除</li>
+<li>从事件表中删除</li>
+<li>释放任务控制块，释放任务堆栈内存</li>
+<li>开始任务调度</li>
+</ol>
+<h3 id="任务挂起业务流程"><a href="#任务挂起业务流程" class="headerlink" title="任务挂起业务流程"></a>任务挂起业务流程</h3><ol>
+<li>从就绪表中删除</li>
+<li>从事件表中删除</li>
+<li>添加任务到挂起列表中</li>
+<li>开始任务调度</li>
+</ol>
+<h3 id="任务恢复业务流程"><a href="#任务恢复业务流程" class="headerlink" title="任务恢复业务流程"></a>任务恢复业务流程</h3><ol>
+<li>从挂起表中删除</li>
+<li>添加任务到就绪列表中</li>
+<li>开始任务调度</li>
+</ol>
+<h2 id="常用任务API"><a href="#常用任务API" class="headerlink" title="常用任务API"></a>常用任务API</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>API名称</th>
+<th>API说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>xTaskCreate</td>
+<td>动态创建任务</td>
+</tr>
+<tr>
+<td>xTaskCreateStaic</td>
+<td>静态创建任务</td>
+</tr>
+<tr>
+<td>vTaskDelete</td>
+<td>删除任务</td>
+</tr>
+<tr>
+<td>vTaskSuspend</td>
+<td>挂起任务</td>
+</tr>
+<tr>
+<td>vTaskResume</td>
+<td>恢复任务</td>
+</tr>
+<tr>
+<td>xTaskResumeFromISR</td>
+<td>在中断中恢复任务</td>
+</tr>
+<tr>
+<td>uxTaskPriorityGet</td>
+<td>获取任务优先级</td>
+</tr>
+<tr>
+<td>vTaskPrioritySet</td>
+<td>设置任务优先级</td>
+</tr>
+<tr>
+<td>vTaskDelay</td>
+<td>延时任务</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="多任务调度基础"><a href="#多任务调度基础" class="headerlink" title="多任务调度基础"></a>多任务调度基础</h2><h3 id="Sysyick的重要性"><a href="#Sysyick的重要性" class="headerlink" title="Sysyick的重要性"></a>Sysyick的重要性</h3><p>Systick是调度器的核心</p>
+<p>操作系统在Systick中进行上下文切换</p>
+<h3 id="任务栈"><a href="#任务栈" class="headerlink" title="任务栈"></a>任务栈</h3><p>Cortex-M系列R13寄存器有两个指针指向两个栈：主栈(MSP)和进程栈(PSP)。在操作系统处理时，使用MSP，恢复到任务时，就切换使用为PSP，在操作系统处理时，可以操作PSP，这是任务调度的基础。</p>
+<h3 id="PendSV异常"><a href="#PendSV异常" class="headerlink" title="PendSV异常"></a>PendSV异常</h3><p>PendSV用于保证实时性，操作系统和任务都可以触发PendSV异常，使得任何时候都可以进行PendSV处理，这样就保证了实时性</p>
+<h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><p>上下文切换是通过PSP指针指向在任务间切换，使得恢复现场时实现任务切换。</p>
+<h2 id="系统延时原理"><a href="#系统延时原理" class="headerlink" title="系统延时原理"></a>系统延时原理</h2><h3 id="vTaskDelay"><a href="#vTaskDelay" class="headerlink" title="vTaskDelay"></a>vTaskDelay</h3><p>工作流程</p>
+<ol>
+<li>挂起调度器</li>
+<li>添加任务到延时列表</li>
+<li>恢复调度器进行上下文切换</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/20/插值代码/" rel="next" title="插值代码">
+                <i class="fa fa-chevron-left"></i> 插值代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/22/FreeRTOS消息队列/" rel="prev" title="FreeRTOS消息队列">
+                FreeRTOS消息队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务控制块"><span class="nav-number">1.</span> <span class="nav-text">任务控制块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务操作业务流程"><span class="nav-number">2.</span> <span class="nav-text">任务操作业务流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务动态创建业务流程"><span class="nav-number">2.1.</span> <span class="nav-text">任务动态创建业务流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务删除业务流程"><span class="nav-number">2.2.</span> <span class="nav-text">任务删除业务流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务挂起业务流程"><span class="nav-number">2.3.</span> <span class="nav-text">任务挂起业务流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务恢复业务流程"><span class="nav-number">2.4.</span> <span class="nav-text">任务恢复业务流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用任务API"><span class="nav-number">3.</span> <span class="nav-text">常用任务API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多任务调度基础"><span class="nav-number">4.</span> <span class="nav-text">多任务调度基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sysyick的重要性"><span class="nav-number">4.1.</span> <span class="nav-text">Sysyick的重要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务栈"><span class="nav-number">4.2.</span> <span class="nav-text">任务栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PendSV异常"><span class="nav-number">4.3.</span> <span class="nav-text">PendSV异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文切换"><span class="nav-number">4.4.</span> <span class="nav-text">上下文切换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统延时原理"><span class="nav-number">5.</span> <span class="nav-text">系统延时原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vTaskDelay"><span class="nav-number">5.1.</span> <span class="nav-text">vTaskDelay</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一些基本概念位（bit）：计算机所能表示的最小的数据单元。每个位有两种状态（0和1） 字（word）：计算机内部进行数据处理的基本单位 字长（word length）：每个字所包含的二进制位数。通常与计算机内部寄存器、运算器、总线的宽度一致。 字节（byte）相邻8位二进制位，即1byte=8bit BCD码 组合BCD码：四个二进制位表示一个十进制位 未组合BCD码：八个二进制位表示一个十进制位">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微型计算机概述">
+<meta property="og:url" content="https://hxk0912.github.io/2020/02/24/微型计算机概述/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="一些基本概念位（bit）：计算机所能表示的最小的数据单元。每个位有两种状态（0和1） 字（word）：计算机内部进行数据处理的基本单位 字长（word length）：每个字所包含的二进制位数。通常与计算机内部寄存器、运算器、总线的宽度一致。 字节（byte）相邻8位二进制位，即1byte=8bit BCD码 组合BCD码：四个二进制位表示一个十进制位 未组合BCD码：八个二进制位表示一个十进制位">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*VWnQsSro6OAe5W7syuIyJ8lnBiVBibt8JYjpsORlZrsWFqLl4PIdE9Byx4Cbf8I6g!!/b&ek=1&kp=1&pt=0&bo=HAWJAQAAAAADF6M!&tl=1&vuin=1097217653&tm=1582592400&sce=60-1-1&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nu3xCHc50AkJG5xeCtlCt34VHRbulAjWtOhzEDUQ9CytrpVN7X9ax0irWU2M*pmJyjpy*ZIe0f7A8zP9WLwWTfA!/b&bo=EQVLAgAAAAADB38!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微型计算机概述">
+<meta name="twitter:description" content="一些基本概念位（bit）：计算机所能表示的最小的数据单元。每个位有两种状态（0和1） 字（word）：计算机内部进行数据处理的基本单位 字长（word length）：每个字所包含的二进制位数。通常与计算机内部寄存器、运算器、总线的宽度一致。 字节（byte）相邻8位二进制位，即1byte=8bit BCD码 组合BCD码：四个二进制位表示一个十进制位 未组合BCD码：八个二进制位表示一个十进制位">
+<meta name="twitter:image" content="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*VWnQsSro6OAe5W7syuIyJ8lnBiVBibt8JYjpsORlZrsWFqLl4PIdE9Byx4Cbf8I6g!!/b&ek=1&kp=1&pt=0&bo=HAWJAQAAAAADF6M!&tl=1&vuin=1097217653&tm=1582592400&sce=60-1-1&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/02/24/微型计算机概述/">
+
+
+
+
+
+  <title>微型计算机概述 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/02/24/微型计算机概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微型计算机概述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-24T10:30:08+08:00">
+                2020-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/微机原理与接口技术/" itemprop="url" rel="index">
+                    <span itemprop="name">微机原理与接口技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一些基本概念"><a href="#一些基本概念" class="headerlink" title="一些基本概念"></a>一些基本概念</h2><p>位（bit）：计算机所能表示的最小的数据单元。每个位有两种状态（0和1）</p>
+<p>字（word）：计算机内部进行数据处理的基本单位</p>
+<p>字长（word length）：每个字所包含的二进制位数。通常与计算机内部寄存器、运算器、总线的宽度一致。</p>
+<p>字节（byte）<br>相邻8位二进制位，即1byte=8bit</p>
+<h3 id="BCD码"><a href="#BCD码" class="headerlink" title="BCD码"></a>BCD码</h3><ul>
+<li>组合BCD码：四个二进制位表示一个十进制位</li>
+<li>未组合BCD码：八个二进制位表示一个十进制位（高4位为0）</li>
+</ul>
+<h4 id="BCD码运算"><a href="#BCD码运算" class="headerlink" title="BCD码运算"></a>BCD码运算</h4><p>十进制调整规则：两个BCD码相加减，出现进位借位就要加减0110处理，因为我们普通加减四位二进制就是按照16位进行处理，那么我们加减出现进位借位时就要还原为10进制。</p>
+<h3 id="ASCII码"><a href="#ASCII码" class="headerlink" title="ASCII码"></a>ASCII码</h3><p>7位二进制数表示，第8位常用作奇偶校验位。</p>
+<h3 id="国标码"><a href="#国标码" class="headerlink" title="国标码"></a>国标码</h3><p>两个7位二进制表示一个汉字，符号或图形。</p>
+<h3 id="机器数"><a href="#机器数" class="headerlink" title="机器数"></a>机器数</h3><p>正负符号进行数字化的数，计算机能直接识别。<br>0为正，1为负。</p>
+<h3 id="数的小数点表示法"><a href="#数的小数点表示法" class="headerlink" title="数的小数点表示法"></a>数的小数点表示法</h3><ol>
+<li>定点表示法<ul>
+<li>提前约定好小数点的位置</li>
+</ul>
+</li>
+<li><p>浮点表示法</p>
+<ul>
+<li><p>浮点数表示公式：$(-1)^S2^E(b<em>0\triangledown b_1b_2b_3\dots b</em>{\rho-1})$</p>
+<p>其中S=0为正数，S=1位复数；E为指数，是一个带偏移量的整数，表示成无符号的整数；$b<em>0\triangledown b_1b_2b_3\dots b</em>{\rho-1}$表示尾数，$b_i$表示二进制数位，$\triangledown$表示隐含的小数点的位置；$\rho$表示尾数的长度。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*VWnQsSro6OAe5W7syuIyJ8lnBiVBibt8JYjpsORlZrsWFqLl4PIdE9Byx4Cbf8I6g!!/b&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=HAWJAQAAAAADF6M!&amp;tl=1&amp;vuin=1097217653&amp;tm=1582592400&amp;sce=60-1-1&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nu3xCHc50AkJG5xeCtlCt34VHRbulAjWtOhzEDUQ9CytrpVN7X9ax0irWU2M*pmJyjpy*ZIe0f7A8zP9WLwWTfA!/b&amp;bo=EQVLAgAAAAADB38!&amp;rf=viewer_4" alt="alt"></p>
+<h3 id="溢出"><a href="#溢出" class="headerlink" title="溢出"></a>溢出</h3><p>溢出就是指运算结果超过带符号数的最大表示范围。<strong>有溢出说明有符号数的运算结果不正确</strong></p>
+<h2 id="一条指令在CPU中执行过程"><a href="#一条指令在CPU中执行过程" class="headerlink" title="一条指令在CPU中执行过程"></a>一条指令在CPU中执行过程</h2><h3 id="专有名词"><a href="#专有名词" class="headerlink" title="专有名词"></a>专有名词</h3><ol>
+<li>Ad(Address) 形式地址</li>
+<li>DR(Data Register) 数据寄存器</li>
+<li>AR(Address Register) 地址寄存器(MAR)</li>
+<li>IR(Instruction Register) 指令寄存器</li>
+<li>BR(Buffer Register) 缓冲寄存器(MBR)</li>
+<li>ID(Instruction Decoder) 指令译码器</li>
+<li>PC(ProgramCounter) 程序计数器</li>
+</ol>
+<h3 id="过程详述"><a href="#过程详述" class="headerlink" title="过程详述"></a>过程详述</h3><p>几乎所有指令的执行都是分为两个过程：读取指令（取指）、执行指令（执指）。</p>
+<p>在执行时，给PC赋以第一条指令的地址（00H），然后就进入第一条指令的取指阶段。<strong>要注意的是，指令指针PC每取出一条指令就会自动加一，即自动指向下一条指令的地址。只有当如遇到用户设置的转移或特殊指令需做跳转时，才转到所需地址去。</strong></p>
+<h4 id="取指"><a href="#取指" class="headerlink" title="取指"></a>取指</h4><ol>
+<li>PC内容送到地址寄存器，PC+1</li>
+<li>地址寄存器把地址通过地址总线送到存储器，经过地址译码器译码，选中存储单元</li>
+<li>CPU发出读命令，将内容读到数据总线上。</li>
+<li>读出内容经数据总线送到指令寄存器</li>
+</ol>
+<h4 id="执指"><a href="#执指" class="headerlink" title="执指"></a>执指</h4><p>将指令译码，识别出指令，完成指令所规定的各种操作，具体实现指令的功能。为此，CPU的不同部分被连接起来，以执行所需的操作。</p>
+<h4 id="循环阶段"><a href="#循环阶段" class="headerlink" title="循环阶段"></a>循环阶段</h4><p>指令执行完毕，结果数据写回之后，如无意外，计算机会接着从PC中读取下一条指令地址继续新一轮取指执指。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/18/Linux中设备、文件与驱动的关系/" rel="next" title="Linux中设备、文件与驱动的关系">
+                <i class="fa fa-chevron-left"></i> Linux中设备、文件与驱动的关系
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/25/数学知识复习/" rel="prev" title="数学知识复习">
+                数学知识复习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些基本概念"><span class="nav-number">1.</span> <span class="nav-text">一些基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BCD码"><span class="nav-number">1.1.</span> <span class="nav-text">BCD码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BCD码运算"><span class="nav-number">1.1.1.</span> <span class="nav-text">BCD码运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ASCII码"><span class="nav-number">1.2.</span> <span class="nav-text">ASCII码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#国标码"><span class="nav-number">1.3.</span> <span class="nav-text">国标码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#机器数"><span class="nav-number">1.4.</span> <span class="nav-text">机器数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数的小数点表示法"><span class="nav-number">1.5.</span> <span class="nav-text">数的小数点表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#溢出"><span class="nav-number">1.6.</span> <span class="nav-text">溢出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一条指令在CPU中执行过程"><span class="nav-number">2.</span> <span class="nav-text">一条指令在CPU中执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#专有名词"><span class="nav-number">2.1.</span> <span class="nav-text">专有名词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过程详述"><span class="nav-number">2.2.</span> <span class="nav-text">过程详述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#取指"><span class="nav-number">2.2.1.</span> <span class="nav-text">取指</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执指"><span class="nav-number">2.2.2.</span> <span class="nav-text">执指</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环阶段"><span class="nav-number">2.2.3.</span> <span class="nav-text">循环阶段</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

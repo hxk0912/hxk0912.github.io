@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Verilog简述Verilog是一种硬件描述语言，以文本形式来描述数字系统硬件的结构和行为的语言，用它可以表示逻辑电路图、逻辑表达式，还可以表示数字逻辑系统所完成的逻辑功能。 Verilog和C的区别Verilog是硬件描述语言，在编译下载到FPGA之后，会生成电路，所以Verilog全部是并行处理与运行的；C语言是软件语言，编译下载到单片机/CPU之后，还是软件指令，而不会根据你的代码生成相应">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Verilog HDL语法">
+<meta property="og:url" content="https://hxk0912.github.io/2019/12/22/Verilog-HDL语法/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="Verilog简述Verilog是一种硬件描述语言，以文本形式来描述数字系统硬件的结构和行为的语言，用它可以表示逻辑电路图、逻辑表达式，还可以表示数字逻辑系统所完成的逻辑功能。 Verilog和C的区别Verilog是硬件描述语言，在编译下载到FPGA之后，会生成电路，所以Verilog全部是并行处理与运行的；C语言是软件语言，编译下载到单片机/CPU之后，还是软件指令，而不会根据你的代码生成相应">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Verilog HDL语法">
+<meta name="twitter:description" content="Verilog简述Verilog是一种硬件描述语言，以文本形式来描述数字系统硬件的结构和行为的语言，用它可以表示逻辑电路图、逻辑表达式，还可以表示数字逻辑系统所完成的逻辑功能。 Verilog和C的区别Verilog是硬件描述语言，在编译下载到FPGA之后，会生成电路，所以Verilog全部是并行处理与运行的；C语言是软件语言，编译下载到单片机/CPU之后，还是软件指令，而不会根据你的代码生成相应">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2019/12/22/Verilog-HDL语法/">
+
+
+
+
+
+  <title>Verilog HDL语法 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2019/12/22/Verilog-HDL语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Verilog HDL语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-22T12:27:10+08:00">
+                2019-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/FPGA/" itemprop="url" rel="index">
+                    <span itemprop="name">FPGA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Verilog简述"><a href="#Verilog简述" class="headerlink" title="Verilog简述"></a>Verilog简述</h2><p>Verilog是一种硬件描述语言，以文本形式来描述数字系统硬件的结构和行为的语言，用它可以表示逻辑电路图、逻辑表达式，还可以表示数字逻辑系统所完成的逻辑功能。</p>
+<h3 id="Verilog和C的区别"><a href="#Verilog和C的区别" class="headerlink" title="Verilog和C的区别"></a>Verilog和C的区别</h3><p>Verilog是硬件描述语言，在编译下载到FPGA之后，会生成电路，所以Verilog全部是并行处理与运行的；C语言是软件语言，编译下载到单片机/CPU之后，还是软件指令，而不会根据你的代码生成相应的硬件电路，而单片机/CPU处理软件指令需要取址、译码、执行，是串行执行的。<br>Verilog和C的区别也是FPGA和单片机/CPU的区别，由于FPGA全部并行处理，所以处理速度非常快，这个是FPGA的最大优势，这一点是单片机/CPU替代不了的。</p>
+<h2 id="Verilog基础知识"><a href="#Verilog基础知识" class="headerlink" title="Verilog基础知识"></a>Verilog基础知识</h2><h3 id="Verilog逻辑值"><a href="#Verilog逻辑值" class="headerlink" title="Verilog逻辑值"></a>Verilog逻辑值</h3><p>0、1、X、Z与数电中讲述相同</p>
+<h2 id="Verilog的标识符"><a href="#Verilog的标识符" class="headerlink" title="Verilog的标识符"></a>Verilog的标识符</h2><p>与C大同小异，<strong>注意的是标识符区分大小写。</strong></p>
+<p><em>不建议大小写混合使用，普通内部信号建议全部小写，参数定义建议大写，另外信号命名最好体现信号的含义。</em></p>
+<h2 id="Verilog数字进制格式"><a href="#Verilog数字进制格式" class="headerlink" title="Verilog数字进制格式"></a>Verilog数字进制格式</h2><p>包括二进制、八进制、十进制、十六进制。</p>
+<p>表示方法如下：</p>
+<p>4’ b0101 表示四位二进制数字0101</p>
+<p>4’ d2    表示四位十进制数字2</p>
+<p>4’ ha    表示四位十六进制数字a</p>
+<p><em>当代码中没有指定数字的位宽与进制时，默认为32位的十进制，比如100，实际上表示的值为32’d100。</em></p>
+<h2 id="Verilog的数据类型"><a href="#Verilog的数据类型" class="headerlink" title="Verilog的数据类型"></a>Verilog的数据类型</h2><p>主要有三大类数据类型，即寄存器类型、线网类型和参数类型。从名称中，我们可以看出，真正在数字电路中起作用的数据类型应该是寄存器类型和线网类型。</p>
+<h3 id="寄存器类型"><a href="#寄存器类型" class="headerlink" title="寄存器类型"></a>寄存器类型</h3><p>寄存器类型表示一个抽象的数据存储单元，它只能在always语句和initial语句中被赋值，并且它的值从一个赋值到另一个赋值过程中被保存下来。如果该过程语句描述的是时序逻辑，即always语句带有时钟信号，则该寄存器变量对应为寄存器；如果该过程语句描述的是组合逻辑，即always语句不带有时钟信号，则该寄存器变量对应为硬件连线；寄存器类型的缺省值是x（未知状态）。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] delay_cnt; <span class="comment">//延时计数器 </span></span><br><span class="line"><span class="keyword">reg</span> key_flag ; <span class="comment">//按键标志</span></span><br></pre></td></tr></table></figure>
+<h3 id="线网类型"><a href="#线网类型" class="headerlink" title="线网类型"></a>线网类型</h3><p>线网表示Verilog结构化元件间的物理连线。它的值由驱动元件的值决定，例如连续赋值或门的输出。如果没有驱动元件连接到线网，线网的缺省值为z（高阻态）。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> data_en; <span class="comment">//数据使能信号 </span></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">7</span>:<span class="number">0</span>] data ; <span class="comment">//数据</span></span><br></pre></td></tr></table></figure>
+<h3 id="参数类型"><a href="#参数类型" class="headerlink" title="参数类型"></a>参数类型</h3><p>我们再来看下参数类型，参数其实就是一个常量，常被用于定义状态机的状态、数据位宽和延迟大小等，由于它可以在编译时修改参数的值，因此它又常被用于一些参数可调的模块中，使用户在实例化模块时，可以根据需要配置参数。在定义参数时，我们可以一次定义多个参数，参数与参数之间需要用逗号隔开。这里我们需要注意的是参数的定义是局部的，只在当前模块中有效。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">parameter</span> DATA_WIDTH = <span class="number">8</span>; <span class="comment">//数据位宽为8位</span></span><br></pre></td></tr></table></figure>
+<h2 id="Verilog的运算符"><a href="#Verilog的运算符" class="headerlink" title="Verilog的运算符"></a>Verilog的运算符</h2><p>大部分运算符都是与C完全相同的，但是Verilog中有一个特殊的运算符是C语言中没有的，就是<strong>位拼接运算符</strong>。用这个运算符可以把两个或多个信号的某些位拼接起来进行运算操作。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>使用方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{}</td>
+<td>{a,b}</td>
+<td>将 a 和 b 拼接起来，作为一个新信号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Verilog关键字"><a href="#Verilog关键字" class="headerlink" title="Verilog关键字"></a>Verilog关键字</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>module</td>
+<td>模块开始定义</td>
+</tr>
+<tr>
+<td>input</td>
+<td>输入端口定义</td>
+</tr>
+<tr>
+<td>output</td>
+<td>输出端口定义</td>
+</tr>
+<tr>
+<td>inout</td>
+<td>双向端口定义</td>
+</tr>
+<tr>
+<td>parameter</td>
+<td>信号的参数定义</td>
+</tr>
+<tr>
+<td>wire</td>
+<td>wire信号定义</td>
+</tr>
+<tr>
+<td>reg</td>
+<td>reg信号定义</td>
+</tr>
+<tr>
+<td>always</td>
+<td>产生reg信号语句的关键字</td>
+</tr>
+<tr>
+<td>assign</td>
+<td>产生wire信号语句的关键字</td>
+</tr>
+<tr>
+<td>begin</td>
+<td>语句的起始标志</td>
+</tr>
+<tr>
+<td>end</td>
+<td>语句的结束标志</td>
+</tr>
+<tr>
+<td>posedge/negedge</td>
+<td>时序电路的标志</td>
+</tr>
+<tr>
+<td>case</td>
+<td>Case语句起始标记</td>
+</tr>
+<tr>
+<td>endcase</td>
+<td>Case语句结束标记</td>
+</tr>
+<tr>
+<td>endmodule</td>
+<td>模块结束定义</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Verilog高级知识点"><a href="#Verilog高级知识点" class="headerlink" title="Verilog高级知识点"></a>Verilog高级知识点</h2><h3 id="阻塞赋值"><a href="#阻塞赋值" class="headerlink" title="阻塞赋值"></a>阻塞赋值</h3><p>阻塞赋值，顾名思义，即在一个always块中，后面的语句会受到前语句的影响，具体来说，在同一个always中，一条阻塞赋值语句如果没有执行结束，那么该语句后面的语句就不能被执行，即被“阻塞”。也就是说always块内的语句是一种顺序关系，这里和C语言很类似。符号“=”用于阻塞的赋值（如:b = a;），阻塞赋值“=”在begin和end之间的语句是顺序执行，属于串行语句。</p>
+<h3 id="非阻塞赋值"><a href="#非阻塞赋值" class="headerlink" title="非阻塞赋值"></a>非阻塞赋值</h3><p>符号“&lt;=”用于非阻塞赋值（如:b &lt;= a;），非阻塞赋值是由时钟节拍决定，在时钟上升到来时，执行赋值语句右边，然后将begin-end之间的所有赋值语句同时赋值到赋值语句的左边，注意：是begin—end之间的所有语句，一起执行，且一个时钟只执行一次，属于并行执行语句。这个是和C语言最大的一个差异点，大家要逐步理解并行执行的概念。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/12/二叉查找树/" rel="next" title="二叉查找树">
+                <i class="fa fa-chevron-left"></i> 二叉查找树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/13/matlab的系统环境/" rel="prev" title="matlab的系统环境">
+                matlab的系统环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog简述"><span class="nav-number">1.</span> <span class="nav-text">Verilog简述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Verilog和C的区别"><span class="nav-number">1.1.</span> <span class="nav-text">Verilog和C的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog基础知识"><span class="nav-number">2.</span> <span class="nav-text">Verilog基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Verilog逻辑值"><span class="nav-number">2.1.</span> <span class="nav-text">Verilog逻辑值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog的标识符"><span class="nav-number">3.</span> <span class="nav-text">Verilog的标识符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog数字进制格式"><span class="nav-number">4.</span> <span class="nav-text">Verilog数字进制格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog的数据类型"><span class="nav-number">5.</span> <span class="nav-text">Verilog的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寄存器类型"><span class="nav-number">5.1.</span> <span class="nav-text">寄存器类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线网类型"><span class="nav-number">5.2.</span> <span class="nav-text">线网类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数类型"><span class="nav-number">5.3.</span> <span class="nav-text">参数类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog的运算符"><span class="nav-number">6.</span> <span class="nav-text">Verilog的运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog关键字"><span class="nav-number">7.</span> <span class="nav-text">Verilog关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog高级知识点"><span class="nav-number">8.</span> <span class="nav-text">Verilog高级知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞赋值"><span class="nav-number">8.1.</span> <span class="nav-text">阻塞赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非阻塞赋值"><span class="nav-number">8.2.</span> <span class="nav-text">非阻塞赋值</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

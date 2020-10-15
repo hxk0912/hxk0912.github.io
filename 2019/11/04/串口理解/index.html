@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="串口控制STM32F429每个串口都有三个控制寄存器USART_CR1~3,但是通常我们只要用到USART_CR1就可以实现我们的功能。 CR1寄存器各个位的描述：  UE 串口使能位，该位置1使能串口。 TXIE 发送缓冲区中断使能位，该位置1当USART_SR中TXE位为1时将产生串口中断。 TCIE 发送完成中断使能位，该位置1当USART_SR中TC位为1时，将产生串口中断。 RXNEIE">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="串口理解">
+<meta property="og:url" content="https://hxk0912.github.io/2019/11/04/串口理解/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="串口控制STM32F429每个串口都有三个控制寄存器USART_CR1~3,但是通常我们只要用到USART_CR1就可以实现我们的功能。 CR1寄存器各个位的描述：  UE 串口使能位，该位置1使能串口。 TXIE 发送缓冲区中断使能位，该位置1当USART_SR中TXE位为1时将产生串口中断。 TCIE 发送完成中断使能位，该位置1当USART_SR中TC位为1时，将产生串口中断。 RXNEIE">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="串口理解">
+<meta name="twitter:description" content="串口控制STM32F429每个串口都有三个控制寄存器USART_CR1~3,但是通常我们只要用到USART_CR1就可以实现我们的功能。 CR1寄存器各个位的描述：  UE 串口使能位，该位置1使能串口。 TXIE 发送缓冲区中断使能位，该位置1当USART_SR中TXE位为1时将产生串口中断。 TCIE 发送完成中断使能位，该位置1当USART_SR中TC位为1时，将产生串口中断。 RXNEIE">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2019/11/04/串口理解/">
+
+
+
+
+
+  <title>串口理解 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2019/11/04/串口理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">串口理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-04T16:16:25+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/STM32底层/" itemprop="url" rel="index">
+                    <span itemprop="name">STM32底层</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="串口控制"><a href="#串口控制" class="headerlink" title="串口控制"></a>串口控制</h2><p>STM32F429每个串口都有三个控制寄存器USART_CR1~3,但是通常我们只要用到USART_CR1就可以实现我们的功能。</p>
+<p>CR1寄存器各个位的描述：</p>
+<ul>
+<li>UE 串口使能位，该位置1使能串口。</li>
+<li>TXIE 发送缓冲区中断使能位，该位置1当USART_SR中TXE位为1时将产生串口中断。</li>
+<li>TCIE 发送完成中断使能位，该位置1当USART_SR中TC位为1时，将产生串口中断。</li>
+<li>RXNEIE 接收缓冲区非空中断使能，该位置1时，当USART_SR中的ORE或者RXNE位为1时，将产生串口中断。</li>
+<li>RE TE 接收 发送使能位。</li>
+</ul>
+<h2 id="数据的发送与接收"><a href="#数据的发送与接收" class="headerlink" title="数据的发送与接收"></a>数据的发送与接收</h2><p>USART_DR寄存器用于实现数据发送接收，这是一个双寄存器，包含TDR和RDR当向DR寄存器写数据的时候实际上是写入TDR串口会自动发送数据；当收到数据，读DR寄存器时实际读取RDR寄存器。TDR和RDR对外不可见，我们操作DR寄存器。</p>
+<h2 id="串口状态"><a href="#串口状态" class="headerlink" title="串口状态"></a>串口状态</h2><p>状态寄存器USART_SR</p>
+<ul>
+<li>RXNE 读数据寄存器非空，当该位被置1时，就是提示已经有数据被接受到了，并且可以读出来了。我们可以通过读USART_DR和向该位写0来清零。</li>
+<li>TC 发送完成，该位被置1时表示USART_DR中的数据已经被发送完成了。如果设置了这个位的之后，就会产生中断。该位也有两种清零方式：读USART_SR，写USART_DR或者直接向该位写0。</li>
+</ul>
+<h2 id="串口中断的处理机制"><a href="#串口中断的处理机制" class="headerlink" title="串口中断的处理机制"></a>串口中断的处理机制</h2><p>首先HAL库定义了一个串口中断处理通用函数HAL_UART_IRQHandler，该函数声明如下：void HAL_UART_IRQHandler(UART_HandleTypeDef *huart);该函数只有一个入口参数就是UART_HandleTypeDef结构体指针类型的串口句柄huart，使用我们在调用HAL_UART_Init函数时设置的同一个变量即可。该函数一般在中断服务函数中调用，作为串口中断处理的通用入口。一般调用方法为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART1_IRQHandler</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">HAL_UART_IRQHandler(&amp;UART1_Handler); <span class="comment">//调用HAL库中断处理公用函数</span></span><br><span class="line">...<span class="comment">//中断处理完成后的结束工作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是说，真正的串口中断处理逻辑我们会最终在函数HAL_UART_IRQHandler内部执行。</p>
+<p>在函数HAL_UART_IRQHandler内部通过判断中断类型是否为接收完成中断，确定是否调用HAL另外一个函数UART_Receive_IT()。函数UART_Receive_IT()的作用是把每次中断接收到的字符保存在串口句柄的缓存指针pRxBuffPtr中，同时每次接收一个字符，其计数器RxXferCount减1，直到接收完成RxXferSize个字符之后RxXferCount设置为0，同时调用接收完成回调函数HAL_UART_RxCpltCallback进行处理。</p>
+<p><strong>概括为：当接收到一个字符之后，在函数UART_Receive_IT中会把数据保存在串口句柄的成员变量pRxBuffPtr缓存中，同时RxXferCount计数器减1。如果我们设置RxXferSize=10,那么当接收到10个字符之后，RxXferCount会由10减到0（RxXferCount初始值等于RxXferSize），这个时候再调用接收完成回调函数HAL_UART_RxCpltCallback进行处理。</strong></p>
+<p>对于中断服务函数的编写有两种形式，一种是HAL库专有的编写方式，但是会显得比较臃肿而且代码效率不高。另一种是与标准库相同的方式编写自己的终端服务函数也就是不调用回调函数。这里我写的还是HAL库的方式。</p>
+<h3 id="HAL库的串口中断回调函数处理方式"><a href="#HAL库的串口中断回调函数处理方式" class="headerlink" title="HAL库的串口中断回调函数处理方式"></a>HAL库的串口中断回调函数处理方式</h3><p>如果我们要使用HAL库的中断回调函数，我们确实可以利用函数</p>
+<p><code>HAL_UART_Receive_IT();</code></p>
+<p>可以一次性接受一整个定长的字符串进入中断回调函数。但是如果我们想要接受不定长的数据，就要采取类似于标准库中的思路，每接收到一个字符就要处理一次。</p>
+<p>那么我们先进行如下定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint8_t</span> aRxBuffer;<span class="comment">//接收中断缓冲</span></span><br><span class="line"><span class="keyword">uint8_t</span> Uart1_RxBuff[<span class="number">256</span>];<span class="comment">//接收缓冲</span></span><br><span class="line"><span class="keyword">uint8_t</span> Uart1_Rx_Cnt = <span class="number">0</span>;<span class="comment">//接收缓冲计数</span></span><br></pre></td></tr></table></figure>
+<p>然后在初始化串口的时候就利用下面的代码打开串口中断。</p>
+<p><code>HAL_UART_Receive_IT(&amp;huart1, (uint8_t *)&amp;aRxBuffer, 1);</code></p>
+<p>为什么要这么写呢？用了上面这行代码不仅打开了串口接受中断，而且也模仿了标准库的处理方式，只接受一个字符就会进入中断回调函数。</p>
+<p>中断回调函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    Uart1_RxBuff[Uart1_Rx_Cnt++] = aRxBuffer;   <span class="comment">//接收数据转存</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((Uart1_RxBuff[Uart1_Rx_Cnt<span class="number">-1</span>] == <span class="number">0x0A</span>)&amp;&amp;(Uart1_RxBuff[Uart1_Rx_Cnt<span class="number">-2</span>] == <span class="number">0x0D</span>)) <span class="comment">//判断结束位</span></span><br><span class="line">    &#123;</span><br><span class="line">        HAL_UART_Transmit(&amp;huart1, (<span class="keyword">uint8_t</span> *)&amp;Uart1_RxBuff, Uart1_Rx_Cnt,<span class="number">0xFFFF</span>); <span class="comment">//将收到的信息发送出去</span></span><br><span class="line">        Uart1_Rx_Cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(Uart1_RxBuff,<span class="number">0x00</span>,<span class="keyword">sizeof</span>(Uart1_RxBuff)); <span class="comment">//清空数组</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    HAL_UART_Receive_IT(&amp;huart1, (<span class="keyword">uint8_t</span> *)&amp;aRxBuffer, <span class="number">1</span>);   <span class="comment">//再开启接收中断</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每进入一次中断回调函数，我们就把接收到的字符转到接受数据缓存中，通过判断结束位“回车”(ASCII码位OXOA,OXOD)来停止接受并且执行我们自己的代码逻辑。<br>采用这样的逻辑，我们就可以不定长接受字符串了。</p>
+<h2 id="重写printf"><a href="#重写printf" class="headerlink" title="重写printf"></a>重写printf</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span> <span class="params">(<span class="keyword">int</span> ch,FILE *f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HAL_UART_Transmit(&amp;huart1,(<span class="keyword">uint8_t</span>*)&amp;ch,<span class="number">1</span>,<span class="number">0xFFFF</span>);</span><br><span class="line">	<span class="keyword">return</span> (ch);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fgetc</span><span class="params">(FILE *f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ch;</span><br><span class="line">	<span class="keyword">while</span>(__HAL_UART_GET_FLAG(&amp;huart1,UART_FLAG_RXNE) == RESET);</span><br><span class="line">	HAL_UART_Receive(&amp;huart1,(<span class="keyword">uint8_t</span> *)&amp;ch,<span class="number">1</span>,<span class="number">0xFFFF</span>);</span><br><span class="line">	<span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/30/使用PWM波时遇到的问题/" rel="next" title="使用PWM波时遇到的问题">
+                <i class="fa fa-chevron-left"></i> 使用PWM波时遇到的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/05/串口中断接受不定长数据/" rel="prev" title="串口中断接受不定长数据">
+                串口中断接受不定长数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#串口控制"><span class="nav-number">1.</span> <span class="nav-text">串口控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的发送与接收"><span class="nav-number">2.</span> <span class="nav-text">数据的发送与接收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串口状态"><span class="nav-number">3.</span> <span class="nav-text">串口状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串口中断的处理机制"><span class="nav-number">4.</span> <span class="nav-text">串口中断的处理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HAL库的串口中断回调函数处理方式"><span class="nav-number">4.1.</span> <span class="nav-text">HAL库的串口中断回调函数处理方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重写printf"><span class="nav-number">5.</span> <span class="nav-text">重写printf</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

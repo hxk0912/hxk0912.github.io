@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="灰色关联分析用于系统分析matlab代码1234567891011121314151617%% 灰色关联分析用于系统分析例题的讲解clear;clcload gdp.mat  % 导入数据 一个6*4的矩阵% 不会导入数据的同学可以看看第二讲topsis模型，我们也可以自己在工作区新建变量，并把Excel的数据粘贴过来% 注意Matlab的当前文件夹一定要切换到有数据文件的这个文件夹内Mean =">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="灰色关联分析代码">
+<meta property="og:url" content="https://hxk0912.github.io/2020/07/18/灰色关联分析代码/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="灰色关联分析用于系统分析matlab代码1234567891011121314151617%% 灰色关联分析用于系统分析例题的讲解clear;clcload gdp.mat  % 导入数据 一个6*4的矩阵% 不会导入数据的同学可以看看第二讲topsis模型，我们也可以自己在工作区新建变量，并把Excel的数据粘贴过来% 注意Matlab的当前文件夹一定要切换到有数据文件的这个文件夹内Mean =">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.412Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="灰色关联分析代码">
+<meta name="twitter:description" content="灰色关联分析用于系统分析matlab代码1234567891011121314151617%% 灰色关联分析用于系统分析例题的讲解clear;clcload gdp.mat  % 导入数据 一个6*4的矩阵% 不会导入数据的同学可以看看第二讲topsis模型，我们也可以自己在工作区新建变量，并把Excel的数据粘贴过来% 注意Matlab的当前文件夹一定要切换到有数据文件的这个文件夹内Mean =">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/07/18/灰色关联分析代码/">
+
+
+
+
+
+  <title>灰色关联分析代码 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/07/18/灰色关联分析代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">灰色关联分析代码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-18T14:48:43+08:00">
+                2020-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学建模代码/" itemprop="url" rel="index">
+                    <span itemprop="name">数学建模代码</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="灰色关联分析用于系统分析"><a href="#灰色关联分析用于系统分析" class="headerlink" title="灰色关联分析用于系统分析"></a>灰色关联分析用于系统分析</h2><h3 id="matlab代码"><a href="#matlab代码" class="headerlink" title="matlab代码"></a>matlab代码</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 灰色关联分析用于系统分析例题的讲解</span></span><br><span class="line">clear;clc</span><br><span class="line">load gdp.mat  <span class="comment">% 导入数据 一个6*4的矩阵</span></span><br><span class="line"><span class="comment">% 不会导入数据的同学可以看看第二讲topsis模型，我们也可以自己在工作区新建变量，并把Excel的数据粘贴过来</span></span><br><span class="line"><span class="comment">% 注意Matlab的当前文件夹一定要切换到有数据文件的这个文件夹内</span></span><br><span class="line">Mean = <span class="built_in">mean</span>(gdp);  <span class="comment">% 求出每一列的均值以供后续的数据预处理</span></span><br><span class="line">gdp = gdp ./ <span class="built_in">repmat</span>(Mean,<span class="built_in">size</span>(gdp,<span class="number">1</span>),<span class="number">1</span>);  <span class="comment">%size(gdp,1)=6, repmat(Mean,6,1)可以将矩阵进行复制，复制为和gdp同等大小，然后使用点除（对应元素相除），这些在第一讲层次分析法都讲过</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">'预处理后的矩阵为：'</span>); <span class="built_in">disp</span>(gdp)</span><br><span class="line">Y = gdp(:,<span class="number">1</span>);  <span class="comment">% 母序列</span></span><br><span class="line">X = gdp(:,<span class="number">2</span>:<span class="keyword">end</span>); <span class="comment">% 子序列</span></span><br><span class="line">absX0_Xi = <span class="built_in">abs</span>(X - <span class="built_in">repmat</span>(Y,<span class="number">1</span>,<span class="built_in">size</span>(X,<span class="number">2</span>)))  <span class="comment">% 计算|X0-Xi|矩阵(在这里我们把X0定义为了Y)</span></span><br><span class="line">a = <span class="built_in">min</span>(<span class="built_in">min</span>(absX0_Xi))    <span class="comment">% 计算两级最小差a</span></span><br><span class="line">b = <span class="built_in">max</span>(<span class="built_in">max</span>(absX0_Xi))  <span class="comment">% 计算两级最大差b</span></span><br><span class="line">rho = <span class="number">0.5</span>; <span class="comment">% 分辨系数取0.5</span></span><br><span class="line"><span class="built_in">gamma</span> = (a+rho*b) ./ (absX0_Xi  + rho*b)  <span class="comment">% 计算子序列中各个指标与母序列的关联系数</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">'子序列中各个指标的灰色关联度分别为：'</span>)</span><br><span class="line"><span class="built_in">disp</span>(<span class="built_in">mean</span>(<span class="built_in">gamma</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">"gdp.csv"</span>, encoding=<span class="string">"gb2312"</span>)</span><br><span class="line"></span><br><span class="line">ans1 = df.values</span><br><span class="line"></span><br><span class="line">m,n = ans1.shape</span><br><span class="line"></span><br><span class="line">ans_mean = ans1.mean(axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">ans_pre = ans1 / ans_mean</span><br><span class="line"></span><br><span class="line">superline = ans_pre[:,<span class="number">0</span>].reshape(m,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">subline = ans_pre[:,<span class="number">1</span>:n]</span><br><span class="line"></span><br><span class="line">absline = abs(subline-np.tile(superline,(<span class="number">1</span>,n<span class="number">-1</span>)))</span><br><span class="line"></span><br><span class="line">a = absline.min()</span><br><span class="line"></span><br><span class="line">b = absline.max()</span><br><span class="line"></span><br><span class="line">rho = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">ans_Y = (a+rho*b) / (absline + rho * b)</span><br><span class="line"></span><br><span class="line">relevancy = ans_Y.mean(axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">print(relevancy)</span><br></pre></td></tr></table></figure>
+<h2 id="灰色关联分析用于综合评价"><a href="#灰色关联分析用于综合评价" class="headerlink" title="灰色关联分析用于综合评价"></a>灰色关联分析用于综合评价</h2><h3 id="matlab代码-1"><a href="#matlab代码-1" class="headerlink" title="matlab代码"></a>matlab代码</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 灰色关联分析用于综合评价模型例题的讲解</span></span><br><span class="line">clear;clc</span><br><span class="line">load data_water_quality.mat</span><br><span class="line"><span class="comment">% 不会导入数据的同学可以看看第二讲topsis模型，我们也可以自己在工作区新建变量，并把Excel的数据粘贴过来</span></span><br><span class="line"><span class="comment">% 注意Matlab的当前文件夹一定要切换到有数据文件的这个文件夹内</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%  判断是否需要正向化</span></span><br><span class="line">[n,m] = <span class="built_in">size</span>(X);</span><br><span class="line"><span class="built_in">disp</span>([<span class="string">'共有'</span> num2str(n) <span class="string">'个评价对象, '</span> num2str(m) <span class="string">'个评价指标'</span>]) </span><br><span class="line">Judge = input([<span class="string">'这'</span> num2str(m) <span class="string">'个指标是否需要经过正向化处理，需要请输入1 ，不需要输入0：  '</span>]);   <span class="comment">%1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> Judge == <span class="number">1</span></span><br><span class="line">    Position = input(<span class="string">'请输入需要正向化处理的指标所在的列，例如第2、3、6三列需要处理，那么你需要输入[2,3,6]： '</span>); <span class="comment">%[2,3,4]</span></span><br><span class="line">    <span class="built_in">disp</span>(<span class="string">'请输入需要处理的这些列的指  标类型（1：极小型， 2：中间型， 3：区间型） '</span>)</span><br><span class="line">    Type = input(<span class="string">'例如：第2列是极小型，第3列是区间型，第6列是中间型，就输入[1,3,2]：  '</span>); <span class="comment">%[2,1,3]</span></span><br><span class="line">    <span class="comment">% 注意，Position和Type是两个同维度的行向量</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : <span class="built_in">size</span>(Position,<span class="number">2</span>)  <span class="comment">%这里需要对这些列分别处理，因此我们需要知道一共要处理的次数，即循环的次数</span></span><br><span class="line">        X(:,Position(<span class="built_in">i</span>)) = Positivization(X(:,Position(<span class="built_in">i</span>)),Type(<span class="built_in">i</span>),Position(<span class="built_in">i</span>));</span><br><span class="line">    <span class="comment">% Positivization是我们自己定义的函数，其作用是进行正向化，其一共接收三个参数</span></span><br><span class="line">    <span class="comment">% 第一个参数是要正向化处理的那一列向量 X(:,Position(i))   回顾上一讲的知识，X(:,n)表示取第n列的全部元素</span></span><br><span class="line">    <span class="comment">% 第二个参数是对应的这一列的指标类型（1：极小型， 2：中间型， 3：区间型）</span></span><br><span class="line">    <span class="comment">% 第三个参数是告诉函数我们正在处理的是原始矩阵中的哪一列</span></span><br><span class="line">    <span class="comment">% 该函数有一个返回值，它返回正向化之后的指标，我们可以将其直接赋值给我们原始要处理的那一列向量</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">disp</span>(<span class="string">'正向化后的矩阵 X =  '</span>)</span><br><span class="line">    <span class="built_in">disp</span>(X)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 对正向化后的矩阵进行预处理</span></span><br><span class="line">Mean = <span class="built_in">mean</span>(X);  <span class="comment">% 求出每一列的均值以供后续的数据预处理</span></span><br><span class="line">Z = X ./ <span class="built_in">repmat</span>(Mean,<span class="built_in">size</span>(X,<span class="number">1</span>),<span class="number">1</span>);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">'预处理后的矩阵为：'</span>); <span class="built_in">disp</span>(Z)</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 构造母序列和子序列</span></span><br><span class="line">Y = <span class="built_in">max</span>(Z,[],<span class="number">2</span>);  <span class="comment">% 母序列为虚拟的，用每一行的最大值构成的列向量表示母序列</span></span><br><span class="line">X = Z; <span class="comment">% 子序列就是预处理后的数据矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 计算得分</span></span><br><span class="line">absX0_Xi = <span class="built_in">abs</span>(X - <span class="built_in">repmat</span>(Y,<span class="number">1</span>,<span class="built_in">size</span>(X,<span class="number">2</span>)))  <span class="comment">% 计算|X0-Xi|矩阵</span></span><br><span class="line">a = <span class="built_in">min</span>(<span class="built_in">min</span>(absX0_Xi))    <span class="comment">% 计算两级最小差a</span></span><br><span class="line">b = <span class="built_in">max</span>(<span class="built_in">max</span>(absX0_Xi))  <span class="comment">% 计算两级最大差b</span></span><br><span class="line">rho = <span class="number">0.5</span>; <span class="comment">% 分辨系数取0.5</span></span><br><span class="line"><span class="built_in">gamma</span> = (a+rho*b) ./ (absX0_Xi  + rho*b)  <span class="comment">% 计算子序列中各个指标与母序列的关联系数</span></span><br><span class="line">weight = <span class="built_in">mean</span>(<span class="built_in">gamma</span>) / sum(<span class="built_in">mean</span>(<span class="built_in">gamma</span>));  <span class="comment">% 利用子序列中各个指标的灰色关联度计算权重</span></span><br><span class="line">score = sum(X .* <span class="built_in">repmat</span>(weight,<span class="built_in">size</span>(X,<span class="number">1</span>),<span class="number">1</span>),<span class="number">2</span>);   <span class="comment">% 未归一化的得分</span></span><br><span class="line">stand_S = score / sum(score);   <span class="comment">% 归一化后的得分</span></span><br><span class="line">[sorted_S,index] = <span class="built_in">sort</span>(stand_S ,<span class="string">'descend'</span>) <span class="comment">% 进行排序</span></span><br></pre></td></tr></table></figure>
+<h3 id="python-1"><a href="#python-1" class="headerlink" title="python"></a>python</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PositiveMinToMax</span><span class="params">(datas)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> np.max(datas) - datas  <span class="comment"># 套公式</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 中间型指标 -&gt; 极大型指标</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PositiveMidToMax</span><span class="params">(datas, x_best)</span>:</span></span><br><span class="line">    temp_datas = datas - x_best</span><br><span class="line">    M = np.max(abs(temp_datas))</span><br><span class="line">    answer_datas = <span class="number">1</span> - abs(datas - x_best) / M  <span class="comment"># 套公式</span></span><br><span class="line">    <span class="keyword">return</span> answer_datas</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 区间型指标 -&gt; 极大型指标</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PositiveIntToMax</span><span class="params">(datas, x_min, x_max)</span>:</span></span><br><span class="line">    M = max(x_min - np.min(datas), np.max(datas) - x_max)</span><br><span class="line">    answer_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> datas:</span><br><span class="line">        <span class="keyword">if</span> i &lt; x_min:</span><br><span class="line">            answer_list.append(<span class="number">1</span> - (x_min - i) / M)  <span class="comment"># 套公式</span></span><br><span class="line">        <span class="keyword">elif</span> x_min &lt;= i &lt;= x_max:</span><br><span class="line">            answer_list.append(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            answer_list.append(<span class="number">1</span> - (i - x_max) / M)</span><br><span class="line">    <span class="keyword">return</span> np.array(answer_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    df = pd.read_csv(<span class="string">"20条河流的水质情况数据.csv"</span>)</span><br><span class="line"></span><br><span class="line">    ans1 = df.values</span><br><span class="line"></span><br><span class="line">    m, n = ans1.shape</span><br><span class="line"></span><br><span class="line">    ans2 = np.array([ans1[:, <span class="number">0</span>], PositiveMidToMax(ans1[:, <span class="number">1</span>], <span class="number">7</span>), PositiveMinToMax(ans1[:, <span class="number">2</span>]),</span><br><span class="line">                     PositiveIntToMax(ans1[:, <span class="number">3</span>], <span class="number">10</span>, <span class="number">20</span>)])</span><br><span class="line"></span><br><span class="line">    ans3 = np.array(ans2).T</span><br><span class="line"></span><br><span class="line">    ans_pre = ans3 / ans3.mean(axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    superline = ans_pre.max(axis=<span class="number">1</span>).reshape(m,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    subline = ans_pre</span><br><span class="line"></span><br><span class="line">    absline = abs(subline - np.tile(superline, (<span class="number">1</span>, n)))</span><br><span class="line"></span><br><span class="line">    a = absline.min()</span><br><span class="line"></span><br><span class="line">    b = absline.max()</span><br><span class="line"></span><br><span class="line">    rho = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">    ans_Y = (a + rho * b) / (absline + rho * b)</span><br><span class="line"></span><br><span class="line">    relevancy = ans_Y.mean(axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    weight = relevancy / sum(relevancy)</span><br><span class="line"></span><br><span class="line">    score = np.sum(subline * weight,axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    score_std = score / sum(score)</span><br><span class="line"></span><br><span class="line">    sorted_S = np.sort(score_std)[::<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">    print(sorted_S)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/17/熵权法代码/" rel="next" title="熵权法代码">
+                <i class="fa fa-chevron-left"></i> 熵权法代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/18/FreeRTOS多任务基础/" rel="prev" title="FreeRTOS多任务基础">
+                FreeRTOS多任务基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#灰色关联分析用于系统分析"><span class="nav-number">1.</span> <span class="nav-text">灰色关联分析用于系统分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#matlab代码"><span class="nav-number">1.1.</span> <span class="nav-text">matlab代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.2.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#灰色关联分析用于综合评价"><span class="nav-number">2.</span> <span class="nav-text">灰色关联分析用于综合评价</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#matlab代码-1"><span class="nav-number">2.1.</span> <span class="nav-text">matlab代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-1"><span class="nav-number">2.2.</span> <span class="nav-text">python</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

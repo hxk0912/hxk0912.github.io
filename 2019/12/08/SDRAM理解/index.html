@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SDRAM信号线    信号线 说明     CLK 时钟信号，在上升沿采集输入信号   CKE 输入时钟使能，禁止时钟会进入自刷新模式   CS~ 片选信号，低电平有效   RAS~ 行地址选通信号，低电平有效，表示行地址   CAS~ 列地址选通信号，低电平有效，表示列地址   WE~ 写使能信号，低电平有效   A0~A12 地址线（行\列）   BS0,BS1 BANK地址线   DQ0~">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDRAM理解">
+<meta property="og:url" content="https://hxk0912.github.io/2019/12/08/SDRAM理解/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="SDRAM信号线    信号线 说明     CLK 时钟信号，在上升沿采集输入信号   CKE 输入时钟使能，禁止时钟会进入自刷新模式   CS~ 片选信号，低电平有效   RAS~ 行地址选通信号，低电平有效，表示行地址   CAS~ 列地址选通信号，低电平有效，表示列地址   WE~ 写使能信号，低电平有效   A0~A12 地址线（行\列）   BS0,BS1 BANK地址线   DQ0~">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.372Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SDRAM理解">
+<meta name="twitter:description" content="SDRAM信号线    信号线 说明     CLK 时钟信号，在上升沿采集输入信号   CKE 输入时钟使能，禁止时钟会进入自刷新模式   CS~ 片选信号，低电平有效   RAS~ 行地址选通信号，低电平有效，表示行地址   CAS~ 列地址选通信号，低电平有效，表示列地址   WE~ 写使能信号，低电平有效   A0~A12 地址线（行\列）   BS0,BS1 BANK地址线   DQ0~">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2019/12/08/SDRAM理解/">
+
+
+
+
+
+  <title>SDRAM理解 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2019/12/08/SDRAM理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SDRAM理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-08T22:54:14+08:00">
+                2019-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/STM32外设使用/" itemprop="url" rel="index">
+                    <span itemprop="name">STM32外设使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SDRAM信号线"><a href="#SDRAM信号线" class="headerlink" title="SDRAM信号线"></a>SDRAM信号线</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号线</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLK</td>
+<td>时钟信号，在上升沿采集输入信号</td>
+</tr>
+<tr>
+<td>CKE</td>
+<td>输入时钟使能，禁止时钟会进入自刷新模式</td>
+</tr>
+<tr>
+<td>CS~</td>
+<td>片选信号，低电平有效</td>
+</tr>
+<tr>
+<td>RAS~</td>
+<td>行地址选通信号，低电平有效，表示行地址</td>
+</tr>
+<tr>
+<td>CAS~</td>
+<td>列地址选通信号，低电平有效，表示列地址</td>
+</tr>
+<tr>
+<td>WE~</td>
+<td>写使能信号，低电平有效</td>
+</tr>
+<tr>
+<td>A0~A12</td>
+<td>地址线（行\列）</td>
+</tr>
+<tr>
+<td>BS0,BS1</td>
+<td>BANK地址线</td>
+</tr>
+<tr>
+<td>DQ0~15</td>
+<td>数据线</td>
+</tr>
+<tr>
+<td>LDQM,UDQM</td>
+<td>数据掩码，表示DQ的有效部分</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h2><h3 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h3><p>SDRAM的存储单元（BANK）以阵列方式排列。同时BANK一般也有4片，分别为BANK0~3。</p>
+<p><em>寻址方式为：当寻址时，先是RAS行选，将地址输入后锁存到里面，然后BANK也会选中其中一片并锁存。然后CAS列选，然后将列地址也锁存进去。这样就完成了一次寻址。</em></p>
+<p><strong>W9825G6KH 的存储结构为：行地址：8192 个；列地址：512 个；BANK 数：4 个；位宽：<br>16 位；这样，整个芯片的容量为：8192*512*4*16=32M 字节。</strong></p>
+<h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3><p>在实际使用的时候，我们可能会以：8 位、16 位、24 位和32 位等宽度来读写数据，这样的话，并不是每条数据线，都会被使用到，未被用到的数据线上面的数据，必须被忽略，这个时候就需要用到数据掩码（DQM）线来控制了，每一个数码线，对应8 个位的数据，低电平表示对应数据位有效，高电平表示对应数据位无效。以W9825G6KH 为例，假设以8 位数据访问，我们只需要DQ0~DQ7 的数据，而DQ8~DQ15的数据需要忽略，此时，我们只需要设置LDQM 为低电平，UDQM 为高电平，就可以了。</p>
+<h3 id="控制命令"><a href="#控制命令" class="headerlink" title="控制命令"></a>控制命令</h3><p>1.Precharge</p>
+<p>Precharge，即预充电指令，用于关闭Bank中所打开的行地址。由于SDRAM的寻址具体独占性，所以在进行完读写操作后，如果要对同一Bank的另一行进行寻址，就要将原来有效（打开）的行关闭，重新发送行/列地址。Bank关闭现有行，准备打开新行的操作就叫做预充电（Precharge）。</p>
+<p>2.Refresh</p>
+<p>Refresh，即刷新命令，用于刷新一行数据。SDRAM里面存储的数据，需要不断的进行刷新操作才能保留住，因此刷新命令对于SDRAM来说，尤为重要。预充电命令和刷新命令，都可以实现对 SDRAM 数据的刷新，不过预充电仅对当前打开的行有效（仅刷新当前行），而刷新命令，则可以依次对所有的行进行刷新操作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/28/Qt中main函数理解/" rel="next" title="Qt中main函数理解">
+                <i class="fa fa-chevron-left"></i> Qt中main函数理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/10/FSMC-FMC接口理解/" rel="prev" title="FSMC/FMC接口理解">
+                FSMC/FMC接口理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDRAM信号线"><span class="nav-number">1.</span> <span class="nav-text">SDRAM信号线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储单元"><span class="nav-number">2.</span> <span class="nav-text">存储单元</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻址方式"><span class="nav-number">2.1.</span> <span class="nav-text">寻址方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传输"><span class="nav-number">2.2.</span> <span class="nav-text">数据传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制命令"><span class="nav-number">2.3.</span> <span class="nav-text">控制命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="信号的分类 确定与随机信号 连续与离散信号 模拟与数字信号（模拟信号抽样是是抽样信号，时间离散，幅值连续。） 周期与非周期信号 偶信号与奇信号 任何信号都可以分解成偶信号和奇信号之和    因果信号与非因果信号 因果信号—-仅在自变量时间的正半轴闭区间 (0≤t&amp;lt;∞或0≤n&amp;lt;∞)内取非零值的信号。 非因果信号—-只要在自变量时间的负半轴开区间(-∞&amp;lt;t&amp;lt;0或-∞&amp;lt;n&amp;">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信号与系统">
+<meta property="og:url" content="https://hxk0912.github.io/2020/03/23/信号与系统/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="信号的分类 确定与随机信号 连续与离散信号 模拟与数字信号（模拟信号抽样是是抽样信号，时间离散，幅值连续。） 周期与非周期信号 偶信号与奇信号 任何信号都可以分解成偶信号和奇信号之和    因果信号与非因果信号 因果信号—-仅在自变量时间的正半轴闭区间 (0≤t&amp;lt;∞或0≤n&amp;lt;∞)内取非零值的信号。 非因果信号—-只要在自变量时间的负半轴开区间(-∞&amp;lt;t&amp;lt;0或-∞&amp;lt;n&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*apEehjqHhHjXoraCGS3O3p0CCZAAiDoberOnRUoTbYsYqAOE05QOzbDgS245MM8sw!!/b&bo=FQRdAgAAAAARB34!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*WYDujFZC0NXYfjE2zSK3ULzfv2zriCDnUCOSZpwl*1MxOg94Sg6Q6elgfIV4t3qYQ!!/b&bo=BARxAgAAAAARB0M!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*XA2mPlF18euOQwf0Fyvwj1*tSDcWwmmQFi16ouGHOHi1aDHEOlA0YoHKCuWUlTbuw!!/b&bo=awQOAgAAAAARB1M!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*Sr0yywUz5vIHgG0TFv9xlkbcgSTQaFzA.cHms4g25fsOYA4uloDkrqEl6Wf6uxNEQ!!/b&bo=LQSlAgAAAAARB74!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*Sr0yywUz5vIHgG0TFv9xlkbcgSTQaFzA.cHms4g25fsOYA4uloDkrqEl6Wf6uxNEQ!!/b&bo=LQSlAgAAAAARB74!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*YASXtfnZ3Geh1ekmmp7PxmKqS8xWIHaIVhIdmgRHxH38ajnuDPadB*1gDXXLG2Nfg!!/b&bo=GQRFAgAAAAARB2o!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*cvyig89wvHb2sKaSUU9BGVTOFSOomSnB.prPJ*UCRuhw.7oNDaFYd*tTDRGfIWV4Q!!/b&bo=HgSdAgAAAAARB7U!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nlAPAcECwox46kTOsPL1uYs1f5gmP9ZMzqwBuOVD.FBWHPOURAWfPxuFnp884g83.*I54p3dav*pq0oThT8I75s!/b&bo=JASmAgAAAAARF6Q!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nsRTD257EDuqPz8RS*zMq5ilrmZ9fWIBMvE3.ZwjJan7eioxzWEAUweA8RIKHJgLuPLLsVrmDtwPDY9kI15WpS0!/b&bo=TQT3AgAAAAARF5w!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nlIC*haud40FoouX1S3Q06hQhJ4pFWUuVY64Zi8QjkXcPBLh54PhYa1scW2wg1*4FRqWaNxhRmW.Txv84nsV4fU!/b&bo=4QMIAgAAAAARF8g!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nuDitXWBqxFmpfbSzfhjVrIu1WDnuPn8hOps2v52hU5kxtm7UTMHeiCitsVuPbuIsQWMPG*C1HS9QemLZLaxa4g!/b&bo=XANPAQAAAAARFzE!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="信号与系统">
+<meta name="twitter:description" content="信号的分类 确定与随机信号 连续与离散信号 模拟与数字信号（模拟信号抽样是是抽样信号，时间离散，幅值连续。） 周期与非周期信号 偶信号与奇信号 任何信号都可以分解成偶信号和奇信号之和    因果信号与非因果信号 因果信号—-仅在自变量时间的正半轴闭区间 (0≤t&amp;lt;∞或0≤n&amp;lt;∞)内取非零值的信号。 非因果信号—-只要在自变量时间的负半轴开区间(-∞&amp;lt;t&amp;lt;0或-∞&amp;lt;n&amp;">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*apEehjqHhHjXoraCGS3O3p0CCZAAiDoberOnRUoTbYsYqAOE05QOzbDgS245MM8sw!!/b&bo=FQRdAgAAAAARB34!&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/03/23/信号与系统/">
+
+
+
+
+
+  <title>信号与系统 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/03/23/信号与系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">信号与系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-23T08:56:52+08:00">
+                2020-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/信号与系统/" itemprop="url" rel="index">
+                    <span itemprop="name">信号与系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="信号的分类"><a href="#信号的分类" class="headerlink" title="信号的分类"></a>信号的分类</h2><ol>
+<li>确定与随机信号</li>
+<li>连续与离散信号</li>
+<li>模拟与数字信号（模拟信号抽样是是抽样信号，时间离散，幅值连续。）</li>
+<li>周期与非周期信号</li>
+<li>偶信号与奇信号<ul>
+<li>任何信号都可以分解成偶信号和奇信号之和</li>
+<li><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*apEehjqHhHjXoraCGS3O3p0CCZAAiDoberOnRUoTbYsYqAOE05QOzbDgS245MM8sw!!/b&amp;bo=FQRdAgAAAAARB34!&amp;rf=viewer_4" alt="alt"></li>
+</ul>
+</li>
+<li>因果信号与非因果信号<ol>
+<li>因果信号—-仅在自变量时间的正半轴闭区间 (0≤t&lt;∞或0≤n&lt;∞)内取非零值的信号。</li>
+<li>非因果信号—-只要在自变量时间的负半轴开区间(-∞&lt;t&lt;0或-∞&lt;n&lt;0)内有非零取值的信号。<br>  反因果信号—-仅在负时域内取非零值的信号。\<br>  双边信号—-正负时域内均有非零取值的信号，可表示成一个反因果信号与一个因果信号的和。</li>
+</ol>
+</li>
+<li>实信号与复信号</li>
+<li>一维信号和多微信号（描述信号的自变量个数）</li>
+<li>能量信号与功率信号<ol>
+<li>定义<img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*WYDujFZC0NXYfjE2zSK3ULzfv2zriCDnUCOSZpwl*1MxOg94Sg6Q6elgfIV4t3qYQ!!/b&amp;bo=BARxAgAAAAARB0M!&amp;rf=viewer_4" alt="alt"></li>
+<li>能量信号：信号能量非零有限、平均功率为0、持续时间有限</li>
+<li>功率信号：信号能量无限，平均功率非零有限。</li>
+</ol>
+</li>
+</ol>
+<h2 id="指数与正弦信号"><a href="#指数与正弦信号" class="headerlink" title="指数与正弦信号"></a>指数与正弦信号</h2><h3 id="连续时间复指数信号"><a href="#连续时间复指数信号" class="headerlink" title="连续时间复指数信号"></a>连续时间复指数信号</h3><p>$X(t)=Ce^{at}$</p>
+<ul>
+<li>C和a都是实数的时候，是实指数信号。</li>
+<li>a是纯虚数的时候，是周期信号</li>
+</ul>
+<h4 id="周期复指数信号的能量与功率"><a href="#周期复指数信号的能量与功率" class="headerlink" title="周期复指数信号的能量与功率"></a>周期复指数信号的能量与功率</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*XA2mPlF18euOQwf0Fyvwj1*tSDcWwmmQFi16ouGHOHi1aDHEOlA0YoHKCuWUlTbuw!!/b&amp;bo=awQOAgAAAAARB1M!&amp;rf=viewer_4" alt="alt"></p>
+<h4 id="一般复指数信号"><a href="#一般复指数信号" class="headerlink" title="一般复指数信号"></a>一般复指数信号</h4><p>C和a都是复数，那么整个信号相当于是阻尼振荡。</p>
+<h3 id="离散时间复指数信号"><a href="#离散时间复指数信号" class="headerlink" title="离散时间复指数信号"></a>离散时间复指数信号</h3><p>$X[n]=C\alpha^n$<br>若$\alpha =e^{\beta}$那么离散时间信号与连续时间信号的基本形式相似。</p>
+<ul>
+<li>C和α都是实数，信号是实指数信号。</li>
+<li>若$X[n]=Ce^{\beta n},n是纯虚数$，那就与连续信号时情况相同。</li>
+<li>一般复指数信号信号状况相同。</li>
+</ul>
+<h3 id="离散复指数序列的周期性质。"><a href="#离散复指数序列的周期性质。" class="headerlink" title="离散复指数序列的周期性质。"></a>离散复指数序列的周期性质。</h3><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*Sr0yywUz5vIHgG0TFv9xlkbcgSTQaFzA.cHms4g25fsOYA4uloDkrqEl6Wf6uxNEQ!!/b&amp;bo=LQSlAgAAAAARB74!&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*Sr0yywUz5vIHgG0TFv9xlkbcgSTQaFzA.cHms4g25fsOYA4uloDkrqEl6Wf6uxNEQ!!/b&amp;bo=LQSlAgAAAAARB74!&amp;rf=viewer_4" alt="alt"></p>
+<h2 id="离散时间单位脉冲与单位阶跃序列"><a href="#离散时间单位脉冲与单位阶跃序列" class="headerlink" title="离散时间单位脉冲与单位阶跃序列"></a>离散时间单位脉冲与单位阶跃序列</h2><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*YASXtfnZ3Geh1ekmmp7PxmKqS8xWIHaIVhIdmgRHxH38ajnuDPadB*1gDXXLG2Nfg!!/b&amp;bo=GQRFAgAAAAARB2o!&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*cvyig89wvHb2sKaSUU9BGVTOFSOomSnB.prPJ*UCRuhw.7oNDaFYd*tTDRGfIWV4Q!!/b&amp;bo=HgSdAgAAAAARB7U!&amp;rf=viewer_4" alt="alt"></p>
+<h2 id="连续时间单位脉冲与单位阶跃序列"><a href="#连续时间单位脉冲与单位阶跃序列" class="headerlink" title="连续时间单位脉冲与单位阶跃序列"></a>连续时间单位脉冲与单位阶跃序列</h2><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nlAPAcECwox46kTOsPL1uYs1f5gmP9ZMzqwBuOVD.FBWHPOURAWfPxuFnp884g83.*I54p3dav*pq0oThT8I75s!/b&amp;bo=JASmAgAAAAARF6Q!&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nsRTD257EDuqPz8RS*zMq5ilrmZ9fWIBMvE3.ZwjJan7eioxzWEAUweA8RIKHJgLuPLLsVrmDtwPDY9kI15WpS0!/b&amp;bo=TQT3AgAAAAARF5w!&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nlIC*haud40FoouX1S3Q06hQhJ4pFWUuVY64Zi8QjkXcPBLh54PhYa1scW2wg1*4FRqWaNxhRmW.Txv84nsV4fU!/b&amp;bo=4QMIAgAAAAARF8g!&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nuDitXWBqxFmpfbSzfhjVrIu1WDnuPn8hOps2v52hU5kxtm7UTMHeiCitsVuPbuIsQWMPG*C1HS9QemLZLaxa4g!/b&bo=XANPAQAAAAARFzE!&rf=viewer_4" style="zoom:50%"></p>
+<h2 id="基本系统性质"><a href="#基本系统性质" class="headerlink" title="基本系统性质"></a>基本系统性质</h2><h3 id="记忆系统与无记忆系统"><a href="#记忆系统与无记忆系统" class="headerlink" title="记忆系统与无记忆系统"></a>记忆系统与无记忆系统</h3><p>无记忆系统: 系统输出仅仅决定于系统该时刻的输入.</p>
+<p>记忆系统: 系统输出与系统该时刻的输入以及过去<br>的输入有关, 或者与将来的输出有关。</p>
+<h3 id="可逆系统与不可逆系统"><a href="#可逆系统与不可逆系统" class="headerlink" title="可逆系统与不可逆系统"></a>可逆系统与不可逆系统</h3><p>不同的输入有不同的输出，则系统是可逆的，<br>且有逆系统存在。</p>
+<h3 id="因果系统与非因果系统"><a href="#因果系统与非因果系统" class="headerlink" title="因果系统与非因果系统"></a>因果系统与非因果系统</h3><p>输出只决定于现在的输入以及过去的输入，则系统<br>是因果系统。由于与将来的输入无关，也称为不可<br>预测系统。</p>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>当输入有界，输出也有界，则系统是稳定的。</p>
+<h3 id="时不变性"><a href="#时不变性" class="headerlink" title="时不变性"></a>时不变性</h3><p>系统特性不随时间的变化而变化的系统是时<br>不变系统。</p>
+<h3 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h3><p>齐次可加性</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/16/matlab处理excel数据/" rel="next" title="matlab处理excel数据">
+                <i class="fa fa-chevron-left"></i> matlab处理excel数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/23/层次分析法/" rel="prev" title="层次分析法">
+                层次分析法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#信号的分类"><span class="nav-number">1.</span> <span class="nav-text">信号的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指数与正弦信号"><span class="nav-number">2.</span> <span class="nav-text">指数与正弦信号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#连续时间复指数信号"><span class="nav-number">2.1.</span> <span class="nav-text">连续时间复指数信号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#周期复指数信号的能量与功率"><span class="nav-number">2.1.1.</span> <span class="nav-text">周期复指数信号的能量与功率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般复指数信号"><span class="nav-number">2.1.2.</span> <span class="nav-text">一般复指数信号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离散时间复指数信号"><span class="nav-number">2.2.</span> <span class="nav-text">离散时间复指数信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离散复指数序列的周期性质。"><span class="nav-number">2.3.</span> <span class="nav-text">离散复指数序列的周期性质。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#离散时间单位脉冲与单位阶跃序列"><span class="nav-number">3.</span> <span class="nav-text">离散时间单位脉冲与单位阶跃序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续时间单位脉冲与单位阶跃序列"><span class="nav-number">4.</span> <span class="nav-text">连续时间单位脉冲与单位阶跃序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本系统性质"><span class="nav-number">5.</span> <span class="nav-text">基本系统性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记忆系统与无记忆系统"><span class="nav-number">5.1.</span> <span class="nav-text">记忆系统与无记忆系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可逆系统与不可逆系统"><span class="nav-number">5.2.</span> <span class="nav-text">可逆系统与不可逆系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#因果系统与非因果系统"><span class="nav-number">5.3.</span> <span class="nav-text">因果系统与非因果系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稳定性"><span class="nav-number">5.4.</span> <span class="nav-text">稳定性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时不变性"><span class="nav-number">5.5.</span> <span class="nav-text">时不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性"><span class="nav-number">5.6.</span> <span class="nav-text">线性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

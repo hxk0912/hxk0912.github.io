@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="8086内部结构 执行部件EU (execution unit):  负责指令的译码、执行和数据的运算  总线接口部件BIU (bus interface unit):  管理CPU与系统总线的接口 负责CPU对存储器和外设进行访问  两个单元在大多数情况下独立操作，还可以并行执行，执行上一个命令同时读取下一个命令。 8086/8088寄存器组 8个通用寄存器 4个段寄存器 1个标志寄存器 1个指">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微处理器与总线">
+<meta property="og:url" content="https://hxk0912.github.io/2020/02/26/微处理器与总线/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="8086内部结构 执行部件EU (execution unit):  负责指令的译码、执行和数据的运算  总线接口部件BIU (bus interface unit):  管理CPU与系统总线的接口 负责CPU对存储器和外设进行访问  两个单元在大多数情况下独立操作，还可以并行执行，执行上一个命令同时读取下一个命令。 8086/8088寄存器组 8个通用寄存器 4个段寄存器 1个标志寄存器 1个指">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nmeCHdj7WnYmD2HAWANj4.hiS8n0RL2Ms1nbtiM1n12J9cr5wQb.N3RmH2okoDXlRzcLegn*rAwFZRnJdMytI8s!/b&bo=ZQODAgAAAAADB8U!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ngrdm4OgDy0whWuuZKl0TKFeFTMWctYPHRsIjHrjw6vY9ePJOeyThCaEVi2el8DeIc2j8Z.k6HvGOc.rhmjw1Ps!/b&bo=WAPhAQAAAAADB5k!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*Wnh6pMryuBllNYlmZrmEsTVOtg6roBSR9rNAi8PM7ukcnfJfEg*HXIzcOAYc3Sl6Q!!/b&bo=BANDAQAAAAADB2c!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*cLmbdWsW8R5J.9a1fpAIQSB4V1os2dNlYH.RMHm0DhYgBmImHWmE3usVs0uYcMsjQ!!/b&bo=kAKqAQAAAAARBwk!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*TA4aLrwd.gOt.y3O62g3PE8lI25nKwKAEWOM6LQFpWaEeBvjEEeVq.GFUAaj.p*JQ!!/b&bo=iwLmAAAAAAARB18!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微处理器与总线">
+<meta name="twitter:description" content="8086内部结构 执行部件EU (execution unit):  负责指令的译码、执行和数据的运算  总线接口部件BIU (bus interface unit):  管理CPU与系统总线的接口 负责CPU对存储器和外设进行访问  两个单元在大多数情况下独立操作，还可以并行执行，执行上一个命令同时读取下一个命令。 8086/8088寄存器组 8个通用寄存器 4个段寄存器 1个标志寄存器 1个指">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nmeCHdj7WnYmD2HAWANj4.hiS8n0RL2Ms1nbtiM1n12J9cr5wQb.N3RmH2okoDXlRzcLegn*rAwFZRnJdMytI8s!/b&bo=ZQODAgAAAAADB8U!&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/02/26/微处理器与总线/">
+
+
+
+
+
+  <title>微处理器与总线 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/02/26/微处理器与总线/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微处理器与总线</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-26T08:08:44+08:00">
+                2020-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/微机原理与接口技术/" itemprop="url" rel="index">
+                    <span itemprop="name">微机原理与接口技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="8086内部结构"><a href="#8086内部结构" class="headerlink" title="8086内部结构"></a>8086内部结构</h2><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nmeCHdj7WnYmD2HAWANj4.hiS8n0RL2Ms1nbtiM1n12J9cr5wQb.N3RmH2okoDXlRzcLegn*rAwFZRnJdMytI8s!/b&amp;bo=ZQODAgAAAAADB8U!&amp;rf=viewer_4" alt="alt"></p>
+<p>执行部件EU (execution unit):</p>
+<ul>
+<li>负责指令的译码、执行和数据的运算</li>
+</ul>
+<p>总线接口部件BIU (bus interface unit):</p>
+<ul>
+<li>管理CPU与系统总线的接口</li>
+<li>负责CPU对存储器和外设进行访问</li>
+</ul>
+<p>两个单元在大多数情况下独立操作，还可以并行执行，执行上一个命令同时读取下一个命令。</p>
+<h2 id="8086-8088寄存器组"><a href="#8086-8088寄存器组" class="headerlink" title="8086/8088寄存器组"></a>8086/8088寄存器组</h2><ul>
+<li>8个通用寄存器</li>
+<li>4个段寄存器</li>
+<li>1个标志寄存器</li>
+<li>1个指令指针寄存器</li>
+</ul>
+<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><ul>
+<li>数据寄存器:  AX   BX   CX   DX</li>
+<li>变址寄存器:  SI    DI</li>
+<li>指针寄存器:  BP   SP</li>
+</ul>
+<p>4个数据寄存器还可以分成高8位和低8位2个独立的寄存器<br>8个通用8位寄存器<br>AX： AH   AL    BX： BH   BL<br>CX： CH   CL    DX： DH   DL</p>
+<ul>
+<li>AX-累加器（accumulator） 使用频度最高，用于算术、逻辑运算以及与外设传送信息等</li>
+</ul>
+<p>8位累加器为AL</p>
+<ul>
+<li>BX-基址寄存器（base address register） 常用做存放存储器地址</li>
+<li>CX-计数器（counter） 作为循环和串操作等指令中的隐含计数器</li>
+<li>DX-数据寄存器（data register） 常用来存放双字长数据的高16位，或存放外设端口地址</li>
+</ul>
+<p>16位变址寄存器SI和DI，常用于存储器变址寻址方式时提供地址</p>
+<ul>
+<li>SI   源地址寄存器（source index）</li>
+<li>DI  目的地址寄存器（destination index）</li>
+</ul>
+<p>指针寄存器用于寻址内存堆栈内的数据</p>
+<ul>
+<li>SP    堆栈指针寄存器（stack Pointer） 指示堆栈段栈顶的位置（偏移地址）</li>
+<li>BP   基址指针寄存器（base pointer） 表示数据在堆栈段中的基地址</li>
+</ul>
+<h3 id="指令指针寄存器"><a href="#指令指针寄存器" class="headerlink" title="指令指针寄存器"></a>指令指针寄存器</h3><p>IP 指令指针寄存器（instruction pointer）</p>
+<ul>
+<li>指示主存储器指令的位置</li>
+<li>随着指令的执行，IP将自动修改以指示下一条指令所在的存储器位置</li>
+<li>IP寄存器是一个专用寄存器</li>
+</ul>
+<p>IP寄存器与CS段寄存器联合使用以确定下一条指令的存储单元地址</p>
+<p><strong>程序中不能直接使用IP寄存器</strong></p>
+<h3 id="标志"><a href="#标志" class="headerlink" title="标志"></a>标志</h3><p>标志（flag）用于反映指令执行结果或控制指令执行形式。</p>
+<p>处理器的各种标志形成了1个16位的标志寄存器FLAGS（程序状态字PSW寄存器）。</p>
+<ul>
+<li>CF 进位标志 进位CF=1</li>
+<li>ZF 零标志   运算结果为0，ZF=1</li>
+<li>SF 符号标志 运算结果最高位为1，SF=1</li>
+<li>PF 奇偶标志 运算结果最低8位中“1”的个数为偶数，PF=1</li>
+<li>OF 溢出标志 算术运算结果有溢出，OF=1</li>
+<li>AF 辅助进位标志 运算时D3位有进位或借位时，AF=1</li>
+<li>DF 方向标志 用于串操作指令中，控制地址的变化方向。DF=0时，存储器地址自动增加。</li>
+<li>IF 中断允许标志 允许中断，IF=1。</li>
+<li>TF 陷阱标志 单步执行指令时，TF=1</li>
+</ul>
+<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><ul>
+<li>CS-代码段寄存器（code segment） 指明当前代码段的起始地址</li>
+<li>DS-数据段寄存器（data segment） 指明当前数据段的起始地址</li>
+<li>ES-附加段寄存器（extra segment） 指明当前附加段的起始地址</li>
+<li>SS-堆栈段寄存器（stack segment） 指明当前堆栈段的起始地址</li>
+</ul>
+<h2 id="存储器结构"><a href="#存储器结构" class="headerlink" title="存储器结构"></a>存储器结构</h2><p>每个存储单元都有一个编号，被称为存储器地址</p>
+<p>每个存储单元存放一个字节的内容</p>
+<p>0002H单元存放有一个数据34H，表达为    [0002H]＝34H</p>
+<h3 id="小端方式"><a href="#小端方式" class="headerlink" title="小端方式"></a>小端方式</h3><p>多字节数据在存储器中占连续的多个字节存储单元存放时，低字节存入低地址，高字节存入高地址；</p>
+<p>表达时，用它的低地址表示多字节数据占据的地址空间。</p>
+<p>[0002H]＝1234H时 0002H存入34H，0003H存入12H</p>
+<h2 id="存储器的分段管理"><a href="#存储器的分段管理" class="headerlink" title="存储器的分段管理"></a>存储器的分段管理</h2><h3 id="段基地址和偏移地址"><a href="#段基地址和偏移地址" class="headerlink" title="段基地址和偏移地址"></a>段基地址和偏移地址</h3><h4 id="段基地址"><a href="#段基地址" class="headerlink" title="段基地址"></a>段基地址</h4><ul>
+<li>指明逻辑段在主存储器中的起始位置</li>
+<li>必须是16的整数倍！ </li>
+<li>即：xxxx0H省略低4位0000B, 段地址可用16位数据表示, 因此，就能用16位段寄存器表达段基地址。</li>
+</ul>
+<h4 id="偏移地址"><a href="#偏移地址" class="headerlink" title="偏移地址"></a>偏移地址</h4><ul>
+<li>指明存储器单元距离段起始位置的偏移量</li>
+<li>每段不超过64KB, 偏移地址也可用16位数据表示</li>
+<li>也称有效地址EA（effective address）</li>
+</ul>
+<h3 id="物理地址和逻辑地址"><a href="#物理地址和逻辑地址" class="headerlink" title="物理地址和逻辑地址"></a>物理地址和逻辑地址</h3><h4 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h4><p>PA 8086/8088的存储系统中，对应每个存储单元都有一个唯一的20位编号；范围：00000H ~ FFFFFH。</p>
+<h4 id="逻辑地址"><a href="#逻辑地址" class="headerlink" title="逻辑地址"></a>逻辑地址</h4><p>程序员编程时采用。</p>
+<h4 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h4><p>物理地址：12345H<br>逻辑地址：1234H：0005H</p>
+<p><strong>一个物理地址可能对应很多个逻辑地址，但是逻辑地址的最低4位一定与物理地址最低4位相同。</strong></p>
+<h3 id="段寄存器-段寄存器"><a href="#段寄存器-段寄存器" class="headerlink" title="段寄存器 - 段寄存器"></a>段寄存器 - 段寄存器</h3><h4 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h4><p>代码段用来存放程序的指令序列</p>
+<p>CS：存放代码段的段基地址<br>IP：指示下条指令的偏移地址</p>
+<p>处理器利用CS: IP取得下一条要执行的指令</p>
+<h4 id="数据段"><a href="#数据段" class="headerlink" title="数据段"></a>数据段</h4><p>数据段存放运行程序所用的数据</p>
+<p>DS：存放数据段的段基地址<br>有效地址EA：存储器操作数的偏移地址</p>
+<p>处理器利用DS: EA存取数据段中的数据</p>
+<h4 id="附加段"><a href="#附加段" class="headerlink" title="附加段"></a>附加段</h4><p>附加段是附加的数据段，也保存数据</p>
+<p>ES：存放附加段的段基地址<br>有效地址EA：存储器操作数的偏移地址</p>
+<p>处理器利用ES: EA存取附加段中的数据</p>
+<p>串操作指令将附加段作为其目的操作数的存放区域</p>
+<h4 id="堆栈段"><a href="#堆栈段" class="headerlink" title="堆栈段"></a>堆栈段</h4><p>堆栈段确定堆栈所在的主存区域</p>
+<p>SS：存放堆栈段的段基地址<br>SP：指示堆栈栈顶的偏移地址</p>
+<p>处理器利用SS: SP操作堆栈顶的数据</p>
+<h3 id="段超越"><a href="#段超越" class="headerlink" title="段超越"></a>段超越</h3><p>没有指明时，一般的数据访问在DS段。默认的情况允许改变，需要使用段超越前缀。</p>
+<ul>
+<li>CS: 代码段超越，使用代码段的数据</li>
+<li>SS: 堆栈段超越，使用堆栈段的数据</li>
+<li>DS: 数据段超越，使用数据段的数据</li>
+<li>ES: 附加段超越，使用附加段的数据</li>
+</ul>
+<p>没有段超越的指令实例：<br>MOV AX, [2000H]  ; AX←DS:[2000H]；<br>从默认的DS数据段取出数据</p>
+<p>采用段超越前缀的指令实例：<br>MOV AX, ES:[2000H]; AX←ES:[2000H]；<br>从指定的ES附加段取出数据</p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ngrdm4OgDy0whWuuZKl0TKFeFTMWctYPHRsIjHrjw6vY9ePJOeyThCaEVi2el8DeIc2j8Z.k6HvGOc.rhmjw1Ps!/b&amp;bo=WAPhAQAAAAADB5k!&amp;rf=viewer_4" alt="alt"></p>
+<h2 id="CPU引脚"><a href="#CPU引脚" class="headerlink" title="CPU引脚"></a>CPU引脚</h2><h3 id="地址-数据总线"><a href="#地址-数据总线" class="headerlink" title="地址/数据总线"></a>地址/数据总线</h3><ul>
+<li><p>AD<sub>7</sub> ~ AD<sub>0</sub></p>
+<ul>
+<li>地址/数据分时复用，双向、三态</li>
+<li>T<sub>1</sub>时刻输出低8位地址A<sub>7</sub> ~ A<sub>0</sub></li>
+<li>其他时间用于传送8位数据D<sub>7</sub> ~ D<sub>0</sub></li>
+</ul>
+</li>
+<li><p>A<sub>15</sub> ~ A<sub>8</sub></p>
+<ul>
+<li>中间8位地址，输出、三态</li>
+<li>提供20位地址的中间8位地址A<sub>15</sub> ~ A<sub>8</sub></li>
+</ul>
+</li>
+</ul>
+<h3 id="分时复用"><a href="#分时复用" class="headerlink" title="分时复用"></a>分时复用</h3><p>分时复用就是一个引脚在不同的时刻具有两个甚至多个作用。<br>最常见的总线复用是数据和地址引脚复用。<br>分时复用的目的是为了减少对外引脚个数。</p>
+<h3 id="地址-状态总线"><a href="#地址-状态总线" class="headerlink" title="地址/状态总线"></a>地址/状态总线</h3><ul>
+<li><p>A<sub>19</sub>/S<sub>6</sub> ~ A<sub>16</sub>/S<sub>3</sub></p>
+<ul>
+<li>地址/状态分时复用，输出、三态</li>
+<li>访问存储器的T1输出高4位地址A<sub>19</sub> ~ A<sub>16</sub></li>
+<li>访问外设的T1时刻全部输出低电平</li>
+<li>其他时间输出状态信号S<sub>6</sub> ~ S<sub>3</sub></li>
+</ul>
+</li>
+</ul>
+<h3 id="控制总线"><a href="#控制总线" class="headerlink" title="控制总线"></a>控制总线</h3><ul>
+<li><p>ALE（address latch enable）</p>
+<ul>
+<li>地址锁存允许，输出、三态、高电平有效</li>
+<li>有效时，表示引脚AD7 ~ AD0和A19/S6 ~ A16/S3正在传送地址信息</li>
+<li>由于地址信息在这些复用引脚上出现的时间很短暂，所以系统可以利用ALE引脚将地址锁存起来</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>IO/M (input and output/memory）</p>
+<ul>
+<li>I/O或存储器访问选择，输出、三态</li>
+<li>高电平，表示CPU将访问I/O端口。 这时地址总线A15 ~ A0提供16位I/O口地址</li>
+<li>低电平时，表示CPU将访问存储器。 这时地址总线A19 ~ A0提供20位存储器地址</li>
+</ul>
+</li>
+<li><p>WR（write）</p>
+<ul>
+<li>写控制，输出、三态、低电平有效</li>
+<li>有效时，表示CPU正在输出数据给存储器或I/O端口</li>
+</ul>
+</li>
+<li><p>RD （read）</p>
+<ul>
+<li>读控制，输出、三态、低电平有效</li>
+<li>有效时，表示CPU正在从存储器或I/O端口读入数据</li>
+</ul>
+</li>
+</ul>
+<p>IO/M、WR和RD是最基本的控制信号, 组合后，控制4种基本的总线周期</p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*Wnh6pMryuBllNYlmZrmEsTVOtg6roBSR9rNAi8PM7ukcnfJfEg*HXIzcOAYc3Sl6Q!!/b&amp;bo=BANDAQAAAAADB2c!&amp;rf=viewer_4" alt="alt"></p>
+<ul>
+<li><p>DEN（data enable） </p>
+<ul>
+<li>数据允许，输出、三态、低电平有效</li>
+<li>有效时，表示当前数据总线上正在传送数据，可用来控制对数据总线的驱动 </li>
+</ul>
+</li>
+<li><p>DT/R（data transmit/receive）</p>
+<ul>
+<li>数据发送/接收，输出、三态</li>
+<li>该信号表明当前总线上数据的流向<ul>
+<li>高电平时数据自CPU输出（发送）</li>
+<li>低电平时数据输入CPU（接收）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>READY</p>
+<ul>
+<li>存储器或I/O口就绪，输入、高电平有效</li>
+<li>总线操作周期中，CPU会测试该引脚<ul>
+<li>如果测到有效，CPU直接进入下一步</li>
+<li>如果测到无效，CPU将插入等待周期</li>
+</ul>
+</li>
+<li>等待周期中仍然要监测READY信号，确定是否继续插入等待周期</li>
+</ul>
+</li>
+<li><p>INTR（interrupt request）</p>
+<ul>
+<li>可屏蔽中断请求，输入、高电平有效</li>
+<li>有效时，表示请求设备向CPU申请可屏蔽中断</li>
+<li>该中断请求是否响应受控于IF（中断允许标志），可以被屏蔽掉</li>
+</ul>
+</li>
+<li><p>INTA（interrupt acknowledge）</p>
+<ul>
+<li>可屏蔽中断响应，输出、低电平有效</li>
+<li>有效时，表示来自INTR引脚的中断请求已被CPU响应，CPU进入中断响应周期</li>
+</ul>
+</li>
+<li><p>NMI（non-maskable interrupt）</p>
+<ul>
+<li>非屏蔽中断请求，输入、上升沿有效</li>
+<li>有效，表示外界向CPU申请非屏蔽中断</li>
+<li>该中断请求不能被CPU屏蔽，所以优先级别高于INTR（可屏蔽中断）</li>
+</ul>
+</li>
+</ul>
+<p>主机与外设进行数据交换通常采用可屏蔽中断。非屏蔽中断通常用于处理掉电等系统故障。</p>
+<ul>
+<li><p>HOLD</p>
+<ul>
+<li>总线保持（即总线请求），输入、高电平有效</li>
+<li>有效时，表示总线请求设备向CPU申请占有总线</li>
+<li>该信号从有效回到无效时，表示总线请求设备对总线的使用已经结束，通知CPU收回对总线的控制权</li>
+</ul>
+</li>
+<li><p>HLDA（HOLD acknowledge）</p>
+<ul>
+<li>总线保持响应（总线响应），输出、高电平有效</li>
+<li>有效，表示CPU已响应总线请求并已将总线释放<ul>
+<li>此时CPU的地址总线、数据总线及具有三态输出能力的控制总线将全面呈现高阻，使总线请求设备可以顺利接管总线</li>
+<li>待到总线请求信号HOLD无效，总线响应信号HLDA也转为无效，CPU重新获得总线控制权</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>RESET</p>
+<ul>
+<li>复位请求，输入、高电平有效</li>
+<li>有效时，将使CPU回到其初始状态</li>
+<li>当他再度返回无效时，CPU将重新开始工作</li>
+<li>8088复位后CS＝FFFFH、IP＝0000H，所以程序入口在物理地址FFFF0H</li>
+</ul>
+</li>
+<li><p>CLK（Clock）</p>
+<ul>
+<li>时钟输入，给CPU提供内部定时信号<ul>
+<li>8088的标准工作时钟为5MHz</li>
+<li>IBM PC/XT机的8088采用了4.77MHz的时钟</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>MN/MX（minimum/maximum）</p>
+<ul>
+<li>组态选择，输入</li>
+<li>接高电平时，8088引脚工作在最小组态</li>
+<li>反之，8088工作在最大组态</li>
+</ul>
+</li>
+</ul>
+<p><strong>最小组态模式</strong></p>
+<p>构成小规模的应用系统<br>8088本身提供所有的系统总线信号</p>
+<p><strong>最大组态模式</strong></p>
+<p>构成较大规模的应用系统<br>8088和总线控制器8288共同形成系统总线信号</p>
+<ul>
+<li><p>S2、S1、S0</p>
+<ul>
+<li>总线周期状态标志，输出、三态</li>
+<li>3条引脚状态信号的不同组合，表示CPU总线周期的操作类型，参见表2-6（P40）</li>
+<li>最大模式下，8288利用这些信号的不同组合，产生访问存储器或I／O的控制信号或中断响应信号</li>
+</ul>
+</li>
+<li><p>8086的引脚与8088的区别</p>
+<p>  8086有16条地址/数据复用引脚AD15~AD0。<br>  8088只有AD7~AD0分时复用</p>
+<p>  8086的第34脚为BHE/S7，它是高8位数据总线的允许和状态信息复用引脚。<br>  8088为SS0</p>
+<p>  8086的第28脚为M／IO<br>  与8088第28脚(IO／M ) 意义正好相反</p>
+</li>
+</ul>
+<h2 id="时序"><a href="#时序" class="headerlink" title="时序"></a>时序</h2><h3 id="时序基本概念"><a href="#时序基本概念" class="headerlink" title="时序基本概念"></a>时序基本概念</h3><p>时序（timing）是指信号高低电平、有效或无效的变化以及相互间的时间顺序关系</p>
+<p>时序决定系统各部件之间的同步和定时</p>
+<h4 id="指令周期"><a href="#指令周期" class="headerlink" title="指令周期"></a>指令周期</h4><p>完整地执行完一条指令所用的时间<br>不同指令的指令周期时间长短可能不同<br>由若干总线周期组成</p>
+<h4 id="总线周期"><a href="#总线周期" class="headerlink" title="总线周期"></a>总线周期</h4><p>CPU通过系统总线对存储器或接口进行一次访问所需要的时间</p>
+<h4 id="时钟周期"><a href="#时钟周期" class="headerlink" title="时钟周期"></a>时钟周期</h4><p>CLK时钟信号的周期，也称T状态<br>CPU最小时间单位，一般等于时钟频率的倒数<br>IBM PC/XT时钟频率为4.77MHz，则T=210ns</p>
+<p>8086/8088基本总线周期需要4个时钟周期</p>
+<p>4个时钟周期编号为T1、T2、T3和T4</p>
+<p>当需要延长总线周期时插入等待状态Tw,<br>CPU进行内部操作，没有对外操作时，其引脚就处于空闲状态Ti</p>
+<h4 id="8086存储器读总线时序"><a href="#8086存储器读总线时序" class="headerlink" title="8086存储器读总线时序"></a>8086存储器读总线时序</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*cLmbdWsW8R5J.9a1fpAIQSB4V1os2dNlYH.RMHm0DhYgBmImHWmE3usVs0uYcMsjQ!!/b&amp;bo=kAKqAQAAAAARBwk!&amp;rf=viewer_4" alt="alt"></p>
+<h4 id="8088与8086总线周期的时序主要区别"><a href="#8088与8086总线周期的时序主要区别" class="headerlink" title="8088与8086总线周期的时序主要区别"></a>8088与8086总线周期的时序主要区别</h4><p>8088数据总线是8位的，所以只有AD7~AD0是地址/数据复用线，而A15~A8是8根地址线，8088没有BHE信号。</p>
+<p>8086/8088访问外设的时序，与CPU访问存储器的时序几乎完全相同。唯一区别是IO/M（M/IO）线</p>
+<h4 id="中断响应时序"><a href="#中断响应时序" class="headerlink" title="中断响应时序"></a>中断响应时序</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*TA4aLrwd.gOt.y3O62g3PE8lI25nKwKAEWOM6LQFpWaEeBvjEEeVq.GFUAaj.p*JQ!!/b&amp;bo=iwLmAAAAAAARB18!&amp;rf=viewer_4" alt="alt"></p>
+<h2 id="支持芯片"><a href="#支持芯片" class="headerlink" title="支持芯片"></a>支持芯片</h2><p>8086/8088可以与其他系列芯片组合</p>
+<ul>
+<li>8282 -8位三态锁存器<ul>
+<li>锁存地址信息</li>
+</ul>
+</li>
+<li>8284-时钟发生器<ul>
+<li>提供系统时钟CLK和其他系统时钟</li>
+<li>同步RESET、同步READY</li>
+</ul>
+</li>
+<li>8286-并行双向总线驱动器<ul>
+<li>数据缓冲，增强总线负载能力</li>
+<li>控制数据传送方向</li>
+</ul>
+</li>
+<li>8288-总线控制器<ul>
+<li>最大模式时根据S2~S0的信号输出系统控制信号</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/25/数学知识复习/" rel="next" title="数学知识复习">
+                <i class="fa fa-chevron-left"></i> 数学知识复习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/02/基本放大电路/" rel="prev" title="基本放大电路">
+                基本放大电路 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#8086内部结构"><span class="nav-number">1.</span> <span class="nav-text">8086内部结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8086-8088寄存器组"><span class="nav-number">2.</span> <span class="nav-text">8086/8088寄存器组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用寄存器"><span class="nav-number">2.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令指针寄存器"><span class="nav-number">2.2.</span> <span class="nav-text">指令指针寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标志"><span class="nav-number">2.3.</span> <span class="nav-text">标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">2.4.</span> <span class="nav-text">段寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储器结构"><span class="nav-number">3.</span> <span class="nav-text">存储器结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小端方式"><span class="nav-number">3.1.</span> <span class="nav-text">小端方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储器的分段管理"><span class="nav-number">4.</span> <span class="nav-text">存储器的分段管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#段基地址和偏移地址"><span class="nav-number">4.1.</span> <span class="nav-text">段基地址和偏移地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#段基地址"><span class="nav-number">4.1.1.</span> <span class="nav-text">段基地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#偏移地址"><span class="nav-number">4.1.2.</span> <span class="nav-text">偏移地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理地址和逻辑地址"><span class="nav-number">4.2.</span> <span class="nav-text">物理地址和逻辑地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#物理地址"><span class="nav-number">4.2.1.</span> <span class="nav-text">物理地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑地址"><span class="nav-number">4.2.2.</span> <span class="nav-text">逻辑地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转换"><span class="nav-number">4.2.3.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器-段寄存器"><span class="nav-number">4.3.</span> <span class="nav-text">段寄存器 - 段寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码段"><span class="nav-number">4.3.1.</span> <span class="nav-text">代码段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据段"><span class="nav-number">4.3.2.</span> <span class="nav-text">数据段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#附加段"><span class="nav-number">4.3.3.</span> <span class="nav-text">附加段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆栈段"><span class="nav-number">4.3.4.</span> <span class="nav-text">堆栈段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段超越"><span class="nav-number">4.4.</span> <span class="nav-text">段超越</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU引脚"><span class="nav-number">5.</span> <span class="nav-text">CPU引脚</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#地址-数据总线"><span class="nav-number">5.1.</span> <span class="nav-text">地址/数据总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分时复用"><span class="nav-number">5.2.</span> <span class="nav-text">分时复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址-状态总线"><span class="nav-number">5.3.</span> <span class="nav-text">地址/状态总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制总线"><span class="nav-number">5.4.</span> <span class="nav-text">控制总线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时序"><span class="nav-number">6.</span> <span class="nav-text">时序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时序基本概念"><span class="nav-number">6.1.</span> <span class="nav-text">时序基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#指令周期"><span class="nav-number">6.1.1.</span> <span class="nav-text">指令周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总线周期"><span class="nav-number">6.1.2.</span> <span class="nav-text">总线周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时钟周期"><span class="nav-number">6.1.3.</span> <span class="nav-text">时钟周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8086存储器读总线时序"><span class="nav-number">6.1.4.</span> <span class="nav-text">8086存储器读总线时序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8088与8086总线周期的时序主要区别"><span class="nav-number">6.1.5.</span> <span class="nav-text">8088与8086总线周期的时序主要区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断响应时序"><span class="nav-number">6.1.6.</span> <span class="nav-text">中断响应时序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持芯片"><span class="nav-number">7.</span> <span class="nav-text">支持芯片</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

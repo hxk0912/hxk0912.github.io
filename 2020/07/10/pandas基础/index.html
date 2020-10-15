@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="pandas数据类型SeriesSeries 是 Pandas 中最基本的一维数组形式。其可以储存整数、浮点数、字符串等类型的数据 基本结构pandas.Series(data=None, index=None) 其中，data 可以是字典，或者NumPy 里的 ndarray 对象等。index 是数据索引，索引是 Pandas 数据结构中的一大特性，它主要的功能是帮助我们更快速地定位数据。 创">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas基础">
+<meta property="og:url" content="https://hxk0912.github.io/2020/07/10/pandas基础/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="pandas数据类型SeriesSeries 是 Pandas 中最基本的一维数组形式。其可以储存整数、浮点数、字符串等类型的数据 基本结构pandas.Series(data=None, index=None) 其中，data 可以是字典，或者NumPy 里的 ndarray 对象等。index 是数据索引，索引是 Pandas 数据结构中的一大特性，它主要的功能是帮助我们更快速地定位数据。 创">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://doc.shiyanlou.com/courses/uid214893-20190531-1559284057250">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pandas基础">
+<meta name="twitter:description" content="pandas数据类型SeriesSeries 是 Pandas 中最基本的一维数组形式。其可以储存整数、浮点数、字符串等类型的数据 基本结构pandas.Series(data=None, index=None) 其中，data 可以是字典，或者NumPy 里的 ndarray 对象等。index 是数据索引，索引是 Pandas 数据结构中的一大特性，它主要的功能是帮助我们更快速地定位数据。 创">
+<meta name="twitter:image" content="https://doc.shiyanlou.com/courses/uid214893-20190531-1559284057250">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/07/10/pandas基础/">
+
+
+
+
+
+  <title>pandas基础 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/07/10/pandas基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pandas基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-10T12:32:32+08:00">
+                2020-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pandas/" itemprop="url" rel="index">
+                    <span itemprop="name">pandas</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="pandas数据类型"><a href="#pandas数据类型" class="headerlink" title="pandas数据类型"></a>pandas数据类型</h2><h3 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h3><p>Series 是 Pandas 中最基本的一维数组形式。其可以储存整数、浮点数、字符串等类型的数据</p>
+<p>基本结构<code>pandas.Series(data=None, index=None)</code></p>
+<p>其中，data 可以是字典，或者NumPy 里的 ndarray 对象等。index 是数据索引，索引是 Pandas 数据结构中的一大特性，它主要的功能是帮助我们更快速地定位数据。</p>
+<h4 id="创建一个series"><a href="#创建一个series" class="headerlink" title="创建一个series"></a>创建一个series</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">s= pd.Series(&#123;<span class="string">'a'</span>:<span class="number">10</span>,<span class="string">'b'</span>:<span class="number">20</span>,<span class="string">'c'</span>:<span class="number">30</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果series是从array转换过去，那么索引默认是array的下标 </p>
+<h3 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h3><p>DataFrame 是 Pandas 中最为常见、最重要且使用频率最高的数据结构。DataFrame 和平常的电子表格或 SQL 表结构相似。你可以把 DataFrame 看成是 Series 的扩展类型，它仿佛是由多个 Series 拼合而成。它和 Series 的直观区别在于，数据不但具有行索引，且具有列索引。</p>
+<p><img width="400px" src="https://doc.shiyanlou.com/courses/uid214893-20190531-1559284057250"></p>
+<p>基本结构：<code>pandas.DataFrame(data=None, index=None, columns=None)</code></p>
+<p>就是在Series的基础上增加了columns列索引</p>
+<h4 id="创建一个DataFrame"><a href="#创建一个DataFrame" class="headerlink" title="创建一个DataFrame"></a>创建一个DataFrame</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(&#123;<span class="string">'one'</span>: pd.Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]),</span><br><span class="line">                   <span class="string">'two'</span>: pd.Series([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])&#125;)</span><br><span class="line"></span><br><span class="line">df = pd.DataFrame(&#123;<span class="string">'one'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">                   <span class="string">'two'</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]&#125;)</span><br><span class="line"></span><br><span class="line">df = pd.DataFrame([&#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">4</span>&#125;,</span><br><span class="line">                   &#123;<span class="string">'one'</span>: <span class="number">2</span>, <span class="string">'two'</span>: <span class="number">5</span>&#125;,</span><br><span class="line">                   &#123;<span class="string">'one'</span>: <span class="number">3</span>, <span class="string">'two'</span>: <span class="number">6</span>&#125;])</span><br></pre></td></tr></table></figure>
+<h2 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h2><h3 id="读取CSV文件"><a href="#读取CSV文件" class="headerlink" title="读取CSV文件"></a>读取CSV文件</h3><p>方法：<code>pandas.read_csv()</code></p>
+<p>pd.read_ 前缀开始的方法还可以读取各式各样的数据文件，且支持连接数据库</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="数据预览"><a href="#数据预览" class="headerlink" title="数据预览"></a>数据预览</h3><p>有些时候，我们读取的文件很大。如果全部输出预览这些文件，既不美观，又很耗时。还好，Pandas 提供了 <code>head()</code> 和 <code>tail()</code> 方法，它可以帮助我们只预览一小块数据。</p>
+<h3 id="统计性描述"><a href="#统计性描述" class="headerlink" title="统计性描述"></a>统计性描述</h3><p>Pandas 还提供了统计和描述性方法，方便你从宏观的角度去了解数据集。<code>describe()</code> 相当于对数据集进行概览，会输出该数据集每一列数据的计数、最大值、最小值等。</p>
+<h3 id="与numpy之间转换"><a href="#与numpy之间转换" class="headerlink" title="与numpy之间转换"></a>与numpy之间转换</h3><p><code>.values</code> 可以将 DataFrame 转换为 NumPy 数组。</p>
+<h2 id="数据选择"><a href="#数据选择" class="headerlink" title="数据选择"></a>数据选择</h2><h3 id="基于索引数字选择"><a href="#基于索引数字选择" class="headerlink" title="基于索引数字选择"></a>基于索引数字选择</h3><p>方法：<code>.iloc()</code></p>
+<p>该方法可以接受的类型有：</p>
+<ol>
+<li>整数。例如：<code>5</code></li>
+<li>整数构成的列表或数组。例如：<code>[1, 2, 3]</code></li>
+<li>布尔数组。</li>
+<li>可返回索引值的函数或参数。</li>
+</ol>
+<h3 id="基于标签名称选择"><a href="#基于标签名称选择" class="headerlink" title="基于标签名称选择"></a>基于标签名称选择</h3><p>方法：<code>.loc()</code></p>
+<p>可以接受的类型有：</p>
+<ol>
+<li>单个标签。例如：<code>2</code> 或 <code>&#39;a&#39;</code>，这里的 <code>2</code> 指的是标签而不是索引位置。</li>
+<li>列表或数组包含的标签。例如：<code>[&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]</code>。</li>
+<li>切片对象。例如：<code>&#39;A&#39;:&#39;E&#39;</code>，注意这里和上面切片的不同支持，首尾都包含在内。</li>
+<li>布尔数组。</li>
+<li>可返回标签的函数或参数。</li>
+</ol>
+<h2 id="数据增删"><a href="#数据增删" class="headerlink" title="数据增删"></a>数据增删</h2><p>方法：<code>.drop()</code></p>
+<p>pandas.DataFrame.drop) 可以直接去掉数据集中指定的列和行。一般在使用时，我们指定 <code>labels</code> 标签参数，然后再通过 <code>axis</code> 指定按列或按行删除即可。当然，你也可以通过索引参数删除数据，具体查看官方文档。</p>
+<p><code>df.drop(labels=[&#39;a&#39;, &#39;b&#39;], axis=1)</code></p>
+<p><code>DataFrame.drop_duplicates</code> 则通常用于数据去重，即剔除数据集中的重复值。使用方法非常简单，指定去除重复值规则，以及 <code>axis</code> 按列还是按行去除即可。</p>
+<p>除此之外，另一个用于数据删减的方法 <code>DataFrame.dropna</code> 也十分常用，其主要的用途是删除缺少值，即数据集中空缺的数据列或行。</p>
+<h2 id="数据填充"><a href="#数据填充" class="headerlink" title="数据填充"></a>数据填充</h2><h3 id="检测缺失值"><a href="#检测缺失值" class="headerlink" title="检测缺失值"></a>检测缺失值</h3><p>Pandas 为了更方便地检测缺失值，将不同类型数据的缺失均采用 <code>NaN</code> 标记。这里的 NaN 代表 Not a Number，它仅仅是作为一个标记。例外是，在时间序列里，时间戳的丢失采用 <code>NaT</code> 标记。</p>
+<p>Pandas 中用于检测缺失值主要用到两个方法，分别是：<code>isna()</code> 和 <code>notna()</code>，顾名思义就是「是缺失值」和「不是缺失值」。默认会返回布尔值用于判断。</p>
+<h3 id="填充"><a href="#填充" class="headerlink" title="填充"></a>填充</h3><p>方法：<code>.fillna()</code> </p>
+<p>用相同的标量值替换NaN</p>
+<h3 id="插值填充"><a href="#插值填充" class="headerlink" title="插值填充"></a>插值填充</h3><p>我们可以通过 <code>interpolate()</code> 方法完成线性插值。</p>
+<p>对于 interpolate() 支持的插值算法，也就是 method=。下面给出几条选择的建议：</p>
+<p>如果你的数据增长速率越来越快，可以选择 method=’quadratic’二次插值。</p>
+<p>如果数据集呈现出累计分布的样子，推荐选择 method=’pchip’。</p>
+<p>如果需要填补缺省值，以平滑绘图为目标，推荐选择 method=’akima’。</p>
+<p>当然，最后提到的 method=’akima’，需要你的环境中安装了 Scipy 库。除此之外，method=’barycentric’ 和 method=’pchip’ 同样也需要 Scipy 才能使用。</p>
+<h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><p>方法：<code>DataFrame.plot()</code> </p>
+<p>可以绘制多种样式 指定kind=参数即可</p>
+<p><code>DataFrame.plot(kind=&#39;bar&#39;)</code></p>
+<h2 id="pandas时间序列"><a href="#pandas时间序列" class="headerlink" title="pandas时间序列"></a>pandas时间序列</h2><h3 id="生成时间序列"><a href="#生成时间序列" class="headerlink" title="生成时间序列"></a>生成时间序列</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 30天为间隔</span></span><br><span class="line">dr = pd.date_range(start=<span class="string">"20180101"</span>,end=<span class="string">"20200802"</span>,freq=<span class="string">"30D"</span>)</span><br><span class="line"><span class="comment"># 生成20个</span></span><br><span class="line">dr2 = pd.date_range(start=<span class="string">"20180101"</span>,end=<span class="string">"20200802"</span>,periods=<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/08/numpy基础使用/" rel="next" title="numpy基础使用">
+                <i class="fa fa-chevron-left"></i> numpy基础使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/11/scipy基础用法/" rel="prev" title="scipy基础用法">
+                scipy基础用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas数据类型"><span class="nav-number">1.</span> <span class="nav-text">pandas数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Series"><span class="nav-number">1.1.</span> <span class="nav-text">Series</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个series"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建一个series</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFrame"><span class="nav-number">1.2.</span> <span class="nav-text">DataFrame</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个DataFrame"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建一个DataFrame</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据读取"><span class="nav-number">2.</span> <span class="nav-text">数据读取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取CSV文件"><span class="nav-number">2.1.</span> <span class="nav-text">读取CSV文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">3.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预览"><span class="nav-number">3.1.</span> <span class="nav-text">数据预览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计性描述"><span class="nav-number">3.2.</span> <span class="nav-text">统计性描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与numpy之间转换"><span class="nav-number">3.3.</span> <span class="nav-text">与numpy之间转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据选择"><span class="nav-number">4.</span> <span class="nav-text">数据选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于索引数字选择"><span class="nav-number">4.1.</span> <span class="nav-text">基于索引数字选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于标签名称选择"><span class="nav-number">4.2.</span> <span class="nav-text">基于标签名称选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据增删"><span class="nav-number">5.</span> <span class="nav-text">数据增删</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据填充"><span class="nav-number">6.</span> <span class="nav-text">数据填充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测缺失值"><span class="nav-number">6.1.</span> <span class="nav-text">检测缺失值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#填充"><span class="nav-number">6.2.</span> <span class="nav-text">填充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插值填充"><span class="nav-number">6.3.</span> <span class="nav-text">插值填充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据可视化"><span class="nav-number">7.</span> <span class="nav-text">数据可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas时间序列"><span class="nav-number">8.</span> <span class="nav-text">pandas时间序列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成时间序列"><span class="nav-number">8.1.</span> <span class="nav-text">生成时间序列</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

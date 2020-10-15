@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="半导体基础知识本征半导体导电性介于导体与绝缘体之间的物质是半导体。 半导体硅、锗都是四价元素。 本征半导体是纯净的（无杂质）晶体结构的（稳定的结构）半导体。  本征激发：由于热运动，具有足够能量的价电子挣脱共价键的束缚而成为自由电子，其带负电。自由电子的产生使共价键中留有一个空位置，称为空穴，其带正电。 自由电子与空穴相碰同时消失，称为复合。 一定温度下，自由电子与空穴对的浓度一定；温度升高，热运">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用半导体器件">
+<meta property="og:url" content="https://hxk0912.github.io/2020/02/17/常用半导体器件/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="半导体基础知识本征半导体导电性介于导体与绝缘体之间的物质是半导体。 半导体硅、锗都是四价元素。 本征半导体是纯净的（无杂质）晶体结构的（稳定的结构）半导体。  本征激发：由于热运动，具有足够能量的价电子挣脱共价键的束缚而成为自由电子，其带负电。自由电子的产生使共价键中留有一个空位置，称为空穴，其带正电。 自由电子与空穴相碰同时消失，称为复合。 一定温度下，自由电子与空穴对的浓度一定；温度升高，热运">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nolshPly1YXRTpFSPRKvZIG8DORy6Iln6PX5NFa.zgnKblqpBoox1t7VeDZ79rD29CT88nF9XpXbntqFFLVNhQ0!/anull&bo=iwGJAQAAAAADByA!&rf=photolist&t=5">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.noxkpi*vQngWdYmIYGm045FzgaRzFQ2wkFo3*PIukxOv0gCjASluB1H2583rMMjoj1Ef9YIzcW4*fTBLIMHmRik!/b&bo=gQGAAQAAAAADByM!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nq6luxZC0syCdg5dwUhAVajGB8nJxbDMoDe0RNS7kwnJbrNaBbDFTlTarYgjD0XkvGcawZaQa9iyWoZPnYKDvkA!/b&bo=eAF3AQAAAAADBy0!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nvsGgkcPGcb.RNaI3TqZaWcJrCIeoT74*qPJL7LwTiH*0I5DO5ca9aSg7nNIH5gBF6stLZiuUzva.lm*YTuVMTs!/b&bo=eASGAQAAAAADB9k!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*XZd5k13PWmegY36JJGS4vXzMobdFnzAmUN**1vea89V7ptQMB1eRetDF06zgkfuNg!!/b&ek=1&kp=1&pt=0&bo=4QFXAQAAAAADF4Q!&tl=1&vuin=1097217653&tm=1581933600&sce=60-1-1&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*enkx0Pdjip9BaL5Kfz*U5KzBV4rsEnaLF1zfTp6zGn5zh4Ksvcai.PsqCccB3VVrA!!/b&ek=1&kp=1&pt=0&bo=8AFaAQAAAAADF5g!&tl=1&vuin=1097217653&tm=1581933600&sce=60-1-1&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*RuKkbSV10FJJwXXKPLzP8KveJO4WchLeSqs7Lq98t15WdTt1Fyxdps*9.h7RYyBwA!!/b&ek=1&kp=1&pt=0&bo=UwN8AQAAAAADFx8!&tl=1&vuin=1097217653&tm=1581937200&sce=60-1-1&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nh3YuLShNb827XmDUhHvBCUlAuc4g5DayzDFb4HHv2HT37grXnO0bYaMZ8wyXUvUnDw4SLgG*Brm*LBf6wFE6vs!/b&bo=CQQIAgAAAAADByU!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ngMKrQ.aoMiFv3Oie8Z0PiMgmgTqQKP2.dW938ZkpIJiEG3yeCeJnpk9lvjPW2VOKG9*93E9s6nJa4BFoYzzOCs!/b&bo=aAQoAgAAAAADB2Q!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nkkFSGwlo*RUp5Wr7GSbr8evLkJZ5SwGxhHLeyxuFM13YkMkr19JfhKyiUJccIFoXv7XNSuvLpXca1lPYkGxlnw!/b&bo=hgTpAQAAAAADB0g!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*XYahyGkzGriZzmGqgcBoQlssvl8l2vGCpq5FruWjWIqkWBqXLmM8aLORyHV..MDSQ!!/b&bo=oAK*AQAAAAADBz4!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nn7uI7VzD2W8sViWkLldbPHAQUAqrfLcd99OPEh1DodvoOxUyADesboygWfgdDqw6p9U5jKtvlKq*9GpdNzGGwU!/b&bo=tgERAQAAAAADB4U!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.njIgNV0*RNnp1b0irX3irx5a.GeCLQxbAyFCvYvhzwHxNfusilmd84O7HFFnfZILLW.AAg9X*sY7w*ZECN5BWxo!/b&bo=oQNuAQAAAAADF*8!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nkiB4tJvthaeA.Ap0o3hwBSCNUjiSU1.xOf9c9tLm2ZXMfLH4Wvx8fGSPB609svH24T.S1GcJQ8Ibns8o2zF55E!/b&bo=AQUzAgAAAAADBxc!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.noyWbikJbnj7POeyoguQ5gXgOb9w6fDvS5qkUQdM8mltl0UieGxTeAJIwB*B4oiRWuJf6dIEiKJewTU*OaODxOY!/b&bo=GAL3AQAAAAADB84!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ni.sSPbCDmsvUv8O*yns5*H8pOpgo9ej36TnBHfpCxs*4Np3nk7gPuIu08ALul**iFDHSk2ZxLrN33V2k6X*DaY!/b&bo=zAGGAQAAAAADB2g!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nt8t9fF5OeZ4REvm0*OaJ4DDXZuddW4lSDdtFraHtM6FVcazIlY.nH6Em5WtbWX5UzhuibnLyiT*n*.cr9KAXIM!/b&bo=jgH.AAAAAAADB1M!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ns8tEyB7w1kD7kOdKOvGwaOKNIR90ty0pumzr561p*w.SBIvDJFbcyowFxPP8ORoGM2QZGp5EnngZUQxaWVwTEA!/b&bo=agIRAgAAAAADF0k!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用半导体器件">
+<meta name="twitter:description" content="半导体基础知识本征半导体导电性介于导体与绝缘体之间的物质是半导体。 半导体硅、锗都是四价元素。 本征半导体是纯净的（无杂质）晶体结构的（稳定的结构）半导体。  本征激发：由于热运动，具有足够能量的价电子挣脱共价键的束缚而成为自由电子，其带负电。自由电子的产生使共价键中留有一个空位置，称为空穴，其带正电。 自由电子与空穴相碰同时消失，称为复合。 一定温度下，自由电子与空穴对的浓度一定；温度升高，热运">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nolshPly1YXRTpFSPRKvZIG8DORy6Iln6PX5NFa.zgnKblqpBoox1t7VeDZ79rD29CT88nF9XpXbntqFFLVNhQ0!/anull&bo=iwGJAQAAAAADByA!&rf=photolist&t=5">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/02/17/常用半导体器件/">
+
+
+
+
+
+  <title>常用半导体器件 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/02/17/常用半导体器件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用半导体器件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-17T14:11:14+08:00">
+                2020-02-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/模电笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">模电笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="半导体基础知识"><a href="#半导体基础知识" class="headerlink" title="半导体基础知识"></a>半导体基础知识</h2><h3 id="本征半导体"><a href="#本征半导体" class="headerlink" title="本征半导体"></a>本征半导体</h3><p>导电性介于导体与绝缘体之间的物质是半导体。</p>
+<p>半导体硅、锗都是四价元素。</p>
+<p>本征半导体是纯净的（<strong>无杂质</strong>）晶体结构的（<strong>稳定的结构</strong>）半导体。</p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nolshPly1YXRTpFSPRKvZIG8DORy6Iln6PX5NFa.zgnKblqpBoox1t7VeDZ79rD29CT88nF9XpXbntqFFLVNhQ0!/anull&amp;bo=iwGJAQAAAAADByA!&amp;rf=photolist&amp;t=5" alt="alt" style="zoom:400%;"></p>
+<p>本征激发：由于热运动，具有足够能量的价电子挣脱共价键的束缚而成为自由电子，其带负电。自由电子的产生使共价键中留有一个空位置，称为空穴，其带正电。</p>
+<p>自由电子与空穴相碰同时消失，称为复合。 一定温度下，自由电子与空穴对的浓度一定；温度升高，热运动加剧，挣脱共价键的电子增多，自由电子与空穴对的浓度加大。<strong>温度升高，热运动加剧，载流子浓度增大，导电性增强。</strong></p>
+<p>运载电荷的粒子称为载流子。(空穴可自由电子)</p>
+<p><em>本征半导体一般认为是绝缘体</em></p>
+<h3 id="杂质半导体"><a href="#杂质半导体" class="headerlink" title="杂质半导体"></a>杂质半导体</h3><h4 id="N型半导体"><a href="#N型半导体" class="headerlink" title="N型半导体"></a>N型半导体</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.noxkpi*vQngWdYmIYGm045FzgaRzFQ2wkFo3*PIukxOv0gCjASluB1H2583rMMjoj1Ef9YIzcW4*fTBLIMHmRik!/b&amp;bo=gQGAAQAAAAADByM!&amp;rf=viewer_4" alt="alt"></p>
+<ul>
+<li>杂质半导体主要靠多数载流子导电。掺入杂质越多，多子浓度越高，导电性越强，实现导电性可控。</li>
+</ul>
+<p>N型半导体主要靠自由电子导电，掺入杂质越多，自由电子浓度越高，导电性越强。</p>
+<h4 id="P型半导体"><a href="#P型半导体" class="headerlink" title="P型半导体"></a>P型半导体</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nq6luxZC0syCdg5dwUhAVajGB8nJxbDMoDe0RNS7kwnJbrNaBbDFTlTarYgjD0XkvGcawZaQa9iyWoZPnYKDvkA!/b&amp;bo=eAF3AQAAAAADBy0!&amp;rf=viewer_4" alt="alt"></p>
+<p>P型半导体主要靠空穴导电，掺入杂质越多，空穴浓度越高，导电性越强。</p>
+<h3 id="PN结形成及其单向导电性"><a href="#PN结形成及其单向导电性" class="headerlink" title="PN结形成及其单向导电性"></a>PN结形成及其单向导电性</h3><h4 id="PN结的形成"><a href="#PN结的形成" class="headerlink" title="PN结的形成"></a>PN结的形成</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nvsGgkcPGcb.RNaI3TqZaWcJrCIeoT74*qPJL7LwTiH*0I5DO5ca9aSg7nNIH5gBF6stLZiuUzva.lm*YTuVMTs!/b&amp;bo=eASGAQAAAAADB9k!&amp;rf=viewer_4" alt="alt"></p>
+<p>扩散运动使靠近接触面P区的空穴浓度降低、靠近接触面N区的自由电子浓度降低，产生内电场。</p>
+<p>由于扩散运动使P区与N区的交界面缺少多数载流子，形成内电场，从而阻止扩散运动的进行。内电场使空穴从N区向P区、自由电子从P区向N 区运动。</p>
+<ul>
+<li>参与扩散运动和漂移运动的载流子数目相同，达到动态平衡，就形成了PN结。</li>
+</ul>
+<h4 id="PN结的单向导电性"><a href="#PN结的单向导电性" class="headerlink" title="PN结的单向导电性"></a>PN结的单向导电性</h4><p>PN 结加正向电压（正向接法、正向偏置）</p>
+<p><img src="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*XZd5k13PWmegY36JJGS4vXzMobdFnzAmUN**1vea89V7ptQMB1eRetDF06zgkfuNg!!/b&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=4QFXAQAAAAADF4Q!&amp;tl=1&amp;vuin=1097217653&amp;tm=1581933600&amp;sce=60-1-1&amp;rf=viewer_4" alt="alt"></p>
+<ul>
+<li>PN结加正向电压导通：耗尽层变窄，扩散运动加剧，由于外电源的作用，形成扩散电流，PN结处于导通状态。**</li>
+</ul>
+<p>PN 结加反向电压（反向接法、反向偏置）</p>
+<p><img src="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*enkx0Pdjip9BaL5Kfz*U5KzBV4rsEnaLF1zfTp6zGn5zh4Ksvcai.PsqCccB3VVrA!!/b&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=8AFaAQAAAAADF5g!&amp;tl=1&amp;vuin=1097217653&amp;tm=1581933600&amp;sce=60-1-1&amp;rf=viewer_4" alt="alt"></p>
+<ul>
+<li>PN结加反向电压截止：耗尽层变宽，阻止扩散运动，有利于漂移运动，形成漂移电流。由于电流很小，故可近似认为其截止。</li>
+</ul>
+<h3 id="PN结的电容效应"><a href="#PN结的电容效应" class="headerlink" title="PN结的电容效应"></a>PN结的电容效应</h3><h4 id="势垒电容"><a href="#势垒电容" class="headerlink" title="势垒电容"></a>势垒电容</h4><p>PN结外加电压变化时，空间电荷区的宽度将发生变化，有电荷的积累和释放的过程，与电容的充放电相同，其等效电容称为势垒电容C<sub>b</sub>。C<sub>b</sub>主要表现在加反向电压时。</p>
+<h4 id="扩散电容"><a href="#扩散电容" class="headerlink" title="扩散电容"></a>扩散电容</h4><p>PN结外加的正向电压变化时，在扩散路程中载流子的浓度及其梯度均有变化，也有电荷的积累和释放的过程，其等效电容称为扩散电容C<sub>d</sub>。</p>
+<h4 id="结电容"><a href="#结电容" class="headerlink" title="结电容"></a>结电容</h4><p>$C_j$=$C_b$+$C_d$</p>
+<p>结电容相当于并联在二极管两端，所以容抗会跟电压频率有关。</p>
+<p><strong>若PN结外加电压频率高到一定程度，则失去单向导电性！结电容不是常量！</strong></p>
+<h3 id="二极管的伏安特性和电流方程"><a href="#二极管的伏安特性和电流方程" class="headerlink" title="二极管的伏安特性和电流方程"></a>二极管的伏安特性和电流方程</h3><h4 id="电流特性"><a href="#电流特性" class="headerlink" title="电流特性"></a>电流特性</h4><p><img src="http://a1.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*RuKkbSV10FJJwXXKPLzP8KveJO4WchLeSqs7Lq98t15WdTt1Fyxdps*9.h7RYyBwA!!/b&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=UwN8AQAAAAADFx8!&amp;tl=1&amp;vuin=1097217653&amp;tm=1581937200&amp;sce=60-1-1&amp;rf=viewer_4" alt="alt"></p>
+<h4 id="电流方程"><a href="#电流方程" class="headerlink" title="电流方程"></a>电流方程</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nh3YuLShNb827XmDUhHvBCUlAuc4g5DayzDFb4HHv2HT37grXnO0bYaMZ8wyXUvUnDw4SLgG*Brm*LBf6wFE6vs!/b&amp;bo=CQQIAgAAAAADByU!&amp;rf=viewer_4" alt="alt"></p>
+<h4 id="单向导电性"><a href="#单向导电性" class="headerlink" title="单向导电性"></a>单向导电性</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ngMKrQ.aoMiFv3Oie8Z0PiMgmgTqQKP2.dW938ZkpIJiEG3yeCeJnpk9lvjPW2VOKG9*93E9s6nJa4BFoYzzOCs!/b&amp;bo=aAQoAgAAAAADB2Q!&amp;rf=viewer_4" alt="alt"></p>
+<h3 id="将伏安特性折线化（直流模型）"><a href="#将伏安特性折线化（直流模型）" class="headerlink" title="将伏安特性折线化（直流模型）"></a>将伏安特性折线化（直流模型）</h3><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nkkFSGwlo*RUp5Wr7GSbr8evLkJZ5SwGxhHLeyxuFM13YkMkr19JfhKyiUJccIFoXv7XNSuvLpXca1lPYkGxlnw!/b&amp;bo=hgTpAQAAAAADB0g!&amp;rf=viewer_4" alt="alt"></p>
+<p>三种等效要根据等效电路的电压来判断，判断能不能忽略开启电压。</p>
+<h3 id="二极管的交流等效电路和主要参数"><a href="#二极管的交流等效电路和主要参数" class="headerlink" title="二极管的交流等效电路和主要参数"></a>二极管的交流等效电路和主要参数</h3><h4 id="交流等效电路"><a href="#交流等效电路" class="headerlink" title="交流等效电路"></a>交流等效电路</h4><p>当二极管在静态（直流源）基础上有一动态（交流源）信号作用时，则可将二极管等效为一个电阻，称为动态电阻。</p>
+<p><em>这里动态信号作用是指低频小信号作用，因为频率过高会因结电容失去原本伏安特性。</em></p>
+<p>$r_d$=$\frac{\Delta u_d}{\Delta i_d}<script type="math/tex">\approx</script>\frac{U_d}{I_d}$</p>
+<p>所以可以将动态电阻等效为静态电压处的二极管伏安特性曲线的切线斜率值。</p>
+<h4 id="主要参数"><a href="#主要参数" class="headerlink" title="主要参数"></a>主要参数</h4><ul>
+<li>最大整流电流$I_F$：最大平均值</li>
+<li>最大反向工作电压$U_R$：最大瞬时值</li>
+<li>反向电流$I_R$：即$I_S$</li>
+<li>最高工作频率$f_M$：因PN结有电容效应</li>
+</ul>
+<h3 id="稳压二极管"><a href="#稳压二极管" class="headerlink" title="稳压二极管"></a>稳压二极管</h3><p>稳压二极管（zener diode），也称齐纳二极管，与普通二极管不同的是，稳压二极管工作在反向击穿状态时，它的工作电流在很大范围内变化而其两端的电压基本不变</p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*XYahyGkzGriZzmGqgcBoQlssvl8l2vGCpq5FruWjWIqkWBqXLmM8aLORyHV..MDSQ!!/b&amp;bo=oAK*AQAAAAADBz4!&amp;rf=viewer_4" alt="alt"></p>
+<h3 id="晶体三极管的结构和符号"><a href="#晶体三极管的结构和符号" class="headerlink" title="晶体三极管的结构和符号"></a>晶体三极管的结构和符号</h3><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nn7uI7VzD2W8sViWkLldbPHAQUAqrfLcd99OPEh1DodvoOxUyADesboygWfgdDqw6p9U5jKtvlKq*9GpdNzGGwU!/b&amp;bo=tgERAQAAAAADB4U!&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.njIgNV0*RNnp1b0irX3irx5a.GeCLQxbAyFCvYvhzwHxNfusilmd84O7HFFnfZILLW.AAg9X*sY7w*ZECN5BWxo!/b&amp;bo=oQNuAQAAAAADF*8!&amp;rf=viewer_4" alt="alt"></p>
+<ul>
+<li>发射区多子浓度高</li>
+<li>基区多子浓度很低，且很薄</li>
+<li>集电区面积大</li>
+</ul>
+<h3 id="晶体三极管的放大原理"><a href="#晶体三极管的放大原理" class="headerlink" title="晶体三极管的放大原理"></a>晶体三极管的放大原理</h3><h4 id="晶体管放大的外部条件"><a href="#晶体管放大的外部条件" class="headerlink" title="晶体管放大的外部条件"></a>晶体管放大的外部条件</h4><script type="math/tex; mode=display">
+放大条件
+\begin{cases}
+
+    u_{BE}>U_{on} （发射结正偏）\\
+    u_{CB}\geq 0,即u_{CE}\geq u_{BE}（集电结反偏）\\
+
+\end{cases}</script><h4 id="载流子的运动"><a href="#载流子的运动" class="headerlink" title="载流子的运动"></a>载流子的运动</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nkiB4tJvthaeA.Ap0o3hwBSCNUjiSU1.xOf9c9tLm2ZXMfLH4Wvx8fGSPB609svH24T.S1GcJQ8Ibns8o2zF55E!/b&amp;bo=AQUzAgAAAAADBxc!&amp;rf=viewer_4" alt="alt"></p>
+<p>在发射结正偏，集电结反偏之后，在基极注入一个小电流之后打通了发射结，大量的电子就会扩散到基极，但是基极空穴浓度低，那么只有极少数会与空穴复合，而且由于集电结的反偏，这时基极剩余的大量电子会继续向集电区漂移，这一整个过程就实现了电流的放大。简单来说就是我向基极注入小电流，集电极却产生大电流。</p>
+<p>发射区：发射载流子<br>基区：传送和控制载流子<br>集电区：收集载流子</p>
+<h3 id="晶体三极管的输入输出特性"><a href="#晶体三极管的输入输出特性" class="headerlink" title="晶体三极管的输入输出特性"></a>晶体三极管的输入输出特性</h3><h4 id="晶体管的共射输入特性"><a href="#晶体管的共射输入特性" class="headerlink" title="晶体管的共射输入特性"></a>晶体管的共射输入特性</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.noyWbikJbnj7POeyoguQ5gXgOb9w6fDvS5qkUQdM8mltl0UieGxTeAJIwB*B4oiRWuJf6dIEiKJewTU*OaODxOY!/b&amp;bo=GAL3AQAAAAADB84!&amp;rf=viewer_4" alt="alt"></p>
+<ul>
+<li>当$U_{CE}$=0的时候，三极管就是两个并在一起的PN结。所以这一段伏安特性曲线与二极管很相似。</li>
+<li>当$U<em>{CE}$增大的时候，说明集电极的电流越来越大，也就是说更多的电子向集电区漂移，而$I_E=I_B+I_C$，所以在发射极电流不变的情况下，同样的$U</em>{BE}$基极的电流一定会越来越小。所以图像会右移。<em>这个时候集电结应该处于正偏状态，因为零偏或反偏都都会让基极的非平衡少子完全漂移到集电极</em>（也可以理解成CE电压增加增加了集电结收集电子的能力，促进漂移）</li>
+<li>当$U_{CE}$增大到一定值之后，所有基极剩余电子都来进行漂移运动运载电流，这时候图像就不会右移了（促进漂移作用有限）</li>
+</ul>
+<h4 id="输出特性"><a href="#输出特性" class="headerlink" title="输出特性"></a>输出特性</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ni.sSPbCDmsvUv8O*yns5*H8pOpgo9ej36TnBHfpCxs*4Np3nk7gPuIu08ALul**iFDHSk2ZxLrN33V2k6X*DaY!/b&amp;bo=zAGGAQAAAAADB2g!&amp;rf=viewer_4" alt="alt"></p>
+<ul>
+<li>$U<em>{CE}$较小时，提高$U</em>{CE}$会使得集电结收集电子能力加剧（仍处于正偏），也就是漂移运动加剧。所以电流会增大。</li>
+<li>而当$i<em>E$增大到一定程度时，所有剩余电子都进行漂移运动。这时$U</em>{CE}$就不会再增大了。从饱和区到达了放大区。</li>
+<li>$I<em>b$=0，还有穿透电流$I</em>{ceo}$，是本征激发产生的（少子），所以$I_c$不等于0。</li>
+</ul>
+<script type="math/tex; mode=display">
+    \beta=\frac{\Delta i_C}{\Delta i_B}\bigg|_{U_{CE}=常量}</script><p>$\beta$不是常量，工作在不同状况下的值不同。</p>
+<h3 id="晶体管的工作区域"><a href="#晶体管的工作区域" class="headerlink" title="晶体管的工作区域"></a>晶体管的工作区域</h3><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nt8t9fF5OeZ4REvm0*OaJ4DDXZuddW4lSDdtFraHtM6FVcazIlY.nH6Em5WtbWX5UzhuibnLyiT*n*.cr9KAXIM!/b&amp;bo=jgH.AAAAAAADB1M!&amp;rf=viewer_4" alt="alt"></p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.ns8tEyB7w1kD7kOdKOvGwaOKNIR90ty0pumzr561p*w.SBIvDJFbcyowFxPP8ORoGM2QZGp5EnngZUQxaWVwTEA!/b&amp;bo=agIRAgAAAAADF0k!&amp;rf=viewer_4" alt="alt"></p>
+<h3 id="温度对晶体管的影响"><a href="#温度对晶体管的影响" class="headerlink" title="温度对晶体管的影响"></a>温度对晶体管的影响</h3><p>温度上升→少子增加→截止电流增大→$\beta$增大→$i<em>B$不变时$U</em>{BE}$下降。</p>
+<p>温度增加时，输出特性曲线上移。</p>
+<h3 id="晶体管共射接法时的主要参数"><a href="#晶体管共射接法时的主要参数" class="headerlink" title="晶体管共射接法时的主要参数"></a>晶体管共射接法时的主要参数</h3><p>直流参数：$\bar{\beta},I<em>{CBO},I</em>{CEO}$</p>
+<p>交流参数：$\beta,f_T$(使$\beta$=1的频率)</p>
+<p>极限参数：$I<em>{CM}$(最大集电极电流)、$P</em>{CM}$(最大集电极耗散功率)、$U_{(BR)CEO}$(c-e间击穿电压)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/14/Linux中文件类型和用户权限管理/" rel="next" title="Linux中文件类型和用户权限管理">
+                <i class="fa fa-chevron-left"></i> Linux中文件类型和用户权限管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/18/Linux中设备、文件与驱动的关系/" rel="prev" title="Linux中设备、文件与驱动的关系">
+                Linux中设备、文件与驱动的关系 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#半导体基础知识"><span class="nav-number">1.</span> <span class="nav-text">半导体基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本征半导体"><span class="nav-number">1.1.</span> <span class="nav-text">本征半导体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杂质半导体"><span class="nav-number">1.2.</span> <span class="nav-text">杂质半导体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#N型半导体"><span class="nav-number">1.2.1.</span> <span class="nav-text">N型半导体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P型半导体"><span class="nav-number">1.2.2.</span> <span class="nav-text">P型半导体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PN结形成及其单向导电性"><span class="nav-number">1.3.</span> <span class="nav-text">PN结形成及其单向导电性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PN结的形成"><span class="nav-number">1.3.1.</span> <span class="nav-text">PN结的形成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PN结的单向导电性"><span class="nav-number">1.3.2.</span> <span class="nav-text">PN结的单向导电性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PN结的电容效应"><span class="nav-number">1.4.</span> <span class="nav-text">PN结的电容效应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#势垒电容"><span class="nav-number">1.4.1.</span> <span class="nav-text">势垒电容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩散电容"><span class="nav-number">1.4.2.</span> <span class="nav-text">扩散电容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结电容"><span class="nav-number">1.4.3.</span> <span class="nav-text">结电容</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二极管的伏安特性和电流方程"><span class="nav-number">1.5.</span> <span class="nav-text">二极管的伏安特性和电流方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#电流特性"><span class="nav-number">1.5.1.</span> <span class="nav-text">电流特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电流方程"><span class="nav-number">1.5.2.</span> <span class="nav-text">电流方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向导电性"><span class="nav-number">1.5.3.</span> <span class="nav-text">单向导电性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将伏安特性折线化（直流模型）"><span class="nav-number">1.6.</span> <span class="nav-text">将伏安特性折线化（直流模型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二极管的交流等效电路和主要参数"><span class="nav-number">1.7.</span> <span class="nav-text">二极管的交流等效电路和主要参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#交流等效电路"><span class="nav-number">1.7.1.</span> <span class="nav-text">交流等效电路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主要参数"><span class="nav-number">1.7.2.</span> <span class="nav-text">主要参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稳压二极管"><span class="nav-number">1.8.</span> <span class="nav-text">稳压二极管</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶体三极管的结构和符号"><span class="nav-number">1.9.</span> <span class="nav-text">晶体三极管的结构和符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶体三极管的放大原理"><span class="nav-number">1.10.</span> <span class="nav-text">晶体三极管的放大原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#晶体管放大的外部条件"><span class="nav-number">1.10.1.</span> <span class="nav-text">晶体管放大的外部条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#载流子的运动"><span class="nav-number">1.10.2.</span> <span class="nav-text">载流子的运动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶体三极管的输入输出特性"><span class="nav-number">1.11.</span> <span class="nav-text">晶体三极管的输入输出特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#晶体管的共射输入特性"><span class="nav-number">1.11.1.</span> <span class="nav-text">晶体管的共射输入特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出特性"><span class="nav-number">1.11.2.</span> <span class="nav-text">输出特性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶体管的工作区域"><span class="nav-number">1.12.</span> <span class="nav-text">晶体管的工作区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#温度对晶体管的影响"><span class="nav-number">1.13.</span> <span class="nav-text">温度对晶体管的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶体管共射接法时的主要参数"><span class="nav-number">1.14.</span> <span class="nav-text">晶体管共射接法时的主要参数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

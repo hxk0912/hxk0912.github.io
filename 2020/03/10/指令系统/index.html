@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基本概念 指令 计算机要执行的各种操作命令 一条指令对应着一种基本操作   指令系统  对特定的计算机而言，其所有指令的集合 每种计算机都有其特定的指令系统   复杂指令集计算机 CISC   Complex instruction set computer指每个操作都有对应的指令，8086/8088 系列就是复杂指令集。  精简指令集计算机 RISC  Reduced instruction s">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="指令系统">
+<meta property="og:url" content="https://hxk0912.github.io/2020/03/10/指令系统/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="基本概念 指令 计算机要执行的各种操作命令 一条指令对应着一种基本操作   指令系统  对特定的计算机而言，其所有指令的集合 每种计算机都有其特定的指令系统   复杂指令集计算机 CISC   Complex instruction set computer指每个操作都有对应的指令，8086/8088 系列就是复杂指令集。  精简指令集计算机 RISC  Reduced instruction s">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="指令系统">
+<meta name="twitter:description" content="基本概念 指令 计算机要执行的各种操作命令 一条指令对应着一种基本操作   指令系统  对特定的计算机而言，其所有指令的集合 每种计算机都有其特定的指令系统   复杂指令集计算机 CISC   Complex instruction set computer指每个操作都有对应的指令，8086/8088 系列就是复杂指令集。  精简指令集计算机 RISC  Reduced instruction s">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/03/10/指令系统/">
+
+
+
+
+
+  <title>指令系统 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/03/10/指令系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">指令系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-10T08:33:19+08:00">
+                2020-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/微机原理与接口技术/" itemprop="url" rel="index">
+                    <span itemprop="name">微机原理与接口技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>指令<ul>
+<li>计算机要执行的各种操作命令</li>
+<li>一条指令对应着一种基本操作</li>
+</ul>
+</li>
+<li><p>指令系统</p>
+<ul>
+<li>对特定的计算机而言，其所有指令的集合</li>
+<li>每种计算机都有其特定的指令系统</li>
+</ul>
+</li>
+<li><p>复杂指令集计算机 CISC</p>
+</li>
+</ul>
+<p>Complex instruction set computer<br>指每个操作都有对应的指令，8086/8088 系列就是复杂指令集。</p>
+<ul>
+<li>精简指令集计算机 RISC</li>
+</ul>
+<p>Reduced instruction set computer<br>只有最常用的操作指令，其他不常用操作指令用这些常用指令来表示。</p>
+<h2 id="指令的基本格式"><a href="#指令的基本格式" class="headerlink" title="指令的基本格式"></a>指令的基本格式</h2><ul>
+<li>操作码(operation code)<ul>
+<li>规定指令要执行的操作, 不可缺少。</li>
+</ul>
+</li>
+<li>操作数(operand)<ul>
+<li>指出执行指令所需要操作数的来源：<ul>
+<li>操作数本身</li>
+<li>操作数地址 或 操作数地址的计算方法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多数情况可以有 1 或多个操作数<ul>
+<li>单操作数</li>
+<li>双操作数：源操作数、目的操作数</li>
+<li>隐含操作数</li>
+</ul>
+</li>
+</ul>
+<h2 id="寻址"><a href="#寻址" class="headerlink" title="寻址"></a>寻址</h2><ul>
+<li>寻址<ul>
+<li>寻找操作数的过程</li>
+</ul>
+</li>
+<li>操作数在哪些地方呢？<ul>
+<li>直接在指令中</li>
+<li>在 CPU 的某个寄存器中</li>
+<li>在内存中</li>
+<li>在 I/O 端口或外部设备中</li>
+</ul>
+</li>
+<li>寻址方式<ul>
+<li>产生地址的各种方法</li>
+<li>对于双操作数指令而言, 源和目的操作数有可能不同。</li>
+</ul>
+</li>
+</ul>
+<h3 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h3><h4 id="立即寻址"><a href="#立即寻址" class="headerlink" title="立即寻址"></a>立即寻址</h4><p>指令所需操作数就在指令中, 紧跟在操作码之后, 与操作码一起放在代码段。</p>
+<h4 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h4><p>操作数存放在 CPU 的内部寄存器中, 在指令中直接给出寄存器名。</p>
+<h4 id="存储器寻址方式"><a href="#存储器寻址方式" class="headerlink" title="存储器寻址方式"></a>存储器寻址方式</h4><p>操作数在主存储器中, 指令需要给出操作数的地址信息。</p>
+<h4 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h4><p>操作数在存储单元中, 指令中操作数字段给出的是操作数的 16 位偏移地址 EA。<br>默认的段基地址在 DS 段寄存器, 可使用段超越前缀改变。<br>用中括号包含有效地址, 表达存储单元的内容。</p>
+<p><code>MOV AX, [2000H] ；AX←DS:[2000H]</code><br><code>MOV AX, ES: [2000H] ；AX←ES:[2000H]</code></p>
+<p>在汇编语言中, 经常用符号地址来代替数值地址。<br>举例 <code>MOV AX, STRING</code><br>其中 STRING 为存储单元的符号地址<br>如果 STRING 代表的数值地址是 2000H, 则该指令等同于<code>MOV AX, [2000H]</code></p>
+<h4 id="寄存器间接寻址"><a href="#寄存器间接寻址" class="headerlink" title="寄存器间接寻址"></a>寄存器间接寻址</h4><p>操作数在主存储器中, 操作数的有效地址 EA 由 BX、BP、SI、DI 中的一个指出。</p>
+<ul>
+<li>对于 BX、SI、DI, 默认的段基地址在 DS 段寄存器, 可使用段超越前缀改变。</li>
+<li>对于 BP, 默认的段基地址在 SS 段寄存器, 可使用段超越前缀改变。</li>
+</ul>
+<p><code>MOV AX, [BX] ；AX←DS:[BX]</code></p>
+<h4 id="寄存器相对寻址"><a href="#寄存器相对寻址" class="headerlink" title="寄存器相对寻址"></a>寄存器相对寻址</h4><p>操作数在主存储器中, 操作数的有效地址：<br>EA = BX/BP/SI/DI + 8/16 位偏移量</p>
+<ul>
+<li>对于 BX、SI、DI, 默认的段基地址在 DS 段寄存器, 可使用段超越前缀改变。</li>
+<li>对于 BP, 默认的段基地址在 SS 段寄存器, 可使用段超越前缀改变。</li>
+</ul>
+<p><code>MOV AX, [SI+06H] ；AX←DS:[SI+06H]</code></p>
+<p>寄存器相对寻址可以表示成几种不同的形式。</p>
+<p><code>MOV AX, BUFFER[BP]</code>\<br><code>MOV AX,[BP]BUFFER</code>\<br><code>MOV AX,[BP+BUFFER]</code>\<br><code>MOV AX,[BUFFER+BP]</code></p>
+<h4 id="基址加变址"><a href="#基址加变址" class="headerlink" title="基址加变址"></a>基址加变址</h4><p>操作数在主存储器中, 操作数的有效地址：<br>EA = BX/BP + SI/DI</p>
+<ul>
+<li>对于 BX, 默认的段基地址在 DS 段寄存器, 可使用段超越前缀改变。</li>
+<li>对于 BP, 默认的段基地址在 SS 段寄存器, 可使用段超越前缀改变</li>
+</ul>
+<p><code>MOV AX, [BX+SI] ；AX←DS:[BX+SI]</code></p>
+<h4 id="相对基址加变址"><a href="#相对基址加变址" class="headerlink" title="相对基址加变址"></a>相对基址加变址</h4><p>操作数在主存储器中, 操作数的有效地址：<br>EA = BX/BP + SI/DI + 8/16 位偏移量</p>
+<ul>
+<li>对于 BX, 默认的段基地址在 DS 段寄存器, 可使用段超越前缀改变。</li>
+<li>对于 BP, 默认的段基地址在 SS 段寄存器, 可使用段超越前缀改变。</li>
+</ul>
+<p><code>MOV AX, 10H[BP][SI] ; AX←SS:[BP+SI+10H]</code></p>
+<h4 id="隐含寻址"><a href="#隐含寻址" class="headerlink" title="隐含寻址"></a>隐含寻址</h4><p>指令的部分或全部操作数被隐含, 没有直接出现在指令助记符中。<br>操作对象一般是固定的。</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>除标志传送指令外, 其余指令均不影响标志位。</p>
+<h3 id="数据传输指令"><a href="#数据传输指令" class="headerlink" title="数据传输指令"></a>数据传输指令</h3><h4 id="基本传输指令-MOV"><a href="#基本传输指令-MOV" class="headerlink" title="基本传输指令 MOV"></a>基本传输指令 MOV</h4><p><code>MOV dst，src</code></p>
+<p>将源操作数的内容复制到目的操作数, 源操作数内容不变。<br>目的操作数 dst 写前, 源操作数 src 写后, 用逗号隔开。</p>
+<p>特点：</p>
+<ol>
+<li>可完成 8、16 位数的传送。</li>
+<li>可使用各种寻址方式。</li>
+<li>不影响标志位。</li>
+</ol>
+<p>注意事项</p>
+<ol>
+<li>存储单元之间不能直接传送。</li>
+<li>立即数不能作为目的操作数。</li>
+<li><strong>段寄存器之间不能直接传送。</strong></li>
+<li><strong>不能将立即数直接传送给段寄存器。</strong></li>
+<li>CS 和 IP 不能作为目的操作数。</li>
+<li><strong>源操作数和目的操作数的类型必须一致。</strong></li>
+<li>传送字单元时, 遵循“高字节在高地址, 低字节在低地址”原则。</li>
+<li>除串操作指令外, 不允许两个操作数都是存储器操作数。</li>
+</ol>
+<h4 id="交换指令-XCHG"><a href="#交换指令-XCHG" class="headerlink" title="交换指令 XCHG"></a>交换指令 XCHG</h4><p><code>XCHG dst，src</code></p>
+<p>将源操作数 src 的内容与目的操作数 dst 的内容互换。</p>
+<p>注意：</p>
+<ol>
+<li>操作数可以是 8、16 位数。</li>
+<li>源和目的操作数可以是寄存器或存储器，但不能同时为存储器操作数。</li>
+<li>段寄存器、立即数不能参加交换。</li>
+<li>不影响标志位。</li>
+</ol>
+<h4 id="进栈指令-PUSH"><a href="#进栈指令-PUSH" class="headerlink" title="进栈指令 PUSH"></a>进栈指令 PUSH</h4><p><code>PUSH src</code></p>
+<p>说明</p>
+<ol>
+<li>src 可以是通用寄存器、段寄存器和存储单元。</li>
+<li><strong>8086/8088 的堆栈操作都是以字为单位。</strong></li>
+<li>遵循“高字节在高地址, 低字节在低地址”。</li>
+</ol>
+<h4 id="出栈指令-POP"><a href="#出栈指令-POP" class="headerlink" title="出栈指令 POP"></a>出栈指令 POP</h4><p><code>POP dst</code></p>
+<p>说明</p>
+<ol>
+<li>dst 可为通用寄存器、段寄存器和存储单元。</li>
+<li>CS 可入栈, 但不能从堆栈弹出数据到 CS。</li>
+</ol>
+<h4 id="输入输出指令-IN-OUT"><a href="#输入输出指令-IN-OUT" class="headerlink" title="输入输出指令 IN OUT"></a>输入输出指令 IN OUT</h4><p>端口:外设与 CPU 的接口\<br>端口地址:端口的编号, 以区分不同的端口\<br>端口寻址</p>
+<ul>
+<li>直接端口寻址:由指令中的 8 位数决定, 范围 0~255</li>
+<li>间接端口寻址:由 DX 决定, 范围 0~65535</li>
+</ul>
+<p><code>IN ac，port</code></p>
+<p>从端口输入字节或字到累加器</p>
+<ul>
+<li>如果累加器为 AL, 则从端口输入 1 字节</li>
+<li>如果累加器为 AX, 则 AL←port , AH ←port+1</li>
+</ul>
+<p><code>OUT port，ac</code></p>
+<p>将累加器的内容输出到端口</p>
+<ul>
+<li>如果累加器为 AL, 则输出 AL 内容 →port</li>
+<li>如果累加器为 AX, 则 AL → port, AH→ port+1</li>
+</ul>
+<h4 id="地址传送指令-LEA"><a href="#地址传送指令-LEA" class="headerlink" title="地址传送指令 LEA"></a>地址传送指令 LEA</h4><p><code>LEA reg，src</code></p>
+<p>功能:将存储器操作数 src 的有效地址送至指定的 16 位通用寄存器</p>
+<p>说明:reg:16 位通用寄存器 src:存储器操作数</p>
+<h3 id="算数运算指令"><a href="#算数运算指令" class="headerlink" title="算数运算指令"></a>算数运算指令</h3><ul>
+<li>执行二进制运算和十进制运算。</li>
+<li>操作数有 8、16 位数, 也分为无符号数和带符号数。</li>
+<li>大部分指令会对标志位有影响, 不过不同指令的影响各不相同。</li>
+</ul>
+<h4 id="加减法指令"><a href="#加减法指令" class="headerlink" title="加减法指令"></a>加减法指令</h4><p>执行字或字节的加法、减法运算。</p>
+<p>除 INC 和 DEC 不影响 CF 标志外, 其他按定义影响全部状态标志位</p>
+<ul>
+<li>ADD dst←dst+src</li>
+<li>SUB dst←dst-src</li>
+<li>ADC dst←dst+src+CF</li>
+<li>SBB dst←dst-src-CF</li>
+<li>INC dst←dst+1 不影响 CF</li>
+<li>DEC dst←dst-1 不影响 CF</li>
+<li>NEG dst←0-dst</li>
+<li>CMP dst-src 将目的操作数减去源操作数, 但结果不回送目的操作数。影响状态标志</li>
+</ul>
+<h3 id="逻辑运算和移位指令"><a href="#逻辑运算和移位指令" class="headerlink" title="逻辑运算和移位指令"></a>逻辑运算和移位指令</h3><p>按位进行操作, 位与位之间无进位或借位。</p>
+<p>当需要对字节或字的某个二进制位进行操作时, 可考虑使用。</p>
+<p>执行与、或、非等逻辑运算。</p>
+<p>NOT 指令对标志位无影响, 其余指令执行后,总是使 CF=OF=0,根据运算结果设置 SF、ZF、PF。</p>
+<h4 id="逻辑运算指令"><a href="#逻辑运算指令" class="headerlink" title="逻辑运算指令"></a>逻辑运算指令</h4><ul>
+<li>AND dst ← dst &amp; src</li>
+<li>TEST dst &amp; src</li>
+<li>OR dst ← dst | src</li>
+<li>XOR dst ← dst ⊕ src</li>
+<li>NOT dst ← ~ dst</li>
+</ul>
+<h4 id="移位指令"><a href="#移位指令" class="headerlink" title="移位指令"></a>移位指令</h4><ul>
+<li>将操作数移动一位或多位, 分别具有左移或右移操作。</li>
+<li>移位操作分成逻辑移位和算术移位。</li>
+<li>移位指令的操作数可以是8/16位的通用寄存器或存储器。</li>
+<li>移位次数要么是1, 要么是CL。</li>
+<li><p>都会影响标志位, 主要是学习CF。</p>
+</li>
+<li><p>SHL\SAL  dst，1或CL 逻辑左移，最低位补0，最高位→CF</p>
+</li>
+<li>SHR  dst，1或CL 逻辑右移，最高位补0, 最低位→CF</li>
+<li><p>SAR  dst，1或CL 算数右移，最高位不变, 最低位→CF</p>
+</li>
+<li><p>ROL  dst，1或CL 不带进位的循环左移</p>
+</li>
+<li>ROR  dst，1或CL 不带进位的循环右移</li>
+<li>RCL  dst，1或CL 带进位的循环左移 最高位→CF CF→最低位</li>
+<li>RCR  dst，1或CL 带进位的循环右移 最低位→CF CF→最高位</li>
+</ul>
+<h3 id="控制转移指令"><a href="#控制转移指令" class="headerlink" title="控制转移指令"></a>控制转移指令</h3><p>改变指令的顺序执行, 用于实现分支、循环等程序结构。</p>
+<p>除中断指令外, 其他指令均不影响标志位。</p>
+<p>8086/8088中, 指令的执行顺序是由CS:IP决定的。</p>
+<p>一般情况下, 指令是顺序执行的。如要改变指令的顺序执行, 就需要改变CS或IP。</p>
+<p>控制转移类指令通过改变IP或CS值, 实现程序执行顺序的改变。</p>
+<p>当程序发生转移时, 存放在指令队列寄存器中的指令被清除, BIU将根据新的CS:IP值从存储器中取出新的指令,并直接送EU执行</p>
+<p>控制转移指令需要确定转移的目标地址。</p>
+<p>目标地址可以在段内, 也可以跨段(段间)。</p>
+<p>段内转移只修改IP, 而段间转移要修改CS和IP。</p>
+<h4 id="段内直接寻址"><a href="#段内直接寻址" class="headerlink" title="段内直接寻址"></a>段内直接寻址</h4><p>段内转移只修改IP, CS内容不变。</p>
+<p>指令码中包含一个8/16位偏移量disp。</p>
+<p>转移的目标地址=IP+disp</p>
+<p>段内短转移：disp为8位, -128～+127</p>
+<p>段内近转移：disp为16位, -32768～+32767</p>
+<p>注意</p>
+<ul>
+<li>IP的当前值是指从存储器中取出转移指令后的IP值, 实际上是下一条指令的地址。</li>
+<li>disp为带符号数, 用补码表示。<br>又称相对寻址。</li>
+</ul>
+<h4 id="其他寻址"><a href="#其他寻址" class="headerlink" title="其他寻址"></a>其他寻址</h4><p>段内间接寻址</p>
+<ul>
+<li>转移的目标地址在16位寄存器或存储单元中。</li>
+</ul>
+<p>段间直接寻址</p>
+<ul>
+<li>段间转移, 需要修改CS和IP。</li>
+<li>转移的目标地址直接由指令码形式地址提供。</li>
+</ul>
+<p>段间间接寻址</p>
+<ul>
+<li>转移的目标地址由4个连续字节存储单元(32位)提供。</li>
+<li>前2个字节单元送入IP, 后2个字节单元送入CS</li>
+</ul>
+<h4 id="无条件转移JMP"><a href="#无条件转移JMP" class="headerlink" title="无条件转移JMP"></a>无条件转移JMP</h4><p><code>JMP  label</code></p>
+<p>无条件地转移到指令规定的目标地址label。</p>
+<h4 id="条件转移指令Jcc"><a href="#条件转移指令Jcc" class="headerlink" title="条件转移指令Jcc"></a>条件转移指令Jcc</h4><p><code>Jcc  label</code></p>
+<p>功能: 根据指定条件是否成立来确定程序是否转移。</p>
+<p>cc表示某种条件。</p>
+<p>若条件满足, 发生转移(IP←IP＋8位位移量)。</p>
+<p>否则, 顺序执行。</p>
+<p>label是一个标号, 表示一个8位位移量。</p>
+<p>label只支持段内直接短转移寻址方式, 即相对短转移。</p>
+<pre><code>JE/JZ               等于/为0 时跳转(ZF=1)这里计算机判断
+
+JNE/JNZ             不为0时转移(ZF=0时判断)
+
+有符号的：
+
+JG/JNLE            大于/不小于等于
+
+JNG/JLE            不大于/小于等于
+
+JL/JNGE            小于/不大于等于
+
+JNL/JGE            不小于/大于等于
+
+无符号的：
+
+JB/JNAE           低于/不高于等于
+
+JNB/JAE            不低于/高于等于
+
+JA/JNBE            高于/不低于等于
+
+JNA/JBE           不高于/低于等于
+
+JS     当SF为1时跳转
+
+JNS    当SF为0时转移
+
+JO    当OF为1时跳转
+
+JNO   当OF为0时转移
+
+JP    当PF为1时跳转
+
+JNP   当PF为0时转移  
+</code></pre><h3 id="循环控制指令"><a href="#循环控制指令" class="headerlink" title="循环控制指令"></a>循环控制指令</h3><p><code>LOOP label</code></p>
+<ol>
+<li>CX←CX-1    DEC操作，不影响标志位</li>
+<li>若CX≠0, 则转移; 否则, 顺序执行。</li>
+</ol>
+<h3 id="过程调用与返回指令"><a href="#过程调用与返回指令" class="headerlink" title="过程调用与返回指令"></a>过程调用与返回指令</h3><ul>
+<li>在程序设计中, 通常把大的程序分解为若干个小的功能模块。</li>
+<li>每个功能模块对应一个过程, 又称子程序,与C语言中的函数类似。</li>
+<li>主程序可以调用一个子程序, 子程序执行完毕后要返回主程序调用处继续往下执行。</li>
+</ul>
+<h4 id="调用指令-CALL"><a href="#调用指令-CALL" class="headerlink" title="调用指令 CALL"></a>调用指令 CALL</h4><p><code>CALL  label</code></p>
+<p>功能：</p>
+<ol>
+<li>断点地址入栈, 即保存断点地址。</li>
+<li>转移。</li>
+</ol>
+<p>断点地址的保存</p>
+<p>段内调用只需要保存断点IP。</p>
+<p>SS←SP-2\<br>SS:[SP]←当前IP</p>
+<p>段间调用需要保存断点地址的CS:IP。</p>
+<p>SP←SP-2, SS:[SP]←当前CS\<br>SP←SP-2, SS:[SP]←当前IP</p>
+<p>转移, 类似JMP</p>
+<p>段内调用只改变IP, 段间调用改变CS和IP。<br>目标地址的寻址与JMP类似。</p>
+<h4 id="返回指令-RET"><a href="#返回指令-RET" class="headerlink" title="返回指令 RET"></a>返回指令 RET</h4><p><code>RET  [ n ]</code></p>
+<p>功能：</p>
+<ul>
+<li>从栈顶弹出由CALL压入的断点地址, 送入IP或CS:IP, 以返回断点处继续执行。</li>
+<li>如果带参数n, 在弹出断点地址后, 还需执行 SP ←SP + n 。</li>
+</ul>
+<h4 id="中断指令"><a href="#中断指令" class="headerlink" title="中断指令"></a>中断指令</h4><p>中断(interrupt)是另外一种改变程序执行顺序的方法。</p>
+<p>8088CPU支持256个中断, 每个中断用一个编号(中断向量号)区别。</p>
+<h5 id="中断调用指令INT"><a href="#中断调用指令INT" class="headerlink" title="中断调用指令INT"></a>中断调用指令INT</h5><p><code>INT n</code></p>
+<p>中断调用指令: 产生n号中断。</p>
+<p>主程序使用, 其中n表示中断向量号。</p>
+<h5 id="中断返回指令IRET"><a href="#中断返回指令IRET" class="headerlink" title="中断返回指令IRET"></a>中断返回指令IRET</h5><p><code>IRET</code></p>
+<p>中断返回指令: 实现中断返回。</p>
+<p>中断服务程序使用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/02/基本放大电路/" rel="next" title="基本放大电路">
+                <i class="fa fa-chevron-left"></i> 基本放大电路
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/10/哈密顿算子/" rel="prev" title="哈密顿算子">
+                哈密顿算子 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令的基本格式"><span class="nav-number">2.</span> <span class="nav-text">指令的基本格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻址"><span class="nav-number">3.</span> <span class="nav-text">寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻址方式"><span class="nav-number">3.1.</span> <span class="nav-text">寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#立即寻址"><span class="nav-number">3.1.1.</span> <span class="nav-text">立即寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器寻址"><span class="nav-number">3.1.2.</span> <span class="nav-text">寄存器寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储器寻址方式"><span class="nav-number">3.1.3.</span> <span class="nav-text">存储器寻址方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#直接寻址"><span class="nav-number">3.1.4.</span> <span class="nav-text">直接寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器间接寻址"><span class="nav-number">3.1.5.</span> <span class="nav-text">寄存器间接寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器相对寻址"><span class="nav-number">3.1.6.</span> <span class="nav-text">寄存器相对寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基址加变址"><span class="nav-number">3.1.7.</span> <span class="nav-text">基址加变址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相对基址加变址"><span class="nav-number">3.1.8.</span> <span class="nav-text">相对基址加变址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隐含寻址"><span class="nav-number">3.1.9.</span> <span class="nav-text">隐含寻址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令"><span class="nav-number">4.</span> <span class="nav-text">指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传输指令"><span class="nav-number">4.1.</span> <span class="nav-text">数据传输指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本传输指令-MOV"><span class="nav-number">4.1.1.</span> <span class="nav-text">基本传输指令 MOV</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交换指令-XCHG"><span class="nav-number">4.1.2.</span> <span class="nav-text">交换指令 XCHG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进栈指令-PUSH"><span class="nav-number">4.1.3.</span> <span class="nav-text">进栈指令 PUSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#出栈指令-POP"><span class="nav-number">4.1.4.</span> <span class="nav-text">出栈指令 POP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入输出指令-IN-OUT"><span class="nav-number">4.1.5.</span> <span class="nav-text">输入输出指令 IN OUT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#地址传送指令-LEA"><span class="nav-number">4.1.6.</span> <span class="nav-text">地址传送指令 LEA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算数运算指令"><span class="nav-number">4.2.</span> <span class="nav-text">算数运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加减法指令"><span class="nav-number">4.2.1.</span> <span class="nav-text">加减法指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算和移位指令"><span class="nav-number">4.3.</span> <span class="nav-text">逻辑运算和移位指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑运算指令"><span class="nav-number">4.3.1.</span> <span class="nav-text">逻辑运算指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移位指令"><span class="nav-number">4.3.2.</span> <span class="nav-text">移位指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制转移指令"><span class="nav-number">4.4.</span> <span class="nav-text">控制转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#段内直接寻址"><span class="nav-number">4.4.1.</span> <span class="nav-text">段内直接寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他寻址"><span class="nav-number">4.4.2.</span> <span class="nav-text">其他寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无条件转移JMP"><span class="nav-number">4.4.3.</span> <span class="nav-text">无条件转移JMP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件转移指令Jcc"><span class="nav-number">4.4.4.</span> <span class="nav-text">条件转移指令Jcc</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环控制指令"><span class="nav-number">4.5.</span> <span class="nav-text">循环控制指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过程调用与返回指令"><span class="nav-number">4.6.</span> <span class="nav-text">过程调用与返回指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用指令-CALL"><span class="nav-number">4.6.1.</span> <span class="nav-text">调用指令 CALL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回指令-RET"><span class="nav-number">4.6.2.</span> <span class="nav-text">返回指令 RET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断指令"><span class="nav-number">4.6.3.</span> <span class="nav-text">中断指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#中断调用指令INT"><span class="nav-number">4.6.3.1.</span> <span class="nav-text">中断调用指令INT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#中断返回指令IRET"><span class="nav-number">4.6.3.2.</span> <span class="nav-text">中断返回指令IRET</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

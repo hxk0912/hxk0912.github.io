@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="离散时间线性时不变系统脉冲表示离散时间信号比如$x[n]=\delta[n-2]+2\delta[n-5]$任何离散序列可以看作是一系列移位单位脉冲加权和。（筛选性质） 线性时不变系统$x[n]\rightarrow LTI \rightarrow y[n]$  x[n]可以表示成一组加权的移位单位脉冲的叠加； 线性系统对x[n]的响应就是系统对这些移位单位脉冲响应的加权叠加； 时不变性又意味着系">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性时不变系统">
+<meta property="og:url" content="https://hxk0912.github.io/2020/03/24/线性时不变系统/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="离散时间线性时不变系统脉冲表示离散时间信号比如$x[n]=\delta[n-2]+2\delta[n-5]$任何离散序列可以看作是一系列移位单位脉冲加权和。（筛选性质） 线性时不变系统$x[n]\rightarrow LTI \rightarrow y[n]$  x[n]可以表示成一组加权的移位单位脉冲的叠加； 线性系统对x[n]的响应就是系统对这些移位单位脉冲响应的加权叠加； 时不变性又意味着系">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*QhFzx71b.OR4LChR3hrpOsE3doPNz8VadYEAZ..dRQTYNJBr.2mJ8drEpQvano24w!!/b&bo=UASnAgAAAAARB8E!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*YCPTpNup7a6DOuQS3aJEDM00*ZezHbFCIfPvSLwrMxfHmflWgjNA9jpHFTnK*5XCA!!/b&bo=QATtAQAAAAARB5g!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*cmQMKiShrWtAAmK2XB0PAAj1mAgLJoVL.1bf8okpx1zx6DelJEEFYei0YzB0vHg0g!!/b&bo=PgR.AgAAAAARB3Y!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nq9HZ6u1pce2r3WE9hb3vqyqB44I.bIJQY6jZCWGX.ftB93*2oq1rdT2QIALA5Pwwpkoo6Z4WwpCX8*8L3YD2i0!/b&bo=CQRVAgAAAAARF3o!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.np87EVuhTBDZrFigk1XbhM39njyS2vzj0k3xYGIhxlcgsbx5vzyQli4f6jTNhA0AU6Vqftu.gbapN8mMOy483sM!/b&bo=VQSSAgAAAAARF.E!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.412Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性时不变系统">
+<meta name="twitter:description" content="离散时间线性时不变系统脉冲表示离散时间信号比如$x[n]=\delta[n-2]+2\delta[n-5]$任何离散序列可以看作是一系列移位单位脉冲加权和。（筛选性质） 线性时不变系统$x[n]\rightarrow LTI \rightarrow y[n]$  x[n]可以表示成一组加权的移位单位脉冲的叠加； 线性系统对x[n]的响应就是系统对这些移位单位脉冲响应的加权叠加； 时不变性又意味着系">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*QhFzx71b.OR4LChR3hrpOsE3doPNz8VadYEAZ..dRQTYNJBr.2mJ8drEpQvano24w!!/b&bo=UASnAgAAAAARB8E!&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/03/24/线性时不变系统/">
+
+
+
+
+
+  <title>线性时不变系统 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/03/24/线性时不变系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线性时不变系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T07:59:11+08:00">
+                2020-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/信号与系统/" itemprop="url" rel="index">
+                    <span itemprop="name">信号与系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="离散时间线性时不变系统"><a href="#离散时间线性时不变系统" class="headerlink" title="离散时间线性时不变系统"></a>离散时间线性时不变系统</h2><h3 id="脉冲表示离散时间信号"><a href="#脉冲表示离散时间信号" class="headerlink" title="脉冲表示离散时间信号"></a>脉冲表示离散时间信号</h3><p>比如$x[n]=\delta[n-2]+2\delta[n-5]$<br>任何离散序列可以看作是一系列移位单位脉冲加权和。（筛选性质）</p>
+<h3 id="线性时不变系统"><a href="#线性时不变系统" class="headerlink" title="线性时不变系统"></a>线性时不变系统</h3><p>$x[n]\rightarrow LTI \rightarrow y[n]$</p>
+<ul>
+<li>x[n]可以表示成一组加权的移位单位脉冲的叠加；</li>
+<li>线性系统对x[n]的响应就是系统对这些移位单位脉冲响应的加权叠加；</li>
+<li>时不变性又意味着系统对移位单位脉冲的响应就是未被移位的单位脉冲响应的移位。</li>
+</ul>
+<h3 id="LTI系统响应"><a href="#LTI系统响应" class="headerlink" title="LTI系统响应"></a>LTI系统响应</h3><script type="math/tex; mode=display">
+输入x[n]=\sum_{k=-\infin}^{+\infin}x[k]\delta[n-k]\\
+\delta[n-k] \rightarrow h_0[n-k]\\
+系统输出为y[n]=\sum_{k=-\infin}^{+\infin}x[k]h[n-k]\\
+也就是y[n]=x[n]*h[n]</script><h2 id="连续时间线性时不变系统"><a href="#连续时间线性时不变系统" class="headerlink" title="连续时间线性时不变系统"></a>连续时间线性时不变系统</h2><h3 id="筛选性质"><a href="#筛选性质" class="headerlink" title="筛选性质"></a>筛选性质</h3><script type="math/tex; mode=display">
+x(t)=\int_{-\infin}^{\infin}x(\tau)\delta(t-\tau)d\tau</script><h3 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h3><script type="math/tex; mode=display">
+y(t)=\int_{-\infin}^{\infin}x(\tau)h(t-\tau)d\tau=x(t)*h(t)</script><h2 id="LTI系统的特性"><a href="#LTI系统的特性" class="headerlink" title="LTI系统的特性"></a>LTI系统的特性</h2><p>一个LTI系统的特性可以完全由它的冲激响应来决定.</p>
+<h3 id="交换律"><a href="#交换律" class="headerlink" title="交换律"></a>交换律</h3><script type="math/tex; mode=display">
+x[n]*h[n]=h[n]*x[n]\\
+x(t)*h(t)=h(t)*x(t)</script><h3 id="分配律"><a href="#分配律" class="headerlink" title="分配律"></a>分配律</h3><script type="math/tex; mode=display">
+x[n]*(h_1[n]+h_2[n])=x[n]*h_1[n]+x[n]*h_2[n]\\
+x(t)*(h_1(t)+h_2(t))=x(t)*h_1(t)+x(t)*h_2(t)</script><h3 id="结合律"><a href="#结合律" class="headerlink" title="结合律"></a>结合律</h3><script type="math/tex; mode=display">
+x[n]*(h_1[n]*h_2[n])=(x[n]*h_1[n])*h_2[n]\\
+x(t)*(h_1(t)*h_2(t))=(x(t)*h_1(t))*h_2(t)</script><h3 id="记忆系统"><a href="#记忆系统" class="headerlink" title="记忆系统"></a>记忆系统</h3><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*QhFzx71b.OR4LChR3hrpOsE3doPNz8VadYEAZ..dRQTYNJBr.2mJ8drEpQvano24w!!/b&bo=UASnAgAAAAARB8E!&rf=viewer_4" style="zoom:80%"></p>
+<h3 id="因果性"><a href="#因果性" class="headerlink" title="因果性"></a>因果性</h3><p>条件：</p>
+<script type="math/tex; mode=display">
+h[n] = 0, n < 0\\
+h(t) = 0, t < 0</script><h4 id="初始松弛条件"><a href="#初始松弛条件" class="headerlink" title="初始松弛条件"></a>初始松弛条件</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*YCPTpNup7a6DOuQS3aJEDM00*ZezHbFCIfPvSLwrMxfHmflWgjNA9jpHFTnK*5XCA!!/b&bo=QATtAQAAAAARB5g!&rf=viewer_4" style="zoom:80%"></p>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>有界输入对应有界输出就是稳定系统。</p>
+<h2 id="系统框图"><a href="#系统框图" class="headerlink" title="系统框图"></a>系统框图</h2><h3 id="离散线性时不变系统框图"><a href="#离散线性时不变系统框图" class="headerlink" title="离散线性时不变系统框图"></a>离散线性时不变系统框图</h3><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/xZikVHqhLrt9jsfqm9tF*cmQMKiShrWtAAmK2XB0PAAj1mAgLJoVL.1bf8okpx1zx6DelJEEFYei0YzB0vHg0g!!/b&bo=PgR.AgAAAAARB3Y!&rf=viewer_4"></p>
+<h4 id="反馈系统"><a href="#反馈系统" class="headerlink" title="反馈系统"></a>反馈系统</h4><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.nq9HZ6u1pce2r3WE9hb3vqyqB44I.bIJQY6jZCWGX.ftB93*2oq1rdT2QIALA5Pwwpkoo6Z4WwpCX8*8L3YD2i0!/b&bo=CQRVAgAAAAARF3o!&rf=viewer_4"></p>
+<h3 id="连续线性时不变系统框图"><a href="#连续线性时不变系统框图" class="headerlink" title="连续线性时不变系统框图"></a>连续线性时不变系统框图</h3><p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/9vuGDcz9AP*EJeMjs9i.np87EVuhTBDZrFigk1XbhM39njyS2vzj0k3xYGIhxlcgsbx5vzyQli4f6jTNhA0AU6Vqftu.gbapN8mMOy483sM!/b&bo=VQSSAgAAAAARF.E!&rf=viewer_4"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/23/TOPSIS法/" rel="next" title="TOPSIS法">
+                <i class="fa fa-chevron-left"></i> TOPSIS法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/24/周期信号的傅里叶级数表示/" rel="prev" title="周期信号的傅里叶级数表示">
+                周期信号的傅里叶级数表示 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散时间线性时不变系统"><span class="nav-number">1.</span> <span class="nav-text">离散时间线性时不变系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#脉冲表示离散时间信号"><span class="nav-number">1.1.</span> <span class="nav-text">脉冲表示离散时间信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性时不变系统"><span class="nav-number">1.2.</span> <span class="nav-text">线性时不变系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LTI系统响应"><span class="nav-number">1.3.</span> <span class="nav-text">LTI系统响应</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续时间线性时不变系统"><span class="nav-number">2.</span> <span class="nav-text">连续时间线性时不变系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#筛选性质"><span class="nav-number">2.1.</span> <span class="nav-text">筛选性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应"><span class="nav-number">2.2.</span> <span class="nav-text">响应</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LTI系统的特性"><span class="nav-number">3.</span> <span class="nav-text">LTI系统的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交换律"><span class="nav-number">3.1.</span> <span class="nav-text">交换律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配律"><span class="nav-number">3.2.</span> <span class="nav-text">分配律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结合律"><span class="nav-number">3.3.</span> <span class="nav-text">结合律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记忆系统"><span class="nav-number">3.4.</span> <span class="nav-text">记忆系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#因果性"><span class="nav-number">3.5.</span> <span class="nav-text">因果性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始松弛条件"><span class="nav-number">3.5.1.</span> <span class="nav-text">初始松弛条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稳定性"><span class="nav-number">3.6.</span> <span class="nav-text">稳定性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统框图"><span class="nav-number">4.</span> <span class="nav-text">系统框图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离散线性时不变系统框图"><span class="nav-number">4.1.</span> <span class="nav-text">离散线性时不变系统框图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#反馈系统"><span class="nav-number">4.1.1.</span> <span class="nav-text">反馈系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续线性时不变系统框图"><span class="nav-number">4.2.</span> <span class="nav-text">连续线性时不变系统框图</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

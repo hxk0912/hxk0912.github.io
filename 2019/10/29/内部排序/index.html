@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是内部排序内部排序是指待排序记录放在计算机随机存储器中进行的排序过程。一般待排序记录不大，内存能够完全储存。 各类内部排序方法插入排序将第一个元素看作一个有序数列，然后从第二个开始，不断插入，插入条件就是小于下一个大于前一个。 其他插入排序 折半插入排序：利用折半查找再进行排序 2-路插入排序，利用一个比较值，将序列分为大于比较值和小于比较值的两部分，可以减少比较次数。  希尔排序基本思想：先">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内部排序">
+<meta property="og:url" content="https://hxk0912.github.io/2019/10/29/内部排序/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="什么是内部排序内部排序是指待排序记录放在计算机随机存储器中进行的排序过程。一般待排序记录不大，内存能够完全储存。 各类内部排序方法插入排序将第一个元素看作一个有序数列，然后从第二个开始，不断插入，插入条件就是小于下一个大于前一个。 其他插入排序 折半插入排序：利用折半查找再进行排序 2-路插入排序，利用一个比较值，将序列分为大于比较值和小于比较值的两部分，可以减少比较次数。  希尔排序基本思想：先">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内部排序">
+<meta name="twitter:description" content="什么是内部排序内部排序是指待排序记录放在计算机随机存储器中进行的排序过程。一般待排序记录不大，内存能够完全储存。 各类内部排序方法插入排序将第一个元素看作一个有序数列，然后从第二个开始，不断插入，插入条件就是小于下一个大于前一个。 其他插入排序 折半插入排序：利用折半查找再进行排序 2-路插入排序，利用一个比较值，将序列分为大于比较值和小于比较值的两部分，可以减少比较次数。  希尔排序基本思想：先">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2019/10/29/内部排序/">
+
+
+
+
+
+  <title>内部排序 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2019/10/29/内部排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">内部排序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-29T19:33:00+08:00">
+                2019-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是内部排序"><a href="#什么是内部排序" class="headerlink" title="什么是内部排序"></a>什么是内部排序</h2><p>内部排序是指待排序记录放在计算机随机存储器中进行的排序过程。一般待排序记录不大，内存能够完全储存。</p>
+<h2 id="各类内部排序方法"><a href="#各类内部排序方法" class="headerlink" title="各类内部排序方法"></a>各类内部排序方法</h2><h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>将第一个元素看作一个有序数列，然后从第二个开始，不断插入，插入条件就是小于下一个大于前一个。</p>
+<h4 id="其他插入排序"><a href="#其他插入排序" class="headerlink" title="其他插入排序"></a>其他插入排序</h4><ol>
+<li>折半插入排序：利用折半查找再进行排序</li>
+<li>2-路插入排序，利用一个比较值，将序列分为大于比较值和小于比较值的两部分，可以减少比较次数。</li>
+</ol>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>基本思想：先将整个待排记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”的时候再对全体记录进行一次直接插入排序。<br><strong>子序列的构成不是简单地“逐段分割”，而是相隔某个“增量”的记录组成一个子序列。</strong><br>所以关键字不再是一步一步往前挪动，而是跳跃式往前移，所以可以做到基本有序。</p>
+<p><em>一般会选取 L/2<sup>n</sup> 作为“增量”</em></p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>将相邻的两个记录的关键字进行比较，若为逆序，那么就交换，不断往下进行比较，知道所有记录都比较过为止。这时，最大的记录就移动到了末尾，然后从头再来，将第二大的元素移动到倒数第二位。直到进行了n趟冒泡排序，完成所有元素的排序。<br><strong>就好比每一次都有一个元素像一个石头一样“沉”到末尾</strong></p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>基本思想：通过一次排序，将待排记录分割成独立的两部分，其中的一部分均比另一部分记录的关键字小，再分别对两部分记录进行排序，不断递归，以达到整个序列有序。</p>
+<p>方法：先在待排序记录中选择一个基准值，然后设立头尾指针指向第一个和最后一个元素，开始时尾指针向前移动，若该值大于基准值，指针继续移动，若该值小于基准值，将其与头指针对应记录交换。头指针向后移动，同理，头指针所指元素小于基准值向后移动，大于基准值将其与尾指针交换，尾指针前移不断重复这个过程，直到头尾节点同时指到基准值就完成了第一遍快速排序。</p>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><h4 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h4><p>首先从[2,n]这n-1个元素中选取最小值，与第一个元素比较交换，再从[3,n]选出最小与第二个比较交换。直到[n-1,n]也进行了比较为止。</p>
+<h4 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h4><p>就是根据堆的性质，不断输出最大（小）值，然后再次堆化。将输出值按照顺序排列起来就是堆排序的结果。</p>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序也是利用分而治之的思想，通过递归来将化小，两两归并，四四归并一直到最后。<br>具体实现方法是：</p>
+<ol>
+<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置</li>
+<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置</li>
+</ol>
+<p>直到最后归并结束，排序就完成了。</p>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p>基数排序又叫桶排序，将待排序列从低位开始排序，放入对应桶中，得到第一次子序列，再把这个子序列根据十位放入桶中，再得到子序列，以此循环，直至排完最高位，即得到最终的排序序列。</p>
+<p>为什么要从最低位开始比较呢？因为如果从高位开始，那么可能会因为低位的比较结果改变高位的比较结果。比如345和271。而从低位开始比较的时候就像是将高位作为一个决定性条件，低位作为一个约束来判断，只有高位相同才会考虑低位，那么自然要提前先将低位排序等待高位判断结果来“破坏”低位排序后的结果。<strong>所以排序的时候先从序列中进入桶子的一定也要先拿出来，这样才能不“破坏”低位排序结果。</strong></p>
+<h2 id="各类排序方法之间比较"><a href="#各类排序方法之间比较" class="headerlink" title="各类排序方法之间比较"></a>各类排序方法之间比较</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>排序类别</th>
+<th>时间复杂度</th>
+<th>稳定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入排序</td>
+<td>O(n<sup>2</sup>)</td>
+<td>√</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>O(n<sup>1.25</sup>)</td>
+<td>×</td>
+</tr>
+<tr>
+<td>冒泡排序</td>
+<td>O(n<sup>2</sup>)</td>
+<td>√</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>O(n<sup>2</sup>)</td>
+<td>×</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O(Nlogn)</td>
+<td>×</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(Nlogn)</td>
+<td>×</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(Nlogn)</td>
+<td>√</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/27/溢出中断/" rel="next" title="溢出中断">
+                <i class="fa fa-chevron-left"></i> 溢出中断
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/29/堆/" rel="prev" title="堆">
+                堆 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是内部排序"><span class="nav-number">1.</span> <span class="nav-text">什么是内部排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各类内部排序方法"><span class="nav-number">2.</span> <span class="nav-text">各类内部排序方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入排序"><span class="nav-number">2.1.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#其他插入排序"><span class="nav-number">2.1.1.</span> <span class="nav-text">其他插入排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#希尔排序"><span class="nav-number">2.2.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡排序"><span class="nav-number">2.3.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速排序"><span class="nav-number">2.4.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择排序"><span class="nav-number">2.5.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单选择排序"><span class="nav-number">2.5.1.</span> <span class="nav-text">简单选择排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆排序"><span class="nav-number">2.5.2.</span> <span class="nav-text">堆排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序"><span class="nav-number">2.6.</span> <span class="nav-text">归并排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基数排序"><span class="nav-number">2.7.</span> <span class="nav-text">基数排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各类排序方法之间比较"><span class="nav-number">3.</span> <span class="nav-text">各类排序方法之间比较</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

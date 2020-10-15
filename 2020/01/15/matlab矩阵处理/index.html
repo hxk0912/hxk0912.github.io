@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="特殊矩阵通用型的特殊矩阵 zeros 全零矩阵 零矩阵 ones 全1矩阵 eye 产生对角线为1的矩阵。当矩阵是方阵的时候，得到一个单位矩阵。 rand 产生（0，1）区间均匀分布的随机矩阵。 randn 产生均值为0，方差为1的标准正态分布随机矩阵。  用于特殊学科的特殊矩阵 magic 魔方矩阵（各行各列主副对角线之和相等） vander 范德蒙矩阵 hilb 希尔伯特矩阵 compan 伴">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="matlab矩阵处理">
+<meta property="og:url" content="https://hxk0912.github.io/2020/01/15/matlab矩阵处理/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="特殊矩阵通用型的特殊矩阵 zeros 全零矩阵 零矩阵 ones 全1矩阵 eye 产生对角线为1的矩阵。当矩阵是方阵的时候，得到一个单位矩阵。 rand 产生（0，1）区间均匀分布的随机矩阵。 randn 产生均值为0，方差为1的标准正态分布随机矩阵。  用于特殊学科的特殊矩阵 magic 魔方矩阵（各行各列主副对角线之和相等） vander 范德蒙矩阵 hilb 希尔伯特矩阵 compan 伴">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-04T03:23:03.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="matlab矩阵处理">
+<meta name="twitter:description" content="特殊矩阵通用型的特殊矩阵 zeros 全零矩阵 零矩阵 ones 全1矩阵 eye 产生对角线为1的矩阵。当矩阵是方阵的时候，得到一个单位矩阵。 rand 产生（0，1）区间均匀分布的随机矩阵。 randn 产生均值为0，方差为1的标准正态分布随机矩阵。  用于特殊学科的特殊矩阵 magic 魔方矩阵（各行各列主副对角线之和相等） vander 范德蒙矩阵 hilb 希尔伯特矩阵 compan 伴">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/01/15/matlab矩阵处理/">
+
+
+
+
+
+  <title>matlab矩阵处理 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/01/15/matlab矩阵处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">matlab矩阵处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T15:21:19+08:00">
+                2020-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/matlab/" itemprop="url" rel="index">
+                    <span itemprop="name">matlab</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="特殊矩阵"><a href="#特殊矩阵" class="headerlink" title="特殊矩阵"></a>特殊矩阵</h2><h3 id="通用型的特殊矩阵"><a href="#通用型的特殊矩阵" class="headerlink" title="通用型的特殊矩阵"></a>通用型的特殊矩阵</h3><ol>
+<li>zeros 全零矩阵 零矩阵</li>
+<li>ones 全1矩阵</li>
+<li>eye 产生对角线为1的矩阵。当矩阵是方阵的时候，得到一个单位矩阵。</li>
+<li>rand 产生（0，1）区间均匀分布的随机矩阵。</li>
+<li>randn 产生均值为0，方差为1的标准正态分布随机矩阵。</li>
+</ol>
+<h3 id="用于特殊学科的特殊矩阵"><a href="#用于特殊学科的特殊矩阵" class="headerlink" title="用于特殊学科的特殊矩阵"></a>用于特殊学科的特殊矩阵</h3><ol>
+<li>magic 魔方矩阵（各行各列主副对角线之和相等）</li>
+<li>vander 范德蒙矩阵</li>
+<li>hilb 希尔伯特矩阵</li>
+<li>compan 伴随矩阵 compan（p），p是一个多项式的系数向量，高次在前低次在后。</li>
+<li>pascal 帕斯卡矩阵</li>
+</ol>
+<h2 id="矩阵变换"><a href="#矩阵变换" class="headerlink" title="矩阵变换"></a>矩阵变换</h2><h3 id="对角阵"><a href="#对角阵" class="headerlink" title="对角阵"></a>对角阵</h3><h4 id="提取对角线元素"><a href="#提取对角线元素" class="headerlink" title="提取对角线元素"></a>提取对角线元素</h4><ul>
+<li>diag（A） 提取矩阵A的主对角线元素，产生一个列向量</li>
+<li>diag（A，k） 提取矩阵A的第k条对角线的元素，产生一个列向量。</li>
+</ul>
+<h4 id="构造对角矩阵"><a href="#构造对角矩阵" class="headerlink" title="构造对角矩阵"></a>构造对角矩阵</h4><ul>
+<li>diag（V） 以向量V为主对角线元素，产生一个对角阵</li>
+<li>diag（V，k） 以向量V为第k条对角线元素，产生一个对角阵</li>
+</ul>
+<h3 id="三角阵"><a href="#三角阵" class="headerlink" title="三角阵"></a>三角阵</h3><h4 id="上三角阵"><a href="#上三角阵" class="headerlink" title="上三角阵"></a>上三角阵</h4><p>triu（A） 提取矩阵A的主对角线及以上的元素。<br>triu（A,K） 提取矩阵A的第K条对角线及以上的元素。</p>
+<h4 id="下三角阵"><a href="#下三角阵" class="headerlink" title="下三角阵"></a>下三角阵</h4><p>下三角阵的函数为tril，用法与上三角阵完全相同。</p>
+<h3 id="矩阵的转置"><a href="#矩阵的转置" class="headerlink" title="矩阵的转置"></a>矩阵的转置</h3><ul>
+<li>转置运算 .’</li>
+<li>共轭转置 ‘  转置基础上每个数要求共轭</li>
+</ul>
+<h3 id="矩阵的翻转"><a href="#矩阵的翻转" class="headerlink" title="矩阵的翻转"></a>矩阵的翻转</h3><ul>
+<li>filplr（）实施左右翻转。</li>
+<li>filpud（）实施上下翻转。<br>主要用于主副对角线的调换。</li>
+</ul>
+<h3 id="矩阵的求逆"><a href="#矩阵的求逆" class="headerlink" title="矩阵的求逆"></a>矩阵的求逆</h3><ul>
+<li>inv（A） A的逆矩阵</li>
+</ul>
+<h2 id="矩阵求值"><a href="#矩阵求值" class="headerlink" title="矩阵求值"></a>矩阵求值</h2><h3 id="方阵的行列式"><a href="#方阵的行列式" class="headerlink" title="方阵的行列式"></a>方阵的行列式</h3><ul>
+<li>det(A) A的行列式值。</li>
+</ul>
+<h3 id="矩阵的秩"><a href="#矩阵的秩" class="headerlink" title="矩阵的秩"></a>矩阵的秩</h3><ul>
+<li>矩阵线性无关的行数或列数成为矩阵的秩</li>
+<li>rank(A) 求矩阵A的秩。</li>
+</ul>
+<h3 id="矩阵的迹"><a href="#矩阵的迹" class="headerlink" title="矩阵的迹"></a>矩阵的迹</h3><ul>
+<li>矩阵的迹等于矩阵的对角线元素之和，也等于矩阵的特征值之和</li>
+<li>trace（A）</li>
+</ul>
+<h3 id="向量和矩阵的范数"><a href="#向量和矩阵的范数" class="headerlink" title="向量和矩阵的范数"></a>向量和矩阵的范数</h3><h4 id="向量的范数"><a href="#向量的范数" class="headerlink" title="向量的范数"></a>向量的范数</h4><ul>
+<li><p>向量或矩阵的范数用来度量矩阵或向量在某种意义下的长度。</p>
+<ol>
+<li>1——范数：向量元素的绝对值之和。</li>
+<li>2——范数：向量元素平方和的平方根。</li>
+<li>∞——范数：所有向量元素绝对值中的最大值。</li>
+</ol>
+</li>
+<li><p>norm（V,1/2/inf）计算范数。</p>
+</li>
+</ul>
+<h4 id="矩阵的范数"><a href="#矩阵的范数" class="headerlink" title="矩阵的范数"></a>矩阵的范数</h4><ol>
+<li>1——范数：矩阵列元素绝对值之和的最大值</li>
+<li>2——范数：A’A矩阵的最大特征值的平方根。</li>
+<li>∞——范数：所有矩阵行元素绝对值之和的最大值。</li>
+</ol>
+<p>用法与向量相同。</p>
+<h3 id="矩阵的条件数"><a href="#矩阵的条件数" class="headerlink" title="矩阵的条件数"></a>矩阵的条件数</h3><ul>
+<li>矩阵A的条件数等于A的范数与A的逆矩阵的范数的乘积。</li>
+<li><p>条件数越接近于1，矩阵的性能越好，反之，矩阵的性能越差。</p>
+</li>
+<li><p>cond（A,1/2/inf）</p>
+</li>
+</ul>
+<h2 id="矩阵的特征值与特征向量"><a href="#矩阵的特征值与特征向量" class="headerlink" title="矩阵的特征值与特征向量"></a>矩阵的特征值与特征向量</h2><ul>
+<li>Ax = λx</li>
+</ul>
+<ol>
+<li>E=eig（A） 求矩阵A的全部特征值，构成向量A</li>
+<li>[X,D]=eig(A)  求矩阵A的全部特征值，构成对角阵D，并产生矩阵X，X各列是相应的特征向量。</li>
+</ol>
+<h3 id="几何意义"><a href="#几何意义" class="headerlink" title="几何意义"></a>几何意义</h3><p>线性变换，比如将整体字转换为斜体字。</p>
+<p>利用eigshow函数可以展示AX与X之间的关系。</p>
+<h2 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h2><ul>
+<li>0元素远远多于非0元素的矩阵。</li>
+</ul>
+<h3 id="矩阵的存储方式"><a href="#矩阵的存储方式" class="headerlink" title="矩阵的存储方式"></a>矩阵的存储方式</h3><ul>
+<li>完全存储方式</li>
+<li>稀疏存储方式</li>
+</ul>
+<h4 id="完全存储方式"><a href="#完全存储方式" class="headerlink" title="完全存储方式"></a>完全存储方式</h4><p>按照矩阵元素序号来进行存储。</p>
+<h4 id="稀疏存储方式"><a href="#稀疏存储方式" class="headerlink" title="稀疏存储方式"></a>稀疏存储方式</h4><p>稀疏存储方式只存储矩阵的非零元素的值及其位置，即行号和列号。</p>
+<p><em>注意：采用稀疏存储方式时，矩阵元素的存储顺序并没有改变，也是按列的顺序进行存储。</em></p>
+<h4 id="稀疏存储方式的产生"><a href="#稀疏存储方式的产生" class="headerlink" title="稀疏存储方式的产生"></a>稀疏存储方式的产生</h4><ol>
+<li><p>完全存储方式与稀疏存储方式之间的转化</p>
+<p> <code>A = sparse(S) //矩阵S转化为稀疏存储方式A</code></p>
+<p> <code>S = full(A)  //矩阵A转化为完全存储方式的矩阵S</code></p>
+</li>
+<li><p>直接建立稀疏存储矩阵</p>
+<ul>
+<li>sparse（m,n）:生成一个m×n的所有元素都是0的稀疏矩阵。</li>
+<li><p>sparse（u，v，S） S是要建立的稀疏存储矩阵的非零元素，u（i）和v（i）分别是S（i）的行和列下标。</p>
+<p><em>使用spconvert函数直接建立稀疏存储矩阵，调用格式为B=spconvert(A)</em><br>A为一个m×3或m×4的矩阵，第一列便是非零元素所在行，第二列表示非零元素所在列，第三列表示非零元素的实部，第四列表示非零元素的虚部。</p>
+</li>
+</ul>
+</li>
+<li><p>带状稀疏矩阵</p>
+<p> 带状稀疏矩阵是指所有非零元素集中在对角线上的矩阵。</p>
+<p> [B,d] = spdiags(A):从带状稀疏矩阵A中提取全部非零对角线元素赋给矩阵B及其这些非零对角线的位置向量d。</p>
+<p> speye（m，n）返回一个m×n的稀疏存储单位矩阵。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/15/matlab字符串处理/" rel="next" title="matlab字符串处理">
+                <i class="fa fa-chevron-left"></i> matlab字符串处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/15/matlab程序控制/" rel="prev" title="matlab程序控制">
+                matlab程序控制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊矩阵"><span class="nav-number">1.</span> <span class="nav-text">特殊矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用型的特殊矩阵"><span class="nav-number">1.1.</span> <span class="nav-text">通用型的特殊矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用于特殊学科的特殊矩阵"><span class="nav-number">1.2.</span> <span class="nav-text">用于特殊学科的特殊矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵变换"><span class="nav-number">2.</span> <span class="nav-text">矩阵变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对角阵"><span class="nav-number">2.1.</span> <span class="nav-text">对角阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提取对角线元素"><span class="nav-number">2.1.1.</span> <span class="nav-text">提取对角线元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造对角矩阵"><span class="nav-number">2.1.2.</span> <span class="nav-text">构造对角矩阵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三角阵"><span class="nav-number">2.2.</span> <span class="nav-text">三角阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上三角阵"><span class="nav-number">2.2.1.</span> <span class="nav-text">上三角阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下三角阵"><span class="nav-number">2.2.2.</span> <span class="nav-text">下三角阵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的转置"><span class="nav-number">2.3.</span> <span class="nav-text">矩阵的转置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的翻转"><span class="nav-number">2.4.</span> <span class="nav-text">矩阵的翻转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的求逆"><span class="nav-number">2.5.</span> <span class="nav-text">矩阵的求逆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵求值"><span class="nav-number">3.</span> <span class="nav-text">矩阵求值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方阵的行列式"><span class="nav-number">3.1.</span> <span class="nav-text">方阵的行列式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的秩"><span class="nav-number">3.2.</span> <span class="nav-text">矩阵的秩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的迹"><span class="nav-number">3.3.</span> <span class="nav-text">矩阵的迹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量和矩阵的范数"><span class="nav-number">3.4.</span> <span class="nav-text">向量和矩阵的范数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#向量的范数"><span class="nav-number">3.4.1.</span> <span class="nav-text">向量的范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#矩阵的范数"><span class="nav-number">3.4.2.</span> <span class="nav-text">矩阵的范数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的条件数"><span class="nav-number">3.5.</span> <span class="nav-text">矩阵的条件数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的特征值与特征向量"><span class="nav-number">4.</span> <span class="nav-text">矩阵的特征值与特征向量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几何意义"><span class="nav-number">4.1.</span> <span class="nav-text">几何意义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#稀疏矩阵"><span class="nav-number">5.</span> <span class="nav-text">稀疏矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的存储方式"><span class="nav-number">5.1.</span> <span class="nav-text">矩阵的存储方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#完全存储方式"><span class="nav-number">5.1.1.</span> <span class="nav-text">完全存储方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稀疏存储方式"><span class="nav-number">5.1.2.</span> <span class="nav-text">稀疏存储方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稀疏存储方式的产生"><span class="nav-number">5.1.3.</span> <span class="nav-text">稀疏存储方式的产生</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
