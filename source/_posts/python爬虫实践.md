@@ -33,4 +33,39 @@ tags:
 
 保存形式多样，可以存为文本，也可以保存到数据库，或者保存特定格式的文件。
 
+## URL初步概念
 
+整个过程大致会产生以下步骤：
+
+本地客户端->请求->服务器
+
+本地浏览器<-文件数据<-服务器
+
+本地浏览器进行解析文件数据并且展现
+
+URL（Uniform Resource Locator）统一资源定位符。就是我们给浏览器输入的地址。
+
+URL基本格式：`protocol:// hostname[:port] / path / [;parameters][?query]#fragment`
+
+基本上是由三部分组成：
+1. 协议（HTTP,FTP）
+2. 主机的IP地址
+3. 请求主机资源的具体地址
+
+其中第一部分和第二部分用://分割,第二部分和第三部分用/分割
+
+## urllib库使用
+
+### urllib3
+
+``` python
+
+def load_page(url):
+    http = urllib3.PoolManager()
+    header = {'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;'}
+    r = http.request('GET', url, headers=header)
+    return r.data
+
+```
+
+这里的header就是User-Agent头，用于伪装成浏览器请求。返回值就是读取到的网页，但是不是string类型，要使用str()转为字符串类型。
