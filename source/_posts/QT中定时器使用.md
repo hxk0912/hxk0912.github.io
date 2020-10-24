@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 1.0
- * @Author: hxk
- * @Date: 2020-10-24 15:29:20
- * @LastEditors: hxk
- * @LastEditTime: 2020-10-24 15:41:04
--->
 ---
 title: QT中定时器使用
 date: 2020-10-24 15:29:20
