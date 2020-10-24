@@ -37,3 +37,13 @@ __IO uint16_t ADC_Value[2] = {0}; // 建议使用__IO关键字，对应于Half W
 HAL_ADC_Start_DMA(&hadc1, (uint32_t * )ADC_Buf, 2);
 
 ```
+
+## 遇到的问题
+
+由于使用DMA时cubemx自动配置打开中断，但是当采集速度较快的时候，会不断进入DMA中断导致整个程序卡死，所以应该在dma.c中将DMA中断使能手动关闭。
+
+``` c
+HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 1, 0);
+//  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+
+```
