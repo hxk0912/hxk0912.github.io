@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="访问图像中像素每行像素个数是列数 × 通道数 Mat 类提供 ptr 函数得到图像任意行的首地址。 uchar* data = outputImage.ptr&amp;lt;uchar&amp;gt;(i) 然后访问某个元素就是 data[j] 或者是 *(data+j) 值得注意的是，像素存放顺序是 BGR，而不是 RGB 计算数组加权和 addWeighted()1void addWeighted(Input">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ OpenCV中Core模块">
+<meta property="og:url" content="https://hxk0912.github.io/2020/10/29/C-OpenCV中Core模块/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="访问图像中像素每行像素个数是列数 × 通道数 Mat 类提供 ptr 函数得到图像任意行的首地址。 uchar* data = outputImage.ptr&amp;lt;uchar&amp;gt;(i) 然后访问某个元素就是 data[j] 或者是 *(data+j) 值得注意的是，像素存放顺序是 BGR，而不是 RGB 计算数组加权和 addWeighted()1void addWeighted(Input">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-11-05T06:15:53.029Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ OpenCV中Core模块">
+<meta name="twitter:description" content="访问图像中像素每行像素个数是列数 × 通道数 Mat 类提供 ptr 函数得到图像任意行的首地址。 uchar* data = outputImage.ptr&amp;lt;uchar&amp;gt;(i) 然后访问某个元素就是 data[j] 或者是 *(data+j) 值得注意的是，像素存放顺序是 BGR，而不是 RGB 计算数组加权和 addWeighted()1void addWeighted(Input">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/10/29/C-OpenCV中Core模块/">
+
+
+
+
+
+  <title>C++ OpenCV中Core模块 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/10/29/C-OpenCV中Core模块/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ OpenCV中Core模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-29T10:20:08+08:00">
+                2020-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenCV</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="访问图像中像素"><a href="#访问图像中像素" class="headerlink" title="访问图像中像素"></a>访问图像中像素</h2><p>每行像素个数是列数 × 通道数</p>
+<p>Mat 类提供 ptr 函数得到图像任意行的首地址。</p>
+<p><code>uchar* data = outputImage.ptr&lt;uchar&gt;(i)</code></p>
+<p>然后访问某个元素就是 data[j] 或者是 *(data+j)</p>
+<p><strong>值得注意的是，像素存放顺序是 BGR，而不是 RGB</strong></p>
+<h2 id="计算数组加权和-addWeighted"><a href="#计算数组加权和-addWeighted" class="headerlink" title="计算数组加权和 addWeighted()"></a>计算数组加权和 addWeighted()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addWeighted</span><span class="params">(InputArray src1,<span class="keyword">double</span> alpha,InputArray src2,<span class="keyword">double</span> beta,<span class="keyword">double</span> gamma,OutputArray dst,<span class="keyword">int</span> dtype=<span class="number">-1</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>计算得到，dst = src1[I] <em> alpha + src2[i] </em> beta +gamma</p>
+<p>I 是多维数组元素的索引值。而且，在遇到多通道数组的时候，每个通道都需要独立地进行处理。</p>
+<h2 id="分离颜色通道和通道合并"><a href="#分离颜色通道和通道合并" class="headerlink" title="分离颜色通道和通道合并"></a>分离颜色通道和通道合并</h2><h3 id="分离颜色通道"><a href="#分离颜色通道" class="headerlink" title="分离颜色通道"></a>分离颜色通道</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spilt</span><span class="params">(<span class="keyword">const</span> Mat&amp; src,OutputArrayOfArrays mv)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="通道合并"><a href="#通道合并" class="headerlink" title="通道合并"></a>通道合并</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(InputArrayOfArrays mv,OutputArray dst)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="图像对比度和亮度调整"><a href="#图像对比度和亮度调整" class="headerlink" title="图像对比度和亮度调整"></a>图像对比度和亮度调整</h2><h3 id="调整策略"><a href="#调整策略" class="headerlink" title="调整策略"></a>调整策略</h3><script type="math/tex; mode=display">
+g(x) = a*f(x)+b</script><p>f(x) 是原图像像素<br>g(x) 是输出图像像素<br>a 是增益，用于调节对比度<br>b 是偏置，用来调节图像的亮度</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">on_ContrastAndBright</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">void</span>*)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> g_nContrastValue;</span><br><span class="line"><span class="keyword">int</span> g_nBrightValue;</span><br><span class="line">Mat g_srcImage, g_dstImage;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	g_srcImage = imread(<span class="string">"lena.png"</span>,<span class="number">1</span>);</span><br><span class="line">	g_dstImage = Mat::zeros(g_srcImage.size(), g_srcImage.type());</span><br><span class="line">	g_nBrightValue = <span class="number">80</span>;</span><br><span class="line">	g_nContrastValue = <span class="number">80</span>;</span><br><span class="line">	namedWindow(<span class="string">"result"</span>,<span class="number">1</span>);</span><br><span class="line">	createTrackbar(<span class="string">"对比度："</span>,<span class="string">"result"</span>,&amp;g_nContrastValue,<span class="number">300</span>,on_ContrastAndBright);</span><br><span class="line">	createTrackbar(<span class="string">"亮度："</span>,<span class="string">"result"</span>,&amp;g_nBrightValue,<span class="number">200</span>,on_ContrastAndBright);</span><br><span class="line">	on_ContrastAndBright(g_nBrightValue,<span class="number">0</span>);</span><br><span class="line">	on_ContrastAndBright(g_nContrastValue, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">while</span> (waitKey(<span class="number">1</span>)!=<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">on_ContrastAndBright</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">void</span>*)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	namedWindow(<span class="string">"origin"</span>, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; g_srcImage.rows; y++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; g_srcImage.cols; x++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> c = <span class="number">0</span>; c &lt; <span class="number">3</span>; c++)</span><br><span class="line">			&#123;</span><br><span class="line">				g_dstImage.at&lt;Vec3b&gt;(y, x)[c] =</span><br><span class="line">					saturate_cast&lt;uchar&gt;((g_nContrastValue * <span class="number">0.01</span>)*(g_srcImage.at&lt;Vec3b&gt;(y, x)[c]) +</span><br><span class="line">						g_nBrightValue);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//进行优化，使用convertTo函数</span></span><br><span class="line">	<span class="comment">//g_srcImage.convertTo(g_dstImage, -1, g_nContrastValue * 0.01, g_nBrightValue);</span></span><br><span class="line"></span><br><span class="line">	imshow(<span class="string">"origin"</span>, g_srcImage);</span><br><span class="line">	imshow(<span class="string">"result"</span>, g_dstImage);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h2><h3 id="dft-函数"><a href="#dft-函数" class="headerlink" title="dft 函数"></a>dft 函数</h3><p>dft 函数的作用是对一维或二维浮点数数组进行正向或反向傅里叶变换。</p>
+<p><code>void dft(InputArray src,OutputArray dst,int flag =0,int nonzeroRows = 0)</code></p>
+<p>其中 flag 代表转换的标识符</p>
+<p>常见的有：</p>
+<ul>
+<li>DFT_INVERSE 逆变换</li>
+<li>DFT_SCALE 缩放，通常和 INVERSE 一起使用</li>
+<li>DFT_ROWS 对输入矩阵每行进行正或反变换</li>
+</ul>
+<p>nonzeroRows 如果设置为非零数，那么函数会认为只有输入矩阵的第一个非零行包含非零值，会对其他行进行更加高效的处理。</p>
+<p>返回 DFT 最优尺寸大小：<br>为了提高 DFT 的运行速度，需要扩充图像，具体扩充多少就可以由这个函数计算得到。<br><code>int getOptimalDFTSize(int vecsize)</code></p>
+<p>扩充图像边界：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">copyMakeBorder</span><span class="params">(InputArray src,OutputArray dst,<span class="keyword">int</span> top,<span class="keyword">int</span> bottom,<span class="keyword">int</span> left,<span class="keyword">int</span> right,<span class="keyword">int</span> boardtype,<span class="keyword">const</span> Scalar&amp; value = Scalar())</span></span>;</span><br></pre></td></tr></table></figure>
+<p>top bottom left right 代表在源图像上下左右各扩展多少像素，boardtype 代表边界类型，Scalar 代表边界值</p>
+<p>计算二维矢量幅值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">magnitude</span><span class="params">(InputArray x,InputArray y,OutputArray magnitude)</span></span></span><br></pre></td></tr></table></figure>
+<p>矩阵归一化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">normalize</span><span class="params">(InputArray src,OutputArray dst,<span class="keyword">double</span> alpha=<span class="number">1</span>,<span class="keyword">double</span> beta=<span class="number">0</span>,<span class="keyword">int</span> norm_type=NORM_L2,<span class="keyword">int</span> dtype=<span class="number">-1</span>,InputArray mask = noArray())</span></span></span><br></pre></td></tr></table></figure>
+<p>alpha 为最大值，beta 为最小值</p>
+<h2 id="输入输出XML和YAML文件"><a href="#输入输出XML和YAML文件" class="headerlink" title="输入输出XML和YAML文件"></a>输入输出XML和YAML文件</h2><h3 id="打开XML-YAML文件"><a href="#打开XML-YAML文件" class="headerlink" title="打开XML YAML文件"></a>打开XML YAML文件</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function">FileStorage <span class="title">fs</span><span class="params">(<span class="string">"a.xml"</span>,FileStorage::WRITE)</span></span>;</span><br><span class="line"></span><br><span class="line">FileStorage fs;</span><br><span class="line">fs.open(<span class="string">"a.xml"</span>,FileStorage::WRITE);</span><br></pre></td></tr></table></figure>
+<h3 id="进行读写操作"><a href="#进行读写操作" class="headerlink" title="进行读写操作"></a>进行读写操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">fs &lt;&lt; <span class="string">"iterationNr"</span> &lt;&lt; <span class="number">100</span> ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> itNr;</span><br><span class="line">fs[<span class="string">"iterationNr"</span>] &gt;&gt; itNr;</span><br><span class="line">itNr = (<span class="keyword">int</span>) fs[<span class="string">"iterationNr"</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="文件关闭"><a href="#文件关闭" class="headerlink" title="文件关闭"></a>文件关闭</h3><p><code>fs.release();</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/28/C-OpenCV中数据结构/" rel="next" title="C++ OpenCV中数据结构">
+                <i class="fa fa-chevron-left"></i> C++ OpenCV中数据结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#访问图像中像素"><span class="nav-number">1.</span> <span class="nav-text">访问图像中像素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算数组加权和-addWeighted"><span class="nav-number">2.</span> <span class="nav-text">计算数组加权和 addWeighted()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分离颜色通道和通道合并"><span class="nav-number">3.</span> <span class="nav-text">分离颜色通道和通道合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分离颜色通道"><span class="nav-number">3.1.</span> <span class="nav-text">分离颜色通道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通道合并"><span class="nav-number">3.2.</span> <span class="nav-text">通道合并</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像对比度和亮度调整"><span class="nav-number">4.</span> <span class="nav-text">图像对比度和亮度调整</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调整策略"><span class="nav-number">4.1.</span> <span class="nav-text">调整策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">4.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#离散傅里叶变换"><span class="nav-number">5.</span> <span class="nav-text">离散傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dft-函数"><span class="nav-number">5.1.</span> <span class="nav-text">dft 函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入输出XML和YAML文件"><span class="nav-number">6.</span> <span class="nav-text">输入输出XML和YAML文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开XML-YAML文件"><span class="nav-number">6.1.</span> <span class="nav-text">打开XML YAML文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进行读写操作"><span class="nav-number">6.2.</span> <span class="nav-text">进行读写操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件关闭"><span class="nav-number">6.3.</span> <span class="nav-text">文件关闭</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

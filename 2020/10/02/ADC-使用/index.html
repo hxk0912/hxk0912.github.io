@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="侯学凯的博客">
 <meta property="og:description" content="cubeMX配置 模式选择 通常为独立模式，如果要使用多重模式打开多个adc后选择多重模式   设置 分频通常为4分频或6分频 分辨率一般为12bits Data Alignment 为右对齐 Scan Conversion Mode 多个通道时要使能 连续转换使能 DMA连续请求使能   规则通道设置 设置转换通道数 转换触发源（通常为软件触发） Rank为转换顺序，选择通道和转换周期   DM">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-10-15T00:08:11.832Z">
+<meta property="og:updated_time" content="2020-10-29T02:40:52.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ADC 使用">
 <meta name="twitter:description" content="cubeMX配置 模式选择 通常为独立模式，如果要使用多重模式打开多个adc后选择多重模式   设置 分频通常为4分频或6分频 分辨率一般为12bits Data Alignment 为右对齐 Scan Conversion Mode 多个通道时要使能 连续转换使能 DMA连续请求使能   规则通道设置 设置转换通道数 转换触发源（通常为软件触发） Rank为转换顺序，选择通道和转换周期   DM">
@@ -369,7 +369,8 @@
 </li>
 </ol>
 <h2 id="MDK代码"><a href="#MDK代码" class="headerlink" title="MDK代码"></a>MDK代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">__IO <span class="keyword">uint16_t</span> ADC_Value[<span class="number">2</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 建议使用__IO关键字，对应于Half Word</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//不是所有芯片都支持校准</span></span><br><span class="line"><span class="comment">//HAL_ADCEx_Calibration_Start(&amp;hadc1);//校准</span></span><br><span class="line">HAL_ADC_Start_DMA(&amp;hadc1, (<span class="keyword">uint32_t</span> * )ADC_Buf, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>由于使用DMA时cubemx自动配置打开中断，但是当采集速度较快的时候，会不断进入DMA中断导致整个程序卡死，所以应该在dma.c中将DMA中断使能手动关闭。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">//  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -482,7 +483,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-count">121</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -493,7 +494,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -528,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cubeMX配置"><span class="nav-number">1.</span> <span class="nav-text">cubeMX配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MDK代码"><span class="nav-number">2.</span> <span class="nav-text">MDK代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cubeMX配置"><span class="nav-number">1.</span> <span class="nav-text">cubeMX配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MDK代码"><span class="nav-number">2.</span> <span class="nav-text">MDK代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到的问题"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题</span></a></li></ol></div>
             
 
           </div>
