@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="图像滤波与滤波器图像滤波，指在尽量保留图像细节特征的条件下对目标图像的噪声进行抑制。 消除图像中的噪声成分叫做叫做图像的平滑化或者滤波操作。信号或图像的能量大部分集中在幅度谱的低频和中频段，而在较高频段，有用的信息经常被噪声淹没。因此一个能降低高频成分幅度的滤波器就能减弱噪声的影响。 opencv中提供了常见的五种滤波器：  方框滤波 BoxBlur 均值滤波 Blur 高斯滤波 Gaussian">
+<meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C OpenCV 图像处理">
+<meta property="og:url" content="https://hxk0912.github.io/2020/11/05/C-OpenCV-图像处理/index.html">
+<meta property="og:site_name" content="侯学凯的博客">
+<meta property="og:description" content="图像滤波与滤波器图像滤波，指在尽量保留图像细节特征的条件下对目标图像的噪声进行抑制。 消除图像中的噪声成分叫做叫做图像的平滑化或者滤波操作。信号或图像的能量大部分集中在幅度谱的低频和中频段，而在较高频段，有用的信息经常被噪声淹没。因此一个能降低高频成分幅度的滤波器就能减弱噪声的影响。 opencv中提供了常见的五种滤波器：  方框滤波 BoxBlur 均值滤波 Blur 高斯滤波 Gaussian">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-11-16T12:09:31.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C OpenCV 图像处理">
+<meta name="twitter:description" content="图像滤波与滤波器图像滤波，指在尽量保留图像细节特征的条件下对目标图像的噪声进行抑制。 消除图像中的噪声成分叫做叫做图像的平滑化或者滤波操作。信号或图像的能量大部分集中在幅度谱的低频和中频段，而在较高频段，有用的信息经常被噪声淹没。因此一个能降低高频成分幅度的滤波器就能减弱噪声的影响。 opencv中提供了常见的五种滤波器：  方框滤波 BoxBlur 均值滤波 Blur 高斯滤波 Gaussian">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxk0912.github.io/2020/11/05/C-OpenCV-图像处理/">
+
+
+
+
+
+  <title>C OpenCV 图像处理 | 侯学凯的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">侯学凯的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个大学生的技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://hxk0912.github.io'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/11/05/C-OpenCV-图像处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侯学凯的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C OpenCV 图像处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-05T14:22:30+08:00">
+                2020-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenCV</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="图像滤波与滤波器"><a href="#图像滤波与滤波器" class="headerlink" title="图像滤波与滤波器"></a>图像滤波与滤波器</h2><p>图像滤波，指在尽量保留图像细节特征的条件下对目标图像的噪声进行抑制。</p>
+<p>消除图像中的噪声成分叫做叫做图像的平滑化或者滤波操作。信号或图像的能量大部分集中在幅度谱的低频和中频段，而在较高频段，有用的信息经常被噪声淹没。因此一个能降低高频成分幅度的滤波器就能减弱噪声的影响。</p>
+<p>opencv中提供了常见的五种滤波器：</p>
+<ul>
+<li>方框滤波 BoxBlur</li>
+<li>均值滤波 Blur</li>
+<li>高斯滤波 GaussianBlur</li>
+<li>中值滤波 medianBlur</li>
+<li>双边滤波 bilateralBlur</li>
+</ul>
+<h2 id="滤波和模糊"><a href="#滤波和模糊" class="headerlink" title="滤波和模糊"></a>滤波和模糊</h2><p>滤波可以分为高通和低通，高斯滤波是指用高斯函数作为滤波函数的滤波操作，至于是不是模糊，要看是高斯低通还是高斯高通，低通就是模糊，高通就是锐化</p>
+<h2 id="线性滤波"><a href="#线性滤波" class="headerlink" title="线性滤波"></a>线性滤波</h2><h3 id="方框滤波"><a href="#方框滤波" class="headerlink" title="方框滤波"></a>方框滤波</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">boxFilter</span><span class="params">(InputArray src,OutputArray dst,<span class="keyword">int</span> ddepth,size ksize,Point anchor = Point(<span class="number">-1</span>,<span class="number">-1</span>),boolnormalize = <span class="literal">true</span>,<span class="keyword">int</span> borderType=BOARDER_DEFAULT)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>size 代表内核大小 3×3，5×5等，anchor指平滑锚点，默认值为中间，normalize表示是否归一化，true的时候代表归一化，也就是<strong>均值滤波</strong>，不归一化是用于计算像素邻域内的积分特性。</p>
+<h3 id="高斯滤波"><a href="#高斯滤波" class="headerlink" title="高斯滤波"></a>高斯滤波</h3><p>高斯滤波就是对整幅图像进行加权平均。用一个具体模版（掩膜）扫描图像中的每一个像素，用模版确定的领域内扫描图像中的每一个像素，用模版确定领域内像素的加权平均灰度值去替代模版中心的像素值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GaussianBlur</span><span class="params">(InputArray src,OutputArray dst,Size ksize,<span class="keyword">double</span> sigmaX,<span class="keyword">double</span> sigmaY=<span class="number">0</span>,<span class="keyword">int</span> BORDER_DEFAULT)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="非线性滤波"><a href="#非线性滤波" class="headerlink" title="非线性滤波"></a>非线性滤波</h2><h3 id="中值滤波"><a href="#中值滤波" class="headerlink" title="中值滤波"></a>中值滤波</h3><p>中值滤波是用像素点邻域灰度值的中值来代替该像素点的灰度值。</p>
+<p>中值滤波与均值滤波比较：在均值滤波器中，用于噪声成分被放入平均计算中，所以输出受到了噪声的影响。但是在中值滤波器中，由于噪声成分很难被选上，所以几乎不会影响到输出。因此，中值滤波的消除噪声能力更胜一筹，中值滤波无论是在消除噪声还是保存边缘上都是一个不错的方法。但是中值滤波花费的时间是均值滤波的5倍以上。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">medianBlur</span><span class="params">(InputArray src,OutputArray dst,<span class="keyword">int</span> ksize)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="双边滤波"><a href="#双边滤波" class="headerlink" title="双边滤波"></a>双边滤波</h3><p>双边滤波的好处，是可以做边缘保存，双边滤波相比于高斯滤波多了一个高斯方差sigma-d，它是基于空间分布的高斯滤波函数，所以在边缘附近，离得较远的向世俗不会对边缘上的像素值影响太多。但是，由于保存了过多的高频信息，对于彩色图像里的高频噪声，双边滤波器不能干净的滤掉，只能对于低频信息进行较好的滤波。简单来说，双边滤波中不仅考虑掩膜中点对于中心距离的影响，也考虑点本身像素与中心像素值的差的影响。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bilateralFilter</span><span class="params">(InputArray src,OutputArray dst,<span class="keyword">int</span> d,<span class="keyword">double</span> sigmaColor,<span class="keyword">double</span> sigmaSpace,<span class="keyword">int</span> boarderType=BORDER_DEFAULT)</span></span></span><br></pre></td></tr></table></figure>
+<p>d代表过滤过程中邻域像素的直径。<br>sigmaColor 代表颜色空间的sigma值，sigmaSpace代表坐标空间的sigma值</p>
+<h2 id="形态学滤波"><a href="#形态学滤波" class="headerlink" title="形态学滤波"></a>形态学滤波</h2><h3 id="形态学概述"><a href="#形态学概述" class="headerlink" title="形态学概述"></a>形态学概述</h3><p>形态学操作就是基于形状的一系列图像处理操作。</p>
+<h3 id="膨胀"><a href="#膨胀" class="headerlink" title="膨胀"></a>膨胀</h3><p>膨胀就是求局部最大值的操作，这样的操作会使图像中的高亮区域逐渐增长。</p>
+<h3 id="腐蚀"><a href="#腐蚀" class="headerlink" title="腐蚀"></a>腐蚀</h3><p>腐蚀操作就是求局部最小值的操作。</p>
+<h3 id="相关API函数"><a href="#相关API函数" class="headerlink" title="相关API函数"></a>相关API函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">void</span> cv::erode(InputArray src,OutputArray dst,InputArray kernel,Point anchor,<span class="keyword">int</span> iterations,<span class="keyword">int</span> boardtype,constScalar&amp; boardvalue)</span><br><span class="line"><span class="keyword">void</span> cv::dilate(InputArray src,OutputArray dst,InputArray kernel,Point anchor,<span class="keyword">int</span> iterations,<span class="keyword">int</span> boardtype,constScalar&amp; boardvalue)</span><br></pre></td></tr></table></figure>
+<p>第三个参数kernel为操作的核，当为NULL时，表示的是使用参考点位于中心3×3的核，第四个参数iteration代表迭代次数，默认为1，<br>anchor是锚点，默认为-1也就是中心。</p>
+<h3 id="开运算"><a href="#开运算" class="headerlink" title="开运算"></a>开运算</h3><p>开运算实际上就是先腐蚀后膨胀的过程</p>
+<p>dst=open(src,element)=dilate(erode(src,element))</p>
+<p>开运算可以用来消除小物体，在纤细处分离物体，并且在平滑较大物体的边界的同时不明显改变其面积。</p>
+<h3 id="闭运算"><a href="#闭运算" class="headerlink" title="闭运算"></a>闭运算</h3><p>闭运算实际上就是先膨胀后腐蚀的过程。</p>
+<p>dst=close(src,element)=erode(dilate(src,element))</p>
+<p>闭运算能够排除小型黑洞（黑色区域）。</p>
+<h3 id="形态学梯度"><a href="#形态学梯度" class="headerlink" title="形态学梯度"></a>形态学梯度</h3><p>形态学梯度是膨胀图与腐蚀图之差，对二值图像进行梯度操作可以将团块（blob）的边缘突出出来。我们可以用形态学梯度来保留物体的边缘轮廓。</p>
+<h3 id="顶帽"><a href="#顶帽" class="headerlink" title="顶帽"></a>顶帽</h3><p>顶帽运算是原图像与上文刚刚介绍的开运算效果之差。<br>因为开运算带来的效果是放大了裂缝或者局部低亮度的区域。因此，从原图中减去开运算后的图，得到的效果图突出了比原图轮廓周围的区域更明亮的区域。<br>顶帽运算往往用来分离比邻近点亮一些的斑块。在一幅图像具有大幅的背景，而微小物品比较有规律的情况下，可以使用顶帽运算进行背景提取。</p>
+<p>dst = tophat(src,element) = src-open(src,element)</p>
+<h3 id="黑帽"><a href="#黑帽" class="headerlink" title="黑帽"></a>黑帽</h3><p>dst = blackhat(src,element) = close(src,element)-src</p>
+<p>黑帽运算后的效果图突出了比原图轮廓周围的区域更暗的区域，且这一操作和选择的核的大小相关。所以黑帽运算用来分离一些比临近点暗一点的斑块，效果图有着非常完美的轮廓。</p>
+<h3 id="相关API"><a href="#相关API" class="headerlink" title="相关API"></a>相关API</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">morphologyEx</span><span class="params">(InputArray src,OutputArray dst,<span class="keyword">int</span> op,InputArray Kernel,Point anchor,<span class="keyword">int</span> iteration,<span class="keyword">int</span> boardtype,constScalar&amp; boardvalue)</span></span></span><br></pre></td></tr></table></figure>
+<p>op参数代表形态学运算的类型。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标识符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MORPH_OPEN</td>
+<td>开运算</td>
+</tr>
+<tr>
+<td>MORPH_CLOSE</td>
+<td>闭运算</td>
+</tr>
+<tr>
+<td>MORPH_GRADIENT</td>
+<td>形态学梯度</td>
+</tr>
+<tr>
+<td>MORPH_TOPHAT</td>
+<td>顶帽</td>
+</tr>
+<tr>
+<td>MORPH_BLACKHAT</td>
+<td>黑帽</td>
+</tr>
+<tr>
+<td>MORPH_ERODE</td>
+<td>腐蚀</td>
+</tr>
+<tr>
+<td>MORPH_DILATE</td>
+<td>膨胀</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="漫水填充"><a href="#漫水填充" class="headerlink" title="漫水填充"></a>漫水填充</h2><p>漫水填充简单来说就是自动选中了和种子点相连的区域，接着将该区域替换成指定的颜色，这是个非常有用的功能,经常用来标记或者分离图像的一部分进行处理或分析.漫水填充也可以用来从输入图像获取掩码区域,掩码会加速处理过程,或者只处理掩码指定的像素点。效果类似于ps的魔术棒</p>
+<p>在OpenCV中，漫水填充是填充算法中最通用的方法。且在OpenCV 2.X中，使用C++重写过的FloodFill函数有两个版本。一个不带掩膜mask的版本，和一个带mask的版本。这个掩膜mask，就是用于进一步控制哪些区域将被填充颜色（比如说当对同一图像进行多次填充时）。这两个版本的FloodFill，都必须在图像中选择一个种子点，然后把临近区域所有相似点填充上同样的颜色，不同的是，不一定将所有的邻近像素点都染上同一颜色，漫水填充操作的结果总是某个连续的区域。当邻近像素点位于给定的范围（从loDiff到upDiff）内或在原始seedPoint像素值范围内时，FloodFill函数就会为这个点涂上颜色。</p>
+<p>在OpenCV中，漫水填充算法由floodFill函数实现，其作用是用我们指定的颜色从种子点开始填充一个连接域。连通性由像素值的接近程度来衡量。OpenCV2.X有两个C++重写版本的floodFill。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">floodFill</span><span class="params">(InputOutputArray image, Point seedPoint, Scalar newVal, Rect* rect=<span class="number">0</span>, Scalar loDiff=Scalar(), Scalar upDiff=Scalar(), <span class="keyword">int</span> flags=<span class="number">4</span> )</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">floodFill</span><span class="params">(InputOutputArray image, InputOutputArray mask, Point seedPoint,Scalar newVal, Rect* rect=<span class="number">0</span>, Scalar loDiff=Scalar(), Scalar upDiff=Scalar(), <span class="keyword">int</span> flags=<span class="number">4</span> )</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数，InputOutputArray类型的image, 输入/输出1通道或3通道，8位或浮点图像，具体参数由之后的参数具体指明。</li>
+<li>第二个参数， InputOutputArray类型的mask，这是第二个版本的floodFill独享的参数，表示操作掩模,。它应该为单通道、8位、长和宽上都比输入图像 image 大两个像素点的图像。第二个版本的floodFill需要使用以及更新掩膜，所以这个mask参数我们一定要将其准备好并填在此处。需要注意的是，漫水填充不会填充掩膜mask的非零像素区域。例如，一个边缘检测算子的输出可以用来作为掩膜，以防止填充到边缘。同样的，也可以在多次的函数调用中使用同一个掩膜，以保证填充的区域不会重叠。另外需要注意的是，掩膜mask会比需填充的图像大，所以 mask 中与输入图像(x,y)像素点相对应的点的坐标为(x+1,y+1)。</li>
+<li>第三个参数，Point类型的seedPoint，漫水填充算法的起始点。</li>
+<li>第四个参数，Scalar类型的newVal，像素点被染色的值，即在重绘区域像素的新值。</li>
+<li>第五个参数，Rect*类型的rect，有默认值0，一个可选的参数，用于设置floodFill函数将要重绘区域的最小边界矩形区域。</li>
+<li>第六个参数，Scalar类型的loDiff，有默认值Scalar( )，表示当前观察像素值与其部件邻域像素值或者待加入该部件的种子像素之间的亮度或颜色之负差（lower brightness/color difference）的最大值。 </li>
+<li>第七个参数，Scalar类型的upDiff，有默认值Scalar( )，表示当前观察像素值与其部件邻域像素值或者待加入该部件的种子像素之间的亮度或颜色之正差（lower brightness/color difference）的最大值。</li>
+<li><p>第八个参数，int类型的flags，操作标志符，此参数包含三个部分，比较复杂，我们一起详细看看。</p>
+</li>
+<li><p>低八位（第0~7位）用于控制算法的连通性，可取4 (4为缺省值) 或者 8。如果设为4，表示填充算法只考虑当前像素水平方向和垂直方向的相邻点；如果设为 8，除上述相邻点外，还会包含对角线方向的相邻点。</p>
+</li>
+<li><p>高八位部分（16~23位）可以为0 或者如下两种选项标识符的组合：     </p>
+<ul>
+<li>FLOODFILL_FIXED_RANGE - 如果设置为这个标识符的话，就会考虑当前像素与种子像素之间的差，否则就考虑当前像素与其相邻像素的差。也就是说，这个范围是浮动的。</li>
+<li>FLOODFILL_MASK_ONLY - 如果设置为这个标识符的话，函数不会去填充改变原始图像 (也就是忽略第三个参数newVal), 而是去填充掩模图像（mask）。这个标识符只对第二个版本的floodFill有用，因第一个版本里面压根就没有mask参数。</li>
+</ul>
+</li>
+<li><p>中间八位部分，上面关于高八位FLOODFILL_MASK_ONLY标识符中已经说的很明显，需要输入符合要求的掩码。Floodfill的flags参数的中间八位的值就是用于指定填充掩码图像的值的。但如果flags中间八位的值为0，则掩码会用1来填充。</p>
+</li>
+<li><p>而所有flags可以用or操作符连接起来，即“|”。例如，如果想用8邻域填充，并填充固定像素值范围，填充掩码而不是填充源图像，以及设填充值为38，那么输入的参数是这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flags=<span class="number">8</span> | FLOODFILL_MASK_ONLY | FLOODFILL_FIXED_RANGE | （<span class="number">38</span>&lt;&lt;<span class="number">8</span>）</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="图像金字塔与图片尺寸缩放"><a href="#图像金字塔与图片尺寸缩放" class="headerlink" title="图像金字塔与图片尺寸缩放"></a>图像金字塔与图片尺寸缩放</h2><p>当我们想要将某种尺寸的图像转换为其他尺寸的图像，如果想放大或缩小图片尺寸，我们通常有两种方式。</p>
+<ul>
+<li>resize 最直接的方式</li>
+<li>pyrUp、pyrDown对图片进行向上采样或者向下采样</li>
+</ul>
+<h3 id="关于图像金字塔"><a href="#关于图像金字塔" class="headerlink" title="关于图像金字塔"></a>关于图像金字塔</h3><p>图像金字塔是一种以多分辨率来解释图像的有效且简单的结构</p>
+<p>金字塔的底部是待处理图像的高分辨率表示，而顶部是低分辨率的近似。</p>
+<p>一般情况下有两种图像金字塔经常使用。</p>
+<ul>
+<li>高斯金字塔：用来向下采样</li>
+<li>用来从金字塔底层图像重建上层来采样图像，在数字图像处理中也就是预测参差，可以对图像进行最大程度的还原，配合高斯金字塔一起使用。</li>
+</ul>
+<p><strong>对图像的向上向下采样是针对图像的尺寸而言的，向上指尺寸放大，向下指尺寸缩小。</strong></p>
+<h3 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h3><h4 id="对图片进行向下采样"><a href="#对图片进行向下采样" class="headerlink" title="对图片进行向下采样"></a>对图片进行向下采样</h4><p>为了获取层级为 G_i+1 的金字塔图像，我们采用如下方法:</p>
+<p><1>对图像G_i进行高斯内核卷积</1></p>
+<p><2>将所有偶数行和列去除</2></p>
+<p>得到的图像即为G_i+1的图像，显而易见，结果图像只有原图的四分之一。通过对输入图像G_i(原始图像)不停迭代以上步骤就会得到整个金字塔。同时我们也可以看到，向下取样会逐渐丢失图像的信息。</p>
+<p>以上就是对图像的向下取样操作，即缩小图像。</p>
+<h4 id="对图片进行向上采样"><a href="#对图片进行向上采样" class="headerlink" title="对图片进行向上采样"></a>对图片进行向上采样</h4><p>如果想放大图像，则需要通过向上取样操作得到，具体做法如下：</p>
+<p><1>将图像在每个方向扩大为原来的两倍，新增的行和列以0填充</1></p>
+<p><2>使用先前同样的内核(乘以4)与放大后的图像卷积，获得 “新增像素”的近似值</2></p>
+<p>得到的图像即为放大后的图像，但是与原来的图像相比会发觉比较模糊，因为在缩放的过程中已经丢失了一些信息，如果想在缩小和放大整个过程中减少信息的丢失，这些数据形成了拉普拉斯金字塔。</p>
+<h3 id="拉普拉斯金字塔"><a href="#拉普拉斯金字塔" class="headerlink" title="拉普拉斯金字塔"></a>拉普拉斯金字塔</h3><script type="math/tex; mode=display">
+L_i = G_i -UP(G_{i+1})\otimes g_{5\times5}</script><p>式中的G_i表示第i层的图像。而UP（）操作是将源图像中位置为(x,y)的像素映射到目标图像的(2x+1,2y+1)位置，即在进行向上取样。符号表示卷积，为5x5的高斯内核。</p>
+<h3 id="相关API函数-1"><a href="#相关API函数-1" class="headerlink" title="相关API函数"></a>相关API函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C++: <span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(InputArray src,OutputArray dst, Size dsize, <span class="keyword">double</span> fx=<span class="number">0</span>, <span class="keyword">double</span> fy=<span class="number">0</span>, <span class="keyword">int</span> interpolation=INTER_LINEAR )</span></span></span><br></pre></td></tr></table></figure>
+<p>第三个参数，Size类型的dsize，输出图像的大小;如果它等于零，由fx，fy来计算</p>
+<p>第四个参数，double类型的fx，沿水平轴的缩放系数，有默认值0，且当其等于0时，由dsize自动计算</p>
+<p>第五个参数，double类型的fy，沿垂直轴的缩放系数，有默认值0，且当其等于0时，由dsize自动计算</p>
+<p>第六个参数，int类型的interpolation，用于指定插值方式，默认为INTER_LINEAR（线性插值）。<br> 可选的插值方式如下：</p>
+<ul>
+<li>INTER_NEAREST - 最近邻插值</li>
+<li>INTER_LINEAR - 线性插值（默认值）</li>
+<li>INTER_AREA - 区域插值（利用像素区域关系的重采样插值）</li>
+<li>INTER_CUBIC –三次样条插值（超过4×4像素邻域内的双三次插值）</li>
+<li>INTER_LANCZOS4 -Lanczos插值（超过8×8像素邻域的Lanczos插值）</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C++: <span class="function"><span class="keyword">void</span> <span class="title">pyrUp</span><span class="params">(InputArray src, OutputArraydst, <span class="keyword">const</span> Size&amp; dstsize=Size(), <span class="keyword">int</span> borderType=BORDER_DEFAULT )</span></span></span><br></pre></td></tr></table></figure>
+<p>pyrUp( )函数的作用是向上采样并模糊一张图像，说白了就是放大一张图片。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C++: <span class="function"><span class="keyword">void</span> <span class="title">pyrDown</span><span class="params">(InputArray src,OutputArray dst, <span class="keyword">const</span> Size&amp; dstsize=Size(), <span class="keyword">int</span> borderType=BORDER_DEFAULT)</span></span></span><br></pre></td></tr></table></figure>
+<p>pyrDown( )函数的作用是向下采样并模糊一张图片，说白了就是缩小一张图片。</p>
+<h2 id="阈值化"><a href="#阈值化" class="headerlink" title="阈值化"></a>阈值化</h2><p>阈值化就是根据物体跟背景灰度的差异，通过将每一个像素值与设定阈值相比较，进行像素化的图像分割。</p>
+<h3 id="相关API-1"><a href="#相关API-1" class="headerlink" title="相关API"></a>相关API</h3><p>固定阈值操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">threhold</span><span class="params">(InputArray src,OutputArray dst,<span class="keyword">double</span> thresh,<span class="keyword">double</span> maxval,<span class="keyword">int</span> type)</span></span></span><br></pre></td></tr></table></figure>
+<p>thresh代表阈值具体数值，maxval代表当type为二进制阈值时，表示白色颜色的就是maxval所代表像素值。</p>
+<p>type代表阈值类型</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>THRESH_BINARY</td>
+<td>二进制阈值</td>
+</tr>
+<tr>
+<td>THRESH_BINARY_INV</td>
+<td>反二进制阈值</td>
+</tr>
+<tr>
+<td>THRESH_TRUNC</td>
+<td>截断阈值</td>
+</tr>
+<tr>
+<td>THRESH_TOZERO</td>
+<td>阈值化为0</td>
+</tr>
+<tr>
+<td>THRESH_TOZERO_INV</td>
+<td>反阈值化为0 </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/29/C-OpenCV中Core模块/" rel="next" title="C++ OpenCV中Core模块">
+                <i class="fa fa-chevron-left"></i> C++ OpenCV中Core模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/16/C-OpenCV图像变换/" rel="prev" title="C OpenCV图像变换">
+                C OpenCV图像变换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai</p>
+              <p class="site-description motion-element" itemprop="description">这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#图像滤波与滤波器"><span class="nav-number">1.</span> <span class="nav-text">图像滤波与滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滤波和模糊"><span class="nav-number">2.</span> <span class="nav-text">滤波和模糊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性滤波"><span class="nav-number">3.</span> <span class="nav-text">线性滤波</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方框滤波"><span class="nav-number">3.1.</span> <span class="nav-text">方框滤波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高斯滤波"><span class="nav-number">3.2.</span> <span class="nav-text">高斯滤波</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非线性滤波"><span class="nav-number">4.</span> <span class="nav-text">非线性滤波</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中值滤波"><span class="nav-number">4.1.</span> <span class="nav-text">中值滤波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双边滤波"><span class="nav-number">4.2.</span> <span class="nav-text">双边滤波</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#形态学滤波"><span class="nav-number">5.</span> <span class="nav-text">形态学滤波</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#形态学概述"><span class="nav-number">5.1.</span> <span class="nav-text">形态学概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#膨胀"><span class="nav-number">5.2.</span> <span class="nav-text">膨胀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#腐蚀"><span class="nav-number">5.3.</span> <span class="nav-text">腐蚀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关API函数"><span class="nav-number">5.4.</span> <span class="nav-text">相关API函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开运算"><span class="nav-number">5.5.</span> <span class="nav-text">开运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭运算"><span class="nav-number">5.6.</span> <span class="nav-text">闭运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#形态学梯度"><span class="nav-number">5.7.</span> <span class="nav-text">形态学梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶帽"><span class="nav-number">5.8.</span> <span class="nav-text">顶帽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#黑帽"><span class="nav-number">5.9.</span> <span class="nav-text">黑帽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关API"><span class="nav-number">5.10.</span> <span class="nav-text">相关API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漫水填充"><span class="nav-number">6.</span> <span class="nav-text">漫水填充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像金字塔与图片尺寸缩放"><span class="nav-number">7.</span> <span class="nav-text">图像金字塔与图片尺寸缩放</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于图像金字塔"><span class="nav-number">7.1.</span> <span class="nav-text">关于图像金字塔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高斯金字塔"><span class="nav-number">7.2.</span> <span class="nav-text">高斯金字塔</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对图片进行向下采样"><span class="nav-number">7.2.1.</span> <span class="nav-text">对图片进行向下采样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对图片进行向上采样"><span class="nav-number">7.2.2.</span> <span class="nav-text">对图片进行向上采样</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉普拉斯金字塔"><span class="nav-number">7.3.</span> <span class="nav-text">拉普拉斯金字塔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关API函数-1"><span class="nav-number">7.4.</span> <span class="nav-text">相关API函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阈值化"><span class="nav-number">8.</span> <span class="nav-text">阈值化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关API-1"><span class="nav-number">8.1.</span> <span class="nav-text">相关API</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
