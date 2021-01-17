@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="侯学凯的博客">
 <meta property="og:description" content="CubeMX配置只需要打开串口并且ENABLE中断即可。 MDK代码使用如下定义： 123uint8_t aRx;uint8_t aRxbuffer[255];uint8_t aRxCount =0 ; 特别注意，这里变量一定要用uint8_t 类型，因为函数中的指针均是uint8_t类型的指针如果使用其他类型进行转换的话，可能会出现数据的丢失。 在初始化后调用如下代码打开串口中断。 HAL_UA">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-09-04T03:23:03.392Z">
+<meta property="og:updated_time" content="2021-01-15T06:43:51.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="串口中断接受不定长数据">
 <meta name="twitter:description" content="CubeMX配置只需要打开串口并且ENABLE中断即可。 MDK代码使用如下定义： 123uint8_t aRx;uint8_t aRxbuffer[255];uint8_t aRxCount =0 ; 特别注意，这里变量一定要用uint8_t 类型，因为函数中的指针均是uint8_t类型的指针如果使用其他类型进行转换的话，可能会出现数据的丢失。 在初始化后调用如下代码打开串口中断。 HAL_UA">
@@ -347,6 +347,8 @@
 <p>重写回调函数：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    aRxbuffer[aRxCount++]=aRx;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((aRxbuffer[aRxCount<span class="number">-1</span>] == <span class="number">0x0A</span>)&amp;&amp;(aRxbuffer[aRxCount<span class="number">-2</span>] == <span class="number">0x0D</span>)) <span class="comment">//判断结束位</span></span><br><span class="line">    &#123;</span><br><span class="line">        HAL_UART_Transmit(&amp;huart1, (<span class="keyword">uint8_t</span> *)&amp;aRxbuffer, aRxCount,<span class="number">0xFFFF</span>); <span class="comment">//将收到的信息发送出去</span></span><br><span class="line">        aRxCount = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(aRxbuffer,<span class="number">0x00</span>,<span class="keyword">sizeof</span>(aRxbuffer)); <span class="comment">//清空数组</span></span><br><span class="line">    &#125;</span><br><span class="line">    HAL_UART_Receive_IT(&amp;huart1, (<span class="keyword">uint8_t</span> *)&amp;aRx, <span class="number">1</span>);   <span class="comment">//再开启接收中断</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这时候接收到的aRxbuffer[]就是不定长接收的数据了。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>当我们使用中断的方式进行大批量的数据传输时可能会出现bug，中断接收会崩溃，也就是串口中断没有打开，这个问题的原因是来自中断接收函数中HAL库中默认使用LOCK和UNLOCK来对指针上锁，可是当传输速度过快时，transmit函数中receive_it中断就已经到来，这时候LOCK检测到串口已经被锁会返回busy。也就不会再次打开串口中断。所以就会无法继续接受</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>在receive_it函数中将LOCK注释掉就可以了。</p>
 
       
     </div>
@@ -471,7 +473,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -506,7 +508,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CubeMX配置"><span class="nav-number">1.</span> <span class="nav-text">CubeMX配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MDK代码"><span class="nav-number">2.</span> <span class="nav-text">MDK代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CubeMX配置"><span class="nav-number">1.</span> <span class="nav-text">CubeMX配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MDK代码"><span class="nav-number">2.</span> <span class="nav-text">MDK代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到的问题"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-number">3.1.</span> <span class="nav-text">解决方法</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -526,7 +528,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

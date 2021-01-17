@@ -79,18 +79,23 @@
 
 
 
-<meta name="description" content="这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com">
+<meta name="description" content="RGB颜色空间这是一种加性的颜色空间，颜色是由R，G,B三种颜色混合而成  由上图可以看出因为三种颜色的分布不均匀性，导致他们受光照变化的影响不同，导致同一颜色在不同照度下会产生明显差异 所以RGB颜色空间的缺点是：明显的感知不均匀、色度和强度信息混合在一起 LAB颜色空间LAB色彩空间有三个组成部分  L -亮度(强度) A -color成分，从绿色到品红色 B -color分量从蓝色到黄色不等">
 <meta name="keywords" content="STM32,c++,Java,电子设计,Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="周期信号的傅里叶级数表示">
-<meta property="og:url" content="https://hxk0912.github.io/2020/03/24/周期信号的傅里叶级数表示/index.html">
+<meta property="og:title" content="OpenCV中色彩空间">
+<meta property="og:url" content="https://hxk0912.github.io/2021/01/12/OpenCV中色彩空间/index.html">
 <meta property="og:site_name" content="侯学凯的博客">
-<meta property="og:description" content="这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com">
+<meta property="og:description" content="RGB颜色空间这是一种加性的颜色空间，颜色是由R，G,B三种颜色混合而成  由上图可以看出因为三种颜色的分布不均匀性，导致他们受光照变化的影响不同，导致同一颜色在不同照度下会产生明显差异 所以RGB颜色空间的缺点是：明显的感知不均匀、色度和强度信息混合在一起 LAB颜色空间LAB色彩空间有三个组成部分  L -亮度(强度) A -color成分，从绿色到品红色 B -color分量从蓝色到黄色不等">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-09-04T03:23:03.392Z">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/ruAMsa53pVQWN7FLK88i5ugj5uxKDUO1vVh*TKAHYvssOyVJD.fLrLOhLOkkEnmJg2qtQ9dK3kSlFEOkS76g0fm70wc7S75KJOo0wOWjTak!/b&bo=XQI.AQAAAAADB0I!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/ruAMsa53pVQWN7FLK88i5qX8hFR4qiJzV9Xfy*rvOi9Ogt4fk2SYDXGZt42XEwbsJRh2J3*dsLwgpWgAh2QXfFfwm16RZACPHRuSpXAtp2A!/b&bo=XQI.AQAAAAADB0I!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/ruAMsa53pVQWN7FLK88i5r1xkMmWwsNKa7xdcqnh.ly26FvBBB.OuXpRV.ysEDYf70*m1S3xwbbWFxvTJmPO.5gdkgDo76eaCFGQfKLdybw!/b&bo=XQI.AQAAAAADB0I!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/45NBuzDIW489QBoVep5mccCSuMdGEdkTJPgw1NOA1o30IaaUOiGw27kV8h9Ch1voyhNBJEyMghw*se9l3n0OL8Eag1g.rv3yELozhdjyqWs!/b&bo=XQI.AQAAAAADF1I!&rf=viewer_4">
+<meta property="og:updated_time" content="2021-01-12T13:01:42.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="周期信号的傅里叶级数表示">
-<meta name="twitter:description" content="这里我会放一些平常学习积累的东西，我的邮箱是hxk0912@foxmail.com">
+<meta name="twitter:title" content="OpenCV中色彩空间">
+<meta name="twitter:description" content="RGB颜色空间这是一种加性的颜色空间，颜色是由R，G,B三种颜色混合而成  由上图可以看出因为三种颜色的分布不均匀性，导致他们受光照变化的影响不同，导致同一颜色在不同照度下会产生明显差异 所以RGB颜色空间的缺点是：明显的感知不均匀、色度和强度信息混合在一起 LAB颜色空间LAB色彩空间有三个组成部分  L -亮度(强度) A -color成分，从绿色到品红色 B -color分量从蓝色到黄色不等">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11NehB63qJi50/ruAMsa53pVQWN7FLK88i5ugj5uxKDUO1vVh*TKAHYvssOyVJD.fLrLOhLOkkEnmJg2qtQ9dK3kSlFEOkS76g0fm70wc7S75KJOo0wOWjTak!/b&bo=XQI.AQAAAAADB0I!&rf=viewer_4">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://hxk0912.github.io/2020/03/24/周期信号的傅里叶级数表示/">
+  <link rel="canonical" href="https://hxk0912.github.io/2021/01/12/OpenCV中色彩空间/">
 
 
 
 
 
-  <title>周期信号的傅里叶级数表示 | 侯学凯的博客</title>
+  <title>OpenCV中色彩空间 | 侯学凯的博客</title>
   
 
 
@@ -249,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2020/03/24/周期信号的傅里叶级数表示/">
+    <link itemprop="mainEntityOfPage" href="https://hxk0912.github.io/2021/01/12/OpenCV中色彩空间/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kai">
@@ -266,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">周期信号的傅里叶级数表示</h1>
+          <h1 class="post-title" itemprop="name headline">OpenCV中色彩空间</h1>
         
 
         <div class="post-meta">
@@ -278,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T09:19:45+08:00">
-                2020-03-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-12T18:53:15+08:00">
+                2021-01-12
               </time>
             
 
@@ -288,28 +293,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/信号与系统/" itemprop="url" rel="index">
-                    <span itemprop="name">信号与系统</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -338,7 +321,56 @@
       
 
       
-        
+        <h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>这是一种加性的颜色空间，颜色是由R，G,B三种颜色混合而成</p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/ruAMsa53pVQWN7FLK88i5ugj5uxKDUO1vVh*TKAHYvssOyVJD.fLrLOhLOkkEnmJg2qtQ9dK3kSlFEOkS76g0fm70wc7S75KJOo0wOWjTak!/b&amp;bo=XQI.AQAAAAADB0I!&amp;rf=viewer_4" alt></p>
+<p>由上图可以看出因为三种颜色的分布不均匀性，导致他们受光照变化的影响不同，导致同一颜色在不同照度下会产生明显差异</p>
+<p>所以RGB颜色空间的缺点是：明显的感知不均匀、色度和强度信息混合在一起</p>
+<h2 id="LAB颜色空间"><a href="#LAB颜色空间" class="headerlink" title="LAB颜色空间"></a>LAB颜色空间</h2><p>LAB色彩空间有三个组成部分</p>
+<ol>
+<li>L -亮度(强度)</li>
+<li>A -color成分，从绿色到品红色</li>
+<li>B -color分量从蓝色到黄色不等</li>
+</ol>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/ruAMsa53pVQWN7FLK88i5qX8hFR4qiJzV9Xfy*rvOi9Ogt4fk2SYDXGZt42XEwbsJRh2J3*dsLwgpWgAh2QXfFfwm16RZACPHRuSpXAtp2A!/b&amp;bo=XQI.AQAAAAADB0I!&amp;rf=viewer_4" alt></p>
+<p>LAB色彩空间有以下特点：</p>
+<ul>
+<li>感知上一致的颜色空间，近似于我们感知颜色的方式</li>
+<li>独立于设备(捕获或显示)</li>
+<li>在adobe photoshop中广泛使用</li>
+<li>与RGB颜色空间相关的是一个复杂的变换方程</li>
+</ul>
+<p>从图中可以清楚地知道，照明的变化主要影响了 L 分量。<br>包含颜色信息的 A 和 B 组件没有发生大规模更改。</p>
+<h2 id="YCrCb颜色空间"><a href="#YCrCb颜色空间" class="headerlink" title="YCrCb颜色空间"></a>YCrCb颜色空间</h2><ol>
+<li>Y = 伽玛校正后从 RGB 获得的亮度或亮度分量。</li>
+<li>Cr = R = Y （红色分量离 Luma 有多远 ）</li>
+<li>Cb = B = Y （蓝色分量离 Luma 有多远 ）</li>
+</ol>
+<ul>
+<li>将亮度和色度分量分离到不同的通道中。</li>
+<li>主要用于压缩 （ Cr 和 Cb 组件 ） 电视传输.</li>
+<li>设备相关。</li>
+</ul>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/ruAMsa53pVQWN7FLK88i5r1xkMmWwsNKa7xdcqnh.ly26FvBBB.OuXpRV.ysEDYf70*m1S3xwbbWFxvTJmPO.5gdkgDo76eaCFGQfKLdybw!/b&amp;bo=XQI.AQAAAAADB0I!&amp;rf=viewer_4" alt></p>
+<p>从图中可以看出：</p>
+<ul>
+<li>与 LAB 类似的观测值可用于强度和颜色分量对照明变化的影响。</li>
+<li>与 LAB 相比，红色和橙色之间的感知差异在户外图像中也较小。</li>
+<li>白色在所有 3 个组件中都发生了更改。</li>
+</ul>
+<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><ol>
+<li>H = 色调 （ 显光波长 ）.</li>
+<li>S = 饱和度 （颜色的纯度 / 阴影 ）。</li>
+<li>V = 值 （ 强度 ）</li>
+</ol>
+<p>最好的事情是，它只使用一个通道来描述颜色（H），使得它非常直观地指定颜色。<br>设备相关。</p>
+<p><img src="http://m.qpic.cn/psc?/V11NehB63qJi50/45NBuzDIW489QBoVep5mccCSuMdGEdkTJPgw1NOA1o30IaaUOiGw27kV8h9Ch1voyhNBJEyMghw*se9l3n0OL8Eag1g.rv3yELozhdjyqWs!/b&amp;bo=XQI.AQAAAAADF1I!&amp;rf=viewer_4" alt></p>
+<ul>
+<li>H 组件在两个图像中非常相似，表示即使在照明变化下，颜色信息也完好无损。</li>
+<li>S 组件在两个图像中也非常相似。</li>
+<li>V 组件捕获落在其上的光量，因此由于照明变化而变化。</li>
+<li>室外图像和室内图像的红色值存在巨大差异。这是因为色调表示为圆，红色位于起始角度。因此，它可能需要 [300， 360] 和再次 [0， 60] 之间的值。</li>
+</ul>
+
       
     </div>
     
@@ -362,8 +394,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/24/线性时不变系统/" rel="next" title="线性时不变系统">
-                <i class="fa fa-chevron-left"></i> 线性时不变系统
+              <a href="/2021/01/05/物理光学笔记/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -372,8 +404,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/25/拟合/" rel="prev" title="拟合">
-                拟合 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/01/16/python进程与线程/" rel="prev" title="python进程与线程">
+                python进程与线程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -426,8 +458,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -453,7 +494,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -479,6 +520,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RGB颜色空间"><span class="nav-number">1.</span> <span class="nav-text">RGB颜色空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LAB颜色空间"><span class="nav-number">2.</span> <span class="nav-text">LAB颜色空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YCrCb颜色空间"><span class="nav-number">3.</span> <span class="nav-text">YCrCb颜色空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HSV颜色空间"><span class="nav-number">4.</span> <span class="nav-text">HSV颜色空间</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -492,7 +549,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
